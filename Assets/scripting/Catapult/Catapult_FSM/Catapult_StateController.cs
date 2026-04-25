@@ -1,28 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Catapult_StateController : StateMachine
 {
-    [Header("Paramètres de changement d'état/d'états")]
-    // Ici, on mettera les références aux différents états que le catapult peut avoir, par exemple : saut, chute etc.
+    [Header("Paramï¿½tres de changement d'ï¿½tat/d'ï¿½tats")]
+    // Ici, on mettera les rï¿½fï¿½rences aux diffï¿½rents ï¿½tats que le catapult peut avoir, par exemple : saut, chute etc.
 
 
-    [Header("Références aux différents animators et audioSources")]
-    // Ici, on mettra les références aux différents animators et audioSources que le catapult peut utiliser pour ses différentes animations et sons.
-    
+    [Header("Rï¿½fï¿½rences aux diffï¿½rents animators et audioSources")]
+    // Ici, on mettra les rï¿½fï¿½rences aux diffï¿½rents animators et audioSources que le catapult peut utiliser pour ses diffï¿½rentes animations et sons.
 
-    [Header("Les états utilisés par la Catapulte")]
-    // Ici, on mettra les références aux différents états que le catapult peut avoir, par exemple : saut, chute etc.
+
+    [Header("Les ï¿½tats utilisï¿½s par la Catapulte")]
+    // Ici, on mettra les rï¿½fï¿½rences aux diffï¿½rents ï¿½tats que le catapult peut avoir, par exemple : saut, chute etc.
     public Catapult_IdleState idleState;
 
-    //Dans Awake, on initialise les différents états et on définit l'état de départ de la catapulte.
+    //Dans Awake, on initialise les diffï¿½rents ï¿½tats et on dï¿½finit l'ï¿½tat de dï¿½part de la catapulte.
     private void Awake()
     {
-        ChangeState(idleState);
-    }
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        
     }
 }

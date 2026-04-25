@@ -25,8 +25,8 @@ public class CatapultController : MonoBehaviour
         yaw += lookDelta.x * sensitivity;
         pitch -= lookDelta.y * sensitivity;
 
-        baseYaw.localRotation = Quaternion.Euler(0f, 0f, yaw - 90f);
-        barrelPitch.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+        baseYaw.localRotation = Quaternion.Euler(0f, 0f, yaw);
+        barrelPitch.localRotation = Quaternion.Euler(0f, pitch, 0f);
 
 
     }
