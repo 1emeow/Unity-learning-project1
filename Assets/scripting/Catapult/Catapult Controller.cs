@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CatapultController : MonoBehaviour
 {
     [Header("Parts")]
     [SerializeField] private Transform baseYaw;
     [SerializeField] private Transform barrelPitch;
+    [SerializeField] private Animator _CatapiltAnimator;
     public Transform GetBarrel()
     {
         return barrelPitch;
@@ -17,10 +19,41 @@ public class CatapultController : MonoBehaviour
     [SerializeField] private float minYaw = -65f;
     [SerializeField] private float maxYaw = 65f;
 
+
+    [Header("Movement")]
+    [SerializeField] private PlayerInput _catapiltInput;
+    public Vector3 move3;
+    public Vector2 move;
+    public float _speed = 1;
+
     private float yaw;
     private float pitch;
 
-    public void ReceiveLookInput(Vector2 lookDelta)
+    protected void OnEnable()
+    {
+        if (_catapiltInput != null || _catapiltInput.currentActionMap != null)
+            return;
+        {
+            _catapiltInput.currentActionMap.FindAction("Movement").performed -= OnMove;
+            _catapiltInput.currentActionMap.FindAction("Movement").performed += OnMove;
+            _catapiltInput.currentActionMap.Enable();
+        }
+        }
+
+        protected void OnDisable()
+    {
+        if (_catapiltInput == null || _catapiltInput.currentActionMap == null)
+            return;
+        {
+            _catapiltInput.currentActionMap.FindAction("Movement").performed -= OnMove;
+            _catapiltInput.currentActionMap.Disable();
+        }
+    }
+  private void OnMove(InputAction.CallbackContext context)
+  {
+
+    }
+public void ReceiveLookInput(Vector2 lookDelta)
     {
         yaw += lookDelta.x * sensitivity;
         pitch -= lookDelta.y * sensitivity;
@@ -38,6 +71,7 @@ public class CatapultController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _catapiltInput.currentActionMap.FindAction("Movement").performed += OnMove;
     }
     private void Update()
     {
@@ -56,6 +90,14 @@ public class CatapultController : MonoBehaviour
         else if (pitch < minPitch)
         {
             pitch = minPitch;
+        }
+        move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
+        move3 = new Vector3(move.x, 0, move.y);
+       // Debug.Log(move3);
+
+        if (move3.magnitude > 0)
+        {
+            transform.Translate(move3 * Time.deltaTime * _speed, Space.World);
         }
     }
 }

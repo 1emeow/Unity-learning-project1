@@ -2,21 +2,51 @@
 
 public class Catapult_StateController : StateMachine
 {
-    [Header("Param�tres de changement d'�tat/d'�tats")]
-    // Ici, on mettera les r�f�rences aux diff�rents �tats que le catapult peut avoir, par exemple : saut, chute etc.
-
-
-    [Header("R�f�rences aux diff�rents animators et audioSources")]
-    // Ici, on mettra les r�f�rences aux diff�rents animators et audioSources que le catapult peut utiliser pour ses diff�rentes animations et sons.
-
-
-    [Header("Les �tats utilis�s par la Catapulte")]
-    // Ici, on mettra les r�f�rences aux diff�rents �tats que le catapult peut avoir, par exemple : saut, chute etc.
-    public Catapult_IdleState idleState;
-
-    //Dans Awake, on initialise les diff�rents �tats et on d�finit l'�tat de d�part de la catapulte.
-    private void Awake()
+    [SerializeField]
+    private Animator _CatapiltAnimator;
+    [SerializeField]
+    private CatapultController _catapultController;
+    void Start()
+    {
+    }
+    void Update()
     {
 
+        //Movement
+        Vector3 move3 = _catapultController.move3;
+        
+
+        //Moving Forward
+
+        _CatapiltAnimator.SetBool("DoneWalking", move3.sqrMagnitude < 0.0001f); //DoneWalking is only true when move3.sqrMagnitude < 0,0001f 
+
+        //Strafing
+
+        _CatapiltAnimator.SetBool("Strafing", Mathf.Abs(move3.x) > 0.01f); //Strafing is true as long as Mathf.Abs(move3.x) > 0.01f, Mathf being Math Function
+
+        /*  if (move3.z != 0)
+          {
+           //   _CatapiltAnimator.SetFloat("Speed", Mathf.Abs(move3.z * _catapultController._speed));
+              _CatapiltAnimator.SetBool("DoneWalking", false);
+           //   Debug.Log(move3.magnitude < 0.01f);
+          }
+        //Strafing
+          if (move3.x != 0)
+          {
+           //   _CatapiltAnimator.SetFloat("Speed", Mathf.Abs(move3.x * _catapultController._speed));
+              _CatapiltAnimator.SetBool("Strafing", true);
+              _CatapiltAnimator.SetBool("DoneWalking", false);
+          }
+          else
+          {
+           //   _CatapiltAnimator.SetFloat("Speed", 0);
+              _CatapiltAnimator.SetBool("Strafing", false);
+          }
+          if (move3.magnitude < 0.01f)
+          {
+              //    _CatapiltAnimator.SetFloat("Speed", 0);
+              _CatapiltAnimator.SetBool("DoneWalking", true);
+          }
+        */
     }
 }
