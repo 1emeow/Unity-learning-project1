@@ -54,6 +54,8 @@ MonoBehaviour:
   jumpbuffer: {fileID: 0}
   normal: {r: 0, g: 0, b: 0, a: 0}
   buff: {r: 0, g: 0, b: 0, a: 0}
+  canjump: 0
+  cansling: 0
 --- !u!33 &6643368255081634434
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -287,6 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2004670481856850036}
   - component: {fileID: 5563558398885098415}
+  - component: {fileID: 7986753358677503017}
   m_Layer: 0
   m_Name: Cube Sys
   m_TagString: Untagged
@@ -326,3 +329,18 @@ MonoBehaviour:
   Released: 0
   Detached: 0
   Caught: 0
+  CameraManager: {fileID: 0}
+  CubeCamera: {fileID: 0}
+  OtherCamera: {fileID: 0}
+--- !u!114 &7986753358677503017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378186450769140647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6176831b0fa43a4a85608f1fac5ce21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

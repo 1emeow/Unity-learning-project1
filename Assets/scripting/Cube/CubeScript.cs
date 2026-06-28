@@ -7,10 +7,14 @@ public class CubeScript : MonoBehaviour
     public GameObject jumpbuffer;
     public Color normal;
     public Color buff;
+    [SerializeField]
+    private bool canjump;
+    [SerializeField]
+    private bool cansling;
 
     void Start()
     {
-
+        canjump = false;
     }
     void Update()
     {
@@ -30,6 +34,7 @@ public class CubeScript : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         this.GetComponent<MeshRenderer>().material.color = normal;
         Destroy(jumpbuffer);
+        canjump = true;
 
     }
 }

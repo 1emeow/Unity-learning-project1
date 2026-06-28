@@ -1982,7 +1982,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
@@ -4066,7 +4066,6 @@ GameObject:
   - component: {fileID: 882302352}
   - component: {fileID: 882302351}
   - component: {fileID: 882302350}
-  - component: {fileID: 882302354}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -4163,26 +4162,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1613336574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!154 &882302354
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882302349}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_TerrainData: {fileID: 0}
-  m_EnableTreeColliders: 1
 --- !u!1 &884269527
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,13 +112,17 @@ public class Quille : MonoBehaviour
         isProcessed = true;
         if (feedbackMat != null) meshRenderer.material = feedbackMat;
 
-        if (spiralemouvante && spiralefixe) 
-            Instantiate(spiralemouvante, spiralefixe.transform.position, Quaternion.identity);
-        
+        if (spiralemouvante && spiralefixe)
+        {
+            GameObject Spiraleapoints = Instantiate(spiralemouvante, spiralefixe.transform.position, Quaternion.identity);
+            if (doubleScale) Spiraleapoints.transform.localScale *= 2f;
+        }
+
         if (particlePrefab && particulespirale)
         {
             GameObject effect = Instantiate(particlePrefab, particulespirale.transform.position, particulespirale.transform.rotation);
             effect.transform.parent = this.transform;
+            Debug.Log("touchée par une quille");
             if (doubleScale) effect.transform.localScale *= 2f;
         }
 

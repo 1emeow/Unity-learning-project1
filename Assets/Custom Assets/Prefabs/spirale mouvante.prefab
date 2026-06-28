@@ -4935,14 +4935,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4544974072315342822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c8a7e717e82bcc469eb25a427876a77, type: 3}
+  m_Script: {fileID: 11500000, guid: dbaf1f4b7833b764a86f13bae7d6a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubejoueur: {fileID: 0}
-  point: 0
-  ismoving: 0
-  valeur: 0
-  SearchRadius: {fileID: 0}
+  attractionSpeed: 5
+  detectionRadius: 5
+  valeurPointsBase: 1
 --- !u!1 &7902032262927950453
 GameObject:
   m_ObjectHideFlags: 0

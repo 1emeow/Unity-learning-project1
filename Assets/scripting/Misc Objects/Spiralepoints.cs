@@ -24,6 +24,7 @@ public class SpiralePoints : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("j'existe");
         // On s'enregistre auprès du radar du joueur
         GameObject potentialPlayer = GameObject.Find("Le Cube");
         if (potentialPlayer != null)

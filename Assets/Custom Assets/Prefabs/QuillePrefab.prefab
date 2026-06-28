@@ -5039,11 +5039,11 @@ MonoBehaviour:
   damping: 5
   hasFallen: 0
   myCause: 0
-  spiralemouvante: {fileID: 5631895896676851647}
-  particulescharg: {fileID: 0}
-  particulesactiv: {fileID: 0}
-  quilleChargeeMat: {fileID: 0}
-  touchageMat: {fileID: 0}
+  spiralemouvante: {fileID: 4544974072315342822, guid: f841a4e61a4708948aa0d864ae8dd740, type: 3}
+  particulescharg: {fileID: 5214862468702542733, guid: 3f204cd6deaef314bbd2741e7f079f28, type: 3}
+  particulesactiv: {fileID: 5214862468702542733, guid: 812e9cbe9fa375e439e4b0abd38a2063, type: 3}
+  quilleChargeeMat: {fileID: 2100000, guid: a62a9660758c7ba49810ac51d6019fe1, type: 2}
+  touchageMat: {fileID: 2100000, guid: 9240e3a56d20f9045983b7b1d5654dbe, type: 2}
 --- !u!1 &5631895896676851647
 GameObject:
   m_ObjectHideFlags: 0
