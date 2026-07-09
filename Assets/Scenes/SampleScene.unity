@@ -10049,6 +10049,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.4936359
       objectReference: {fileID: 0}
+    - target: {fileID: 1700722387841089766, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      propertyPath: GeneralMouseCommand
+      value: 
+      objectReference: {fileID: 283726158}
     - target: {fileID: 2383775268950056777, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
       propertyPath: m_IsActive
       value: 1
