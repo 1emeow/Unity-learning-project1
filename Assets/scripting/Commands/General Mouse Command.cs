@@ -9,6 +9,7 @@ public class General_Mouse_Command : MonoBehaviour
     public CatapultController LaCatapult;
     public InputActionReference clickAction;
     public CubeSys CubeSys;
+    private CanMove Mover;
     
     public void OnEnable ()
     {
@@ -29,6 +30,15 @@ public class General_Mouse_Command : MonoBehaviour
         clickAction.action.canceled -= OnClick;
         clickAction.action.Disable();
     }
+    public void UpdateCubeState()
+    {
+        if (CubeSys.transform.parent != null)
+        {
+            Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
+        }
+        else
+            Mover = CubeSys;
+    }
     private void OnLook(InputAction.CallbackContext ctx)
     {
         mouseDelta = ctx.ReadValue<Vector2>();
@@ -43,13 +53,15 @@ public class General_Mouse_Command : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
     }
 
     // Update is called once per frame
     void Update()
     {
         LaCatapult.ReceiveLookInput(mouseDelta);
+        Mover.UpdateInput();
+        Debug.Log(Mover);
     }
 }
 

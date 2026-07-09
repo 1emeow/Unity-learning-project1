@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CatapultController : MonoBehaviour
+public class CatapultController : MonoBehaviour, CanMove
 {
     [Header("Parts")]
     [SerializeField] private Transform baseYaw;
@@ -52,7 +52,19 @@ public class CatapultController : MonoBehaviour
   private void OnMove(InputAction.CallbackContext context)
   {
 
+  }
+    public void UpdateInput()
+    {
+        move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
+        move3 = new Vector3(move.x, 0, move.y);
+        // Debug.Log(move3);
+
+        if (move3.magnitude > 0)
+        {
+            transform.Translate(move3 * Time.deltaTime * _speed, Space.World);
+        }
     }
+
 public void ReceiveLookInput(Vector2 lookDelta)
     {
         yaw += lookDelta.x * sensitivity;
@@ -91,13 +103,7 @@ public void ReceiveLookInput(Vector2 lookDelta)
         {
             pitch = minPitch;
         }
-        move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
-        move3 = new Vector3(move.x, 0, move.y);
-       // Debug.Log(move3);
 
-        if (move3.magnitude > 0)
-        {
-            transform.Translate(move3 * Time.deltaTime * _speed, Space.World);
-        }
+
     }
 }

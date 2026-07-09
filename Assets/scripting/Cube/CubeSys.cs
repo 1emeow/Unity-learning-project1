@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
 
-public class CubeSys : MonoBehaviour
+public class CubeSys : MonoBehaviour, CanMove
 {
     public bool Pickedup;
     public bool Released;
@@ -12,6 +12,8 @@ public class CubeSys : MonoBehaviour
     public CinemachineCamera CubeCamera;
     public CinemachineCamera OtherCamera;
     private Transform CubeChild;
+    [SerializeField]
+    private General_Mouse_Command GeneralMouseCommand;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +28,10 @@ public class CubeSys : MonoBehaviour
     }
 
     // Update is called once per frame
+    public void UpdateInput()
+    {
+
+    }
     void Update()
     {
         if (!Released && !Caught)
@@ -57,6 +63,7 @@ public class CubeSys : MonoBehaviour
                 OtherCamera.Priority = 0;
             }
             this.gameObject.transform.SetParent(null);
+            GeneralMouseCommand.UpdateCubeState();
                 Detached = true;
             CubeChild.GetComponent<Rigidbody>().isKinematic = false;
             Caught = false;
