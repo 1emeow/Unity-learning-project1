@@ -37,7 +37,7 @@ public class General_Mouse_Command : MonoBehaviour
             Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
         }
         else
-            Mover = CubeSys;
+            Mover = CubeSys.gameObject.GetComponentInChildren<CanMove>();
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
@@ -61,7 +61,6 @@ public class General_Mouse_Command : MonoBehaviour
     {
         LaCatapult.ReceiveLookInput(mouseDelta);
         Mover.UpdateInput();
-        Debug.Log(Mover);
     }
 }
 

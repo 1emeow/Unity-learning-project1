@@ -10325,10 +10325,20 @@ PrefabInstance:
       propertyPath: jumpbuffer
       value: 
       objectReference: {fileID: 1033459262}
+    - target: {fileID: 8973080005219265791, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      propertyPath: cubeController
+      value: 
+      objectReference: {fileID: 9011251007228534773}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 850615094624757273, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9011251007228534774}
+    - targetCorrespondingSourceObject: {fileID: 850615094624757273, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9011251007228534773}
   m_SourcePrefab: {fileID: 100100000, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
 --- !u!114 &3964836699723805057 stripped
 MonoBehaviour:
@@ -10642,6 +10652,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f5b938b580c8844b665689888900f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9011251007228534773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9000861324163504083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b098de23767f47419f83ad99f4843a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cubeInput: {fileID: 9011251007228534774}
+  canjump: 0
+  hasreceivedjumpbuff: 0
+--- !u!114 &9011251007228534774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9000861324163504083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 126a12001ce15b147b22ce1469c6b239, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: New action map
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "name": "Cube Action",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "5dd5f837-c7be-45d5-b986-3f1c9a66facb",
+            "actions": [
+                {
+                    "name": "saut",
+                    "type": "Button",
+                    "id": "3225bc78-af31-44cd-b258-5711494cb200",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d15ef742-3de1-4510-b1b0-87f297bb69b0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "saut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22c3a14b-dde2-4077-a142-5fe7b736a54b",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "saut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

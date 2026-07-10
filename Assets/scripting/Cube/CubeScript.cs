@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class CubeScript : MonoBehaviour
 {
     public Material material1, material2;
@@ -8,19 +9,19 @@ public class CubeScript : MonoBehaviour
     public Color normal;
     public Color buff;
     [SerializeField]
-    private bool canjump;
+    private CubeController cubeController;
     [SerializeField]
     private bool cansling;
 
+
     void Start()
     {
-        canjump = false;
+
     }
     void Update()
     {
         
     }
-
     public IEnumerator Coroutineofcollisionjumpbuffer()
     {
         yield return null;
@@ -34,7 +35,7 @@ public class CubeScript : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         this.GetComponent<MeshRenderer>().material.color = normal;
         Destroy(jumpbuffer);
-        canjump = true;
+        cubeController.hasreceivedjumpbuff = true;
 
     }
 }

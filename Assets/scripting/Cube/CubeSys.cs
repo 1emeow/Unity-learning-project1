@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
 
-public class CubeSys : MonoBehaviour, CanMove
+public class CubeSys : MonoBehaviour
 {
     public bool Pickedup;
     public bool Released;
@@ -28,10 +28,10 @@ public class CubeSys : MonoBehaviour, CanMove
     }
 
     // Update is called once per frame
-    public void UpdateInput()
+   /* public void UpdateInput()
     {
 
-    }
+    } */
     void Update()
     {
         if (!Released && !Caught)
