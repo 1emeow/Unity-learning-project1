@@ -8,6 +8,8 @@ public class CubeController : MonoBehaviour, CanMove
     private bool jump;
     public bool canjump;
     public bool hasreceivedjumpbuff;
+    private Rigidbody bodycube;
+    private Vector3 surfaceNormal = Vector3.up; //new Vector3 (0,1,0);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected void OnEnable()
@@ -34,20 +36,43 @@ public class CubeController : MonoBehaviour, CanMove
     {
 
     }
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject != null)
+        {
+            canjump = true;
+        }
+    }
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject != null)
+        {
+            canjump = false;
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        surfaceNormal = collision.GetContact(0).normal;
+       // Debug.Log(collision.collider.name);
+    }
     public void UpdateInput()
     {
-        //jump = _cubeInput.currentActionMap.FindAction("saut").IsPressed();
-        // if (jump)
-        if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff)
+        if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump)
         {
-            //is on the ground and received a jump 
-            this.GetComponent<Rigidbody>().linearVelocity = this.GetComponent<Rigidbody>().linearVelocity += new Vector3(0, 10, 0);
+            float enfoncementValue = Vector3.Dot(bodycube.linearVelocity, -surfaceNormal); //au cas où on a envie d'avoir un rebond moins important
+            // this.GetComponent<Rigidbody>().linearVelocity = this.GetComponent<Rigidbody>().linearVelocity += new Vector3(0, 10, 0);
+            if (enfoncementValue > 0)
+            {
+                bodycube.linearVelocity += surfaceNormal * enfoncementValue; //absorbe la vitesse du cube 
+            }
+
+            bodycube.linearVelocity += surfaceNormal * 10;
         }
 
     }
     void Start()
     {
-        
+        bodycube = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

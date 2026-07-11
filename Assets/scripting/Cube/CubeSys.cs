@@ -11,10 +11,33 @@ public class CubeSys : MonoBehaviour
     public Camera CameraManager;
     public CinemachineCamera CubeCamera;
     public CinemachineCamera OtherCamera;
+    private Rigidbody CubeParent;
+    private Collider CubeParentCollider;
+    private Collider[] ParentColliders; //la table en question
+    private Collider CubeSysCollider;
     private Transform CubeChild;
     [SerializeField]
     private General_Mouse_Command GeneralMouseCommand;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        CubeParent = this.transform.parent.GetComponentInParent<Rigidbody>();
+        CubeSysCollider = this.GetComponentInChildren<Collider>();
+        ParentColliders = CubeParent.GetComponentsInChildren<Collider>(); //c'est une table référençant tous les colliders
+
+        foreach (Collider ParentCollider in ParentColliders)
+        {
+            Physics.IgnoreCollision(CubeSysCollider, ParentCollider, true);
+        }
+  
+        //Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, true);
+    }
+   /* private IEnumerator ReleaseTimer()
+    {
+        yield return new WaitForSeconds(2f);
+        Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
+    }
+   */
     void Start()
     {
         foreach(Transform child in transform)
@@ -27,11 +50,6 @@ public class CubeSys : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-   /* public void UpdateInput()
-    {
-
-    } */
     void Update()
     {
         if (!Released && !Caught)
@@ -62,10 +80,16 @@ public class CubeSys : MonoBehaviour
             {
                 OtherCamera.Priority = 0;
             }
+            foreach (Collider ParentCollider in ParentColliders)
+            {
+                Physics.IgnoreCollision(CubeSysCollider, ParentCollider, false);
+            }
+            //    ReleaseTimer();
             this.gameObject.transform.SetParent(null);
             GeneralMouseCommand.UpdateCubeState();
                 Detached = true;
             CubeChild.GetComponent<Rigidbody>().isKinematic = false;
+         //   Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
             Caught = false;
             }
      //   if (Pickedup)
