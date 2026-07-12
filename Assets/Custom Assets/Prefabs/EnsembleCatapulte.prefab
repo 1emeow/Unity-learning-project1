@@ -628,8 +628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823e78d1f6593d045b807f52fa3cd55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaunchForce: 0
-  MaximalLaunchForce: 5
+  PullDistance: 0
+  MaximalPullDistance: 0
+  velocity: {x: 0, y: 0, z: 0}
+  Backlimit: {fileID: 5723641912767471080}
+  Frontlimit: {fileID: 8528999728853696787}
+  LaunchFactor: 10
 --- !u!1 &1060312708322555994
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,6 +2487,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bebdb291b7c684f87d275052ebf507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5723641912767471080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4125819497676342223}
+  - component: {fileID: 3251801955544072340}
+  m_Layer: 0
+  m_Name: BackLimit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4125819497676342223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723641912767471080}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.00999, y: 0, z: 0.019164996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7137922192096237874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3251801955544072340
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723641912767471080}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.006081645, y: 0.009448288, z: 0.0065172203}
+  m_Center: {x: 0.0015747931, y: 0.000000001164153, z: 0.000000017927954}
 --- !u!1 &5780040908797565557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,6 +3637,59 @@ Transform:
   - {fileID: 3216495763574126368}
   m_Father: {fileID: 3697508627375639592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8528999728853696787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4435164903241149838}
+  - component: {fileID: 4572539249005658140}
+  m_Layer: 0
+  m_Name: FrontLimit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4435164903241149838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528999728853696787}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.01784, y: 0, z: 0.01916}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7137922192096237874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4572539249005658140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528999728853696787}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.006081645, y: 0.009448288, z: 0.0065172203}
+  m_Center: {x: 0.0015747931, y: 0.000000001164153, z: 0.000000017927954}
 --- !u!1 &8628139873278553834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3773,6 +3883,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1489742868476726587}
+  - {fileID: 4125819497676342223}
+  - {fileID: 4435164903241149838}
   - {fileID: 360017253830575211}
   - {fileID: 2256145068647165423}
   - {fileID: 4220636992206608974}

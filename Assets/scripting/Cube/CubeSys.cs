@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
 
-public class CubeSys : MonoBehaviour
+public class CubeSys : MonoBehaviour, CanBePicked
 {
     public bool Pickedup;
     public bool Released;
@@ -11,7 +11,7 @@ public class CubeSys : MonoBehaviour
     public Camera CameraManager;
     public CinemachineCamera CubeCamera;
     public CinemachineCamera OtherCamera;
-    private Rigidbody CubeParent;
+    private Rigidbody CubeParent; 
     private Collider CubeParentCollider;
     private Collider[] ParentColliders; //la table en question
     private Collider CubeSysCollider;
@@ -32,12 +32,12 @@ public class CubeSys : MonoBehaviour
   
         //Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, true);
     }
-   /* private IEnumerator ReleaseTimer()
+     private IEnumerator ReleaseTimer()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.2f);
         Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
     }
-   */
+
     void Start()
     {
         foreach(Transform child in transform)
@@ -80,28 +80,27 @@ public class CubeSys : MonoBehaviour
             {
                 OtherCamera.Priority = 0;
             }
-            foreach (Collider ParentCollider in ParentColliders)
+            /*foreach (Collider ParentCollider in ParentColliders)
             {
                 Physics.IgnoreCollision(CubeSysCollider, ParentCollider, false);
-            }
-            //    ReleaseTimer();
+            }*/
+            ReleaseTimer();
             this.gameObject.transform.SetParent(null);
+            Detached = true;
             GeneralMouseCommand.UpdateCubeState();
-                Detached = true;
-            CubeChild.GetComponent<Rigidbody>().isKinematic = false;
-         //   Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
+            //   Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
             Caught = false;
             }
      //   if (Pickedup)
      //       pickup();
     }
-   // void public Pickup()
-   // { 
+    public void IsPickedUp()
+    { 
    //             this.gameObject.transform.SetParent();
    //             break;
    //         }
-   //     }
-   public void ReceiveClickInput()
+    }
+   public void IsReleased()
     {
         if (this.transform.parent != null)
         {

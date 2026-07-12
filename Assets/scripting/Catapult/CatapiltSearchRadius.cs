@@ -16,13 +16,11 @@ public class CatapiltSearchRadius : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<CubeScript>())
-            return;
-         //   other.attachedRigidbody.mass = 1e-07f; //attachedRigidbody va chercher le Rb dans tous les objets affiliés à l'objet
+            other.attachedRigidbody.mass = 1e-07f; //attachedRigidbody va chercher le Rb dans tous les objets affiliés à l'objet
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<CubeScript>())
-            return;
-          //      other.attachedRigidbody.mass = 20f;
+                other.attachedRigidbody.mass = 20f;
     }
 }
