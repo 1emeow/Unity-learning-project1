@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField]
+    public CinemachineBrain BrainCam;
     private Camera BaseCam;
     public CubeSys CubeSys;
     public CinemachineCamera CubeCamera;
@@ -11,7 +12,8 @@ public class CameraManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        BaseCam = this.GetComponent<Camera>(); 
+        BaseCam = GetComponent<Camera>();
+        BrainCam = GetComponent<CinemachineBrain>();
     }
     void Start()
     {
@@ -21,26 +23,38 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
     }
-    public void UpdateCamera()
+    public void UpdateCameraCube()
     {
-        if(CubeSys.transform.parent!= null && CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>() != null && CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && OtherCamera == null)
+        if (!CubeSys.Dormant)
         {
+            BrainCam.enabled = true;
+            if (CubeSys.transform.parent != null && CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>() != null && CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && OtherCamera == null)
+                {
+                    OtherCamera = CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>();
+                    CubeCamera.Priority = 0;
+                    OtherCamera.Priority = 100;
+                }
+            else if (CubeSys.transform.parent == null)
             {
-                OtherCamera = CubeSys.transform.parent.GetComponentInChildren<CinemachineCamera>();
-                CubeCamera.Priority = 0;
-                OtherCamera.Priority = 100;
+                if (OtherCamera != null)
+                {
+                    OtherCamera.Priority = 0;
+                    OtherCamera = null;
+                }
+                if (CubeCamera != null)
+                {
+                    CubeCamera.Priority = 100;
+                }
             }
         }
         else
-            if (CubeSys.transform.parent == null)
         {
-            Debug.Log("y a pas de parent wesh");
-            if (OtherCamera != null)
+            if (CubeCamera != null)
             {
-                OtherCamera.Priority = 0;
-                OtherCamera = null;
+                CubeCamera.Priority = 0;
+                CubeCamera = null;
             }
-            CubeCamera.Priority = 100;
+            BrainCam.enabled = false;
         }
     }
 }

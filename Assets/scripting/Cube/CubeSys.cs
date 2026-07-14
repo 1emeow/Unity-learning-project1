@@ -5,15 +5,15 @@ using Unity.Cinemachine;
 public class CubeSys : MonoBehaviour, CanBePicked
 {
     public bool Pickedup;
+    private bool DormantState;
     public bool Released;
     public bool Detached;
     public bool Caught;
+    public bool Dormant;
     public CameraManager CameraManager;
     public CinemachineCamera CubeCamera;
     public CinemachineCamera OtherCamera;
     private Rigidbody CubeParent; 
-    private Collider CubeParentCollider;
-    private Collider[] ParentColliders; //la table en question
     private Collider CubeSysCollider;
     private Transform CubeChild;
     [SerializeField]
@@ -25,12 +25,6 @@ public class CubeSys : MonoBehaviour, CanBePicked
         CameraManager.CubeSys = this;
         CubeParent = this.transform.parent.GetComponentInParent<Rigidbody>();
         CubeSysCollider = this.GetComponentInChildren<Collider>();
-       /* ParentColliders = CubeParent.GetComponentsInChildren<Collider>(); //c'est une table référençant tous les colliders
-        
-        foreach (Collider ParentCollider in ParentColliders)
-        {
-            Physics.IgnoreCollision(CubeSysCollider, ParentCollider, true);
-        } */
         CubeSysCollider.enabled = false;
     }
      private IEnumerator ReleaseTimer()
@@ -42,7 +36,8 @@ public class CubeSys : MonoBehaviour, CanBePicked
     void Start()
     {
         CameraManager.CubeCamera = CubeCamera;
-        foreach (Transform child in transform)
+        CubeChild = GetComponentInChildren<Rigidbody>().transform;
+     /*   foreach (Transform child in transform)
         {
            if (child.GetComponent<Rigidbody>() != null)
             {
@@ -50,64 +45,46 @@ public class CubeSys : MonoBehaviour, CanBePicked
                 break;
             }
         }
+     */
+        IsPickedUp();
     }
 
     void Update()
     {
-        if (!Released && !Caught)
+        if (Dormant != DormantState)
         {
-            CameraManager.OtherCamera = OtherCamera;
-            CubeChild.GetComponent<Rigidbody>().isKinematic = true;
-            Caught = true;
-/*            if (transform.parent.GetComponentInChildren<CinemachineCamera>() != null && transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && (OtherCamera == null || OtherCamera.Priority == 0))
+            if (!Dormant)
             {
-                OtherCamera = transform.parent.GetComponentInChildren<CinemachineCamera>();
-                CubeCamera.Priority = 0;
-                OtherCamera.Priority = 100;
+                CameraManager.CubeCamera = CubeCamera;
+                CameraManager.UpdateCameraCube();
             }
-*/
-            //   PlayerCamera.Target.TrackingTarget = Catapilt.transform;
-            //    PlayerCamera.GetComponent<CinemachineFollow>().FollowOffset = new Vector3(-15f, 8f, 0f);
-            CameraManager.UpdateCamera();
+            else
+            {
+                CameraManager.UpdateCameraCube();
+            }
+                DormantState = Dormant;
         }
-        if (Released && !Detached)
-            {
-        //    CubeCamera.Priority = 100;
-        /*    if (OtherCamera != null)
-            {
-                OtherCamera.Priority = 0;
-                OtherCamera = null;
-                CameraManager.OtherCamera = null;
-         */
-           // }
-
-            /*foreach (Collider ParentCollider in ParentColliders)
-            {
-                Physics.IgnoreCollision(CubeSysCollider, ParentCollider, false);
-            }*/
-            StartCoroutine(ReleaseTimer());
-            this.gameObject.transform.SetParent(null);
-            Detached = true;
-            GeneralMouseCommand.UpdateCubeState();
-            CameraManager.UpdateCamera();
-            Caught = false;
-            }
      //   if (Pickedup)
      //       pickup();
     }
     public void IsPickedUp()
-    { 
-   //             this.gameObject.transform.SetParent();
-   //             break;
-   //         }
+    {
+        CameraManager.OtherCamera = OtherCamera;
+        CubeChild.GetComponent<Rigidbody>().isKinematic = true;
+        Caught = true;
+        CameraManager.UpdateCameraCube();
     }
-   public void IsReleased()
+    public void IsReleased()
     {
         if (this.transform.parent != null)
         {
             Released = true;
-        //    PlayerCamera.Target.TrackingTarget = this.transform.GetChild(0);
-        //    PlayerCamera.GetComponent<CinemachineFollow>().FollowOffset = new Vector3(-5f, 1f, 0f);
+            StartCoroutine(ReleaseTimer());
+            this.gameObject.transform.SetParent(null);
+            Detached = true;
+            GeneralMouseCommand.UpdateCubeState();
+            CameraManager.UpdateCameraCube();
+            Caught = false;
         }
     }
 }
