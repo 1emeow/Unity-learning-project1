@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class General_Mouse_Command : MonoBehaviour
 {
+    private bool CatapultActive;
+    private bool MoverActive;
+    private bool LauncherActive;
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
@@ -39,8 +42,11 @@ public class General_Mouse_Command : MonoBehaviour
             Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
         }
         else
+        {
             Mover = CubeSys.gameObject.GetComponentInChildren<CanMove>();
-        Debug.Log(Mover);
+            Launcher = null;
+        }
+        //Debug.Log(Mover);
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
@@ -62,17 +68,23 @@ public class General_Mouse_Command : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
-        Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
-        Debug.Log(Launcher);
+        if (CubeSys != null)
+        {
+            Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
+            Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
+            Debug.Log(Launcher);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        LaCatapult.ReceiveLookInput(mouseDelta);
-        Mover.UpdateInput();
-        Launcher.LaunchUpdate();
+        if (LaCatapult != null)
+            LaCatapult.ReceiveLookInput(mouseDelta);
+        if (Mover != null)
+            Mover.UpdateInput();
+        if (Launcher != null)
+            Launcher.LaunchUpdate();
     }
 }
 

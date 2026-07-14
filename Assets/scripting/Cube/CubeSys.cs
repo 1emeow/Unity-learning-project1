@@ -8,7 +8,7 @@ public class CubeSys : MonoBehaviour, CanBePicked
     public bool Released;
     public bool Detached;
     public bool Caught;
-    public Camera CameraManager;
+    public CameraManager CameraManager;
     public CinemachineCamera CubeCamera;
     public CinemachineCamera OtherCamera;
     private Rigidbody CubeParent; 
@@ -21,26 +21,28 @@ public class CubeSys : MonoBehaviour, CanBePicked
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
+        if (CameraManager.CubeSys == null)
+        CameraManager.CubeSys = this;
         CubeParent = this.transform.parent.GetComponentInParent<Rigidbody>();
         CubeSysCollider = this.GetComponentInChildren<Collider>();
-        ParentColliders = CubeParent.GetComponentsInChildren<Collider>(); //c'est une table référençant tous les colliders
-
+       /* ParentColliders = CubeParent.GetComponentsInChildren<Collider>(); //c'est une table référençant tous les colliders
+        
         foreach (Collider ParentCollider in ParentColliders)
         {
             Physics.IgnoreCollision(CubeSysCollider, ParentCollider, true);
-        }
-  
-        //Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, true);
+        } */
+        CubeSysCollider.enabled = false;
     }
      private IEnumerator ReleaseTimer()
     {
         yield return new WaitForSeconds(0.2f);
-        Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
+        CubeSysCollider.enabled = true;
     }
 
     void Start()
     {
-        foreach(Transform child in transform)
+        CameraManager.CubeCamera = CubeCamera;
+        foreach (Transform child in transform)
         {
            if (child.GetComponent<Rigidbody>() != null)
             {
@@ -54,41 +56,40 @@ public class CubeSys : MonoBehaviour, CanBePicked
     {
         if (!Released && !Caught)
         {
-
+            CameraManager.OtherCamera = OtherCamera;
             CubeChild.GetComponent<Rigidbody>().isKinematic = true;
             Caught = true;
-            foreach (Transform child in transform.parent)
+/*            if (transform.parent.GetComponentInChildren<CinemachineCamera>() != null && transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && (OtherCamera == null || OtherCamera.Priority == 0))
             {
-                if (child == transform)
-                    continue;
-
-                if (child.GetComponent<CinemachineCamera>() != null)
-                {
-                    OtherCamera = child.GetComponent<CinemachineCamera>();
-                    break;
-                }
+                OtherCamera = transform.parent.GetComponentInChildren<CinemachineCamera>();
+                CubeCamera.Priority = 0;
+                OtherCamera.Priority = 100;
             }
-            CubeCamera.Priority = 0;
-            OtherCamera.Priority = 100;
+*/
             //   PlayerCamera.Target.TrackingTarget = Catapilt.transform;
             //    PlayerCamera.GetComponent<CinemachineFollow>().FollowOffset = new Vector3(-15f, 8f, 0f);
+            CameraManager.UpdateCamera();
         }
         if (Released && !Detached)
             {
-            CubeCamera.Priority = 100;
-            if (OtherCamera != null)
+        //    CubeCamera.Priority = 100;
+        /*    if (OtherCamera != null)
             {
                 OtherCamera.Priority = 0;
-            }
+                OtherCamera = null;
+                CameraManager.OtherCamera = null;
+         */
+           // }
+
             /*foreach (Collider ParentCollider in ParentColliders)
             {
                 Physics.IgnoreCollision(CubeSysCollider, ParentCollider, false);
             }*/
-            ReleaseTimer();
+            StartCoroutine(ReleaseTimer());
             this.gameObject.transform.SetParent(null);
             Detached = true;
             GeneralMouseCommand.UpdateCubeState();
-            //   Physics.IgnoreCollision(CubeSysCollider, CubeParentCollider, false);
+            CameraManager.UpdateCamera();
             Caught = false;
             }
      //   if (Pickedup)

@@ -37,6 +37,7 @@ public class ScoreManager : MonoBehaviour
         OnScoreChanged?.Invoke(currentScore);
         
         Debug.Log($"<color=green>SCORE :</color> {currentScore} (+{points})");
+        Debug.Log($"Called in {GetType().Name}");
     }
 
     public int GetCurrentScore() => currentScore;

@@ -68,7 +68,6 @@ public class CubeController : MonoBehaviour, CanMove
 
             bodycube.linearVelocity += surfaceNormal * 10;
         }
-        Debug.Log("ça saute");
     }
     void Start()
     {
