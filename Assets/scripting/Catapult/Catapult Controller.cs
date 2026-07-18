@@ -14,8 +14,8 @@ public class CatapultController : MonoBehaviour, CanMove
 
 [Header("Rotation")]
     [SerializeField] private float sensitivity = 0.1f;
-    [SerializeField] private float minPitch = -45f;
-    [SerializeField] private float maxPitch = 80f;
+    [SerializeField] private float minPitch = -80f;
+    [SerializeField] private float maxPitch = 45f;
     [SerializeField] private float minYaw = -65f;
     [SerializeField] private float maxYaw = 65f;
 

@@ -9659,6 +9659,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4673643184202600840, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      propertyPath: _speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673643184202600840, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      propertyPath: maxPitch
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673643184202600840, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
+      propertyPath: minPitch
+      value: -80
+      objectReference: {fileID: 0}
     - target: {fileID: 5911912948972486101, guid: f74371416b8252f47a9faf683c87cda4, type: 3}
       propertyPath: m_Name
       value: EnsembleCatapulte
@@ -9722,6 +9734,10 @@ PrefabInstance:
       propertyPath: CameraManager
       value: 
       objectReference: {fileID: 330585549}
+    - target: {fileID: 2915031764900809558, guid: 0b48a87829ee9004c99604b50444442b, type: 3}
+      propertyPath: GeneralInputCommand
+      value: 
+      objectReference: {fileID: 283726158}
     - target: {fileID: 2915031764900809558, guid: 0b48a87829ee9004c99604b50444442b, type: 3}
       propertyPath: GeneralMouseCommand
       value: 

@@ -17,7 +17,7 @@ public class CubeSys : MonoBehaviour, CanBePicked
     private Collider CubeSysCollider;
     private Transform CubeChild;
     [SerializeField]
-    private General_Mouse_Command GeneralMouseCommand;
+    private General_Input_Command GeneralInputCommand;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -82,7 +82,7 @@ public class CubeSys : MonoBehaviour, CanBePicked
             StartCoroutine(ReleaseTimer());
             this.gameObject.transform.SetParent(null);
             Detached = true;
-            GeneralMouseCommand.UpdateCubeState();
+            GeneralInputCommand.UpdateCubeState();
             CameraManager.UpdateCameraCube();
             Caught = false;
         }
