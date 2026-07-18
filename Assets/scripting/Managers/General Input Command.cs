@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.Events;
 public class General_Input_Command : MonoBehaviour
 {
+    [HideInInspector]
+    public UnityEvent PausedStatusChanged = new ();
     private bool CatapultActive;
     private bool MoverActive;
     private bool LauncherActive;
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
+    public InputActionReference menuAction;
     public CatapultController LaCatapult;
     public InputActionReference clickAction;
     public CubeSys CubeSys;
@@ -24,6 +27,8 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.Enable();
         clickAction.action.performed += OnAttack;
         clickAction.action.canceled += OnAttack;
+        menuAction.action.Enable();
+        menuAction.action.performed += OnPause;
     }
 
     private void OnDisable()
@@ -34,6 +39,8 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.performed -= OnAttack;
         clickAction.action.canceled -= OnAttack;
         clickAction.action.Disable();
+        menuAction.action.performed -= OnPause;
+        menuAction.action.Disable();
     }
     public void UpdateCubeState()
     {
@@ -52,6 +59,10 @@ public class General_Input_Command : MonoBehaviour
     private void OnLook(InputAction.CallbackContext ctx)
     {
         mouseDelta = ctx.ReadValue<Vector2>();
+    }
+    private void OnPause(InputAction.CallbackContext ctx)
+    {
+        PausedStatusChanged.Invoke();
     }
     private void OnAttack(InputAction.CallbackContext ctx)
     {

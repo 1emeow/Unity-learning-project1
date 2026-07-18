@@ -1,40 +1,38 @@
 using UnityEngine;
 using System.Collections;
-
 public class GameManagerScript : MonoBehaviour
 {
     [SerializeField]
     private GameObject _generalInputCommand;
-    private General_Input_Command InputCommandScript;
     [SerializeField]
-    private bool Paused;
-    private bool PausedStatus;
+    private General_Input_Command InputCommandScript;
+    public bool Paused;
     private float firststart = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InputCommandScript = _generalInputCommand.GetComponent<General_Input_Command>();
+        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
         InputCommandScript.StartGame = false;
         StartCoroutine(StartGame());
     }
-
+  private void PausedStatusChanged()
+    {
+        Paused = !Paused;
+        Debug.Log(Paused);
+        if (Paused)
+        {
+            InputCommandScript.StartGame = false;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            StartCoroutine(StartGame());
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-      if (Paused != PausedStatus)
-        {
-            if (Paused)
-            {
-                InputCommandScript.StartGame = false;
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                StartCoroutine(StartGame());
-            }
-                PausedStatus = Paused;
-
-        }
     }
     private IEnumerator StartGame()
     {             
