@@ -15,6 +15,7 @@ public class Launcher : MonoBehaviour
     public float LaunchFactor = 10f ;
     private GameObject Towed;
     private GameObject Launchable;
+    private Rigidbody LaunchableBody;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -32,9 +33,9 @@ public class Launcher : MonoBehaviour
         if (GetComponentInChildren<CanBePicked>() != null)
         {
            CanBePicked LaunchableScript = GetComponentInChildren<CanBePicked>();
-            Launchable = ((MonoBehaviour)GetComponentInChildren<CanBePicked>()).gameObject;
-            Launchable.GetComponentInChildren<Rigidbody>().isKinematic = false;
-            Launchable.GetComponentInChildren<Rigidbody>().linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
+            LaunchableBody = ((MonoBehaviour)LaunchableScript).gameObject.GetComponentInChildren<Rigidbody>();
+            LaunchableBody.isKinematic = false;
+            LaunchableBody.linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
             LaunchableScript.IsReleased();
         }
     }

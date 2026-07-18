@@ -87,7 +87,6 @@ public class General_Input_Command : MonoBehaviour
         {
             Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
             Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
-            Debug.Log(Launcher);
         }
     }
 

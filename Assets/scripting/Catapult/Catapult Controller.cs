@@ -12,7 +12,7 @@ public class CatapultController : MonoBehaviour, CanMove
         return barrelPitch;
     }
 
-[Header("Rotation")]
+    [Header("Rotation")]
     [SerializeField] private float sensitivity = 0.1f;
     [SerializeField] private float minPitch = -80f;
     [SerializeField] private float maxPitch = 45f;
@@ -34,8 +34,6 @@ public class CatapultController : MonoBehaviour, CanMove
         if (_catapiltInput != null || _catapiltInput.currentActionMap != null)
             return;
         {
-            _catapiltInput.currentActionMap.FindAction("Movement").performed -= OnMove;
-            _catapiltInput.currentActionMap.FindAction("Movement").performed += OnMove;
             _catapiltInput.currentActionMap.Enable();
         }
         }
@@ -45,14 +43,9 @@ public class CatapultController : MonoBehaviour, CanMove
         if (_catapiltInput == null || _catapiltInput.currentActionMap == null)
             return;
         {
-            _catapiltInput.currentActionMap.FindAction("Movement").performed -= OnMove;
             _catapiltInput.currentActionMap.Disable();
         }
     }
-  private void OnMove(InputAction.CallbackContext context)
-  {
-
-  }
     public void UpdateInput()
     {
         move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
@@ -65,15 +58,14 @@ public class CatapultController : MonoBehaviour, CanMove
         }
     }
 
-public void ReceiveLookInput(Vector2 lookDelta)
+    public void ReceiveLookInput(Vector2 lookDelta)
     {
         yaw += lookDelta.x * sensitivity;
         pitch -= lookDelta.y * sensitivity;
-
+        yaw = Mathf.Clamp(yaw, minYaw, maxYaw);
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
         baseYaw.localRotation = Quaternion.Euler(0f, 0f, yaw);
         barrelPitch.localRotation = Quaternion.Euler(0f, pitch, 0f);
-
-
     }
 
     private void Start()
@@ -83,27 +75,8 @@ public void ReceiveLookInput(Vector2 lookDelta)
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        _catapiltInput.currentActionMap.FindAction("Movement").performed += OnMove;
     }
     private void Update()
     {
-        if (yaw > maxYaw)
-        {
-            yaw = maxYaw;
-        }
-        else if (yaw < minYaw)
-        {
-            yaw = minYaw;
-        }
-        if (pitch > maxPitch)
-        {
-            pitch = maxPitch;
-        }
-        else if (pitch < minPitch)
-        {
-            pitch = minPitch;
-        }
-
-
     }
 }

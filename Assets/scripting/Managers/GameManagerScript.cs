@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     private General_Input_Command InputCommandScript;
     public bool Paused;
+    public float RestartTimer = 1f;
     private float firststart = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,7 +20,6 @@ public class GameManagerScript : MonoBehaviour
   private void PausedStatusChanged()
     {
         Paused = !Paused;
-        Debug.Log(Paused);
         if (Paused)
         {
             InputCommandScript.StartGame = false;
@@ -38,7 +38,7 @@ public class GameManagerScript : MonoBehaviour
     {             
         yield return new WaitForSeconds(firststart);
         firststart = 0;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(RestartTimer);
         Time.timeScale = 1f;
         InputCommandScript.StartGame = true;
     }

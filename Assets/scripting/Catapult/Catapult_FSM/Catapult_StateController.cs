@@ -6,6 +6,7 @@ public class Catapult_StateController : StateMachine
     private Animator _CatapiltAnimator;
     [SerializeField]
     private CatapultController _catapultController;
+    private Vector3 move3;
     void Start()
     {
     }
@@ -13,7 +14,7 @@ public class Catapult_StateController : StateMachine
     {
 
         //Movement
-        Vector3 move3 = _catapultController.move3;
+        move3 = _catapultController.move3;
         
 
         //Moving Forward
