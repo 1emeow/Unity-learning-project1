@@ -5,9 +5,6 @@ public class General_Input_Command : MonoBehaviour
 {
     [HideInInspector]
     public UnityEvent PausedStatusChanged = new ();
-    private bool CatapultActive;
-    private bool MoverActive;
-    private bool LauncherActive;
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
@@ -42,19 +39,23 @@ public class General_Input_Command : MonoBehaviour
         menuAction.action.performed -= OnPause;
         menuAction.action.Disable();
     }
-    public void UpdateCubeState()
+    public void CubeListening(CubeSys cubesys)
     {
-        if (CubeSys.transform.parent != null)
+        cubesys.UpdateCubeState.AddListener(UpdateCubeState);
+    }
+    public void UpdateCubeState(CubeSys cubesys)
+    {
+        if (cubesys.transform.parent != null)
         {
-            Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
-            Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
+            Mover = cubesys.transform.parent.GetComponentInParent<CanMove>();
+            Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>();
         }
         else
         {
-            Mover = CubeSys.gameObject.GetComponentInChildren<CanMove>();
+            Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
             Launcher = null;
         }
-        //Debug.Log(Mover);
+        Debug.Log(Launcher);
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
@@ -83,13 +84,7 @@ public class General_Input_Command : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (CubeSys != null)
-        {
-            Mover = CubeSys.transform.parent.GetComponentInParent<CanMove>();
-            Launcher = CubeSys.transform.parent.GetComponentInParent<Launcher>();
-        }
     }
-
     // Update is called once per frame
     void Update()
     {

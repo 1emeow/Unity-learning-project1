@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 8570688748842944133}
   - component: {fileID: 8365540445356849139}
   - component: {fileID: 1731095552369469200}
+  - component: {fileID: 355368411278536525}
   m_Layer: 0
   m_Name: Catamera
   m_TagString: Untagged
@@ -239,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority:
     Enabled: 1
-    m_Value: 0
+    m_Value: 100
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -316,6 +317,36 @@ MonoBehaviour:
     Time: 0
     Smoothing: 0
     IgnoreY: 1
+--- !u!114 &355368411278536525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436271481228992682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7de3aefa901374ba29464584a3109a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraRadius: 0.4
+  Decollision:
+    Enabled: 1
+    ObstacleLayers:
+      serializedVersion: 2
+      m_Bits: 1
+    UseFollowTarget:
+      Enabled: 0
+      YOffset: 0
+    Damping: 0.5
+    SmoothingTime: 0
+  TerrainResolution:
+    Enabled: 1
+    TerrainLayers:
+      serializedVersion: 2
+      m_Bits: 1
+    MaximumRaycast: 10
+    Damping: 0.5
 --- !u!1 &632408935429851897
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2502,50 @@ Transform:
   - {fileID: 4227045843351437007}
   m_Father: {fileID: 3365762275394410986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4537250708268848798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2508137651790322382}
+  - component: {fileID: 7349179788032342044}
+  m_Layer: 0
+  m_Name: SpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2508137651790322382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537250708268848798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0255, y: -0, z: 0.01875}
+  m_LocalScale: {x: 0.009999996, y: 0.009999998, z: 0.009999998}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7137922192096237874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7349179788032342044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4537250708268848798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f3991684d133a4da521e2a51ca4dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4594373477070878897
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,14 +3099,14 @@ MonoBehaviour:
   barrelPitch: {fileID: 7137922192096237874}
   _CatapiltAnimator: {fileID: 8440794842726300429}
   sensitivity: 0.1
-  minPitch: -45
-  maxPitch: 80
+  minPitch: -80
+  maxPitch: 45
   minYaw: -65
   maxYaw: 65
   _catapiltInput: {fileID: 6731169462939775762}
   move3: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
-  _speed: 30
+  _speed: 3
 --- !u!114 &4015117980881009821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4212,6 +4287,7 @@ Transform:
   - {fileID: 360017253830575211}
   - {fileID: 2256145068647165423}
   - {fileID: 4220636992206608974}
+  - {fileID: 2508137651790322382}
   m_Father: {fileID: 7827470015398914426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3483506175876605472

@@ -1,19 +1,18 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Cinemachine;
+using UnityEngine.Events;
 
 public class CubeSys : MonoBehaviour, CanBePicked
 {
+    [HideInInspector]
+    public UnityEvent<CubeSys> UpdateCubeState = new ();
     public bool Pickedup;
     private bool DormantState;
     public bool Released;
     public bool Detached;
     public bool Caught;
     public bool Dormant;
-    public CameraManager CameraManager;
-    public CinemachineCamera CubeCamera;
-    public CinemachineCamera OtherCamera;
-    private Rigidbody CubeParent; 
     private Collider CubeSysCollider;
     private Transform CubeChild;
     [SerializeField]
@@ -21,9 +20,6 @@ public class CubeSys : MonoBehaviour, CanBePicked
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        if (CameraManager.CubeSys == null)
-        CameraManager.CubeSys = this;
-        CubeParent = this.transform.parent.GetComponentInParent<Rigidbody>();
         CubeSysCollider = this.GetComponentInChildren<Collider>();
         CubeSysCollider.enabled = false;
     }
@@ -35,17 +31,7 @@ public class CubeSys : MonoBehaviour, CanBePicked
 
     void Start()
     {
-        CameraManager.CubeCamera = CubeCamera;
         CubeChild = GetComponentInChildren<Rigidbody>().transform;
-     /*   foreach (Transform child in transform)
-        {
-           if (child.GetComponent<Rigidbody>() != null)
-            {
-                CubeChild = child;
-                break;
-            }
-        }
-     */
         IsPickedUp();
     }
 
@@ -53,26 +39,15 @@ public class CubeSys : MonoBehaviour, CanBePicked
     {
         if (Dormant != DormantState)
         {
-            if (!Dormant)
-            {
-                CameraManager.CubeCamera = CubeCamera;
-                CameraManager.UpdateCameraCube();
-            }
-            else
-            {
-                CameraManager.UpdateCameraCube();
-            }
+                UpdateCubeState.Invoke(this);
                 DormantState = Dormant;
         }
-     //   if (Pickedup)
-     //       pickup();
     }
     public void IsPickedUp()
     {
-        CameraManager.OtherCamera = OtherCamera;
         CubeChild.GetComponent<Rigidbody>().isKinematic = true;
         Caught = true;
-        CameraManager.UpdateCameraCube();
+        UpdateCubeState.Invoke(this);
     }
     public void IsReleased()
     {
@@ -82,8 +57,7 @@ public class CubeSys : MonoBehaviour, CanBePicked
             StartCoroutine(ReleaseTimer());
             this.gameObject.transform.SetParent(null);
             Detached = true;
-            GeneralInputCommand.UpdateCubeState();
-            CameraManager.UpdateCameraCube();
+            UpdateCubeState.Invoke(this);
             Caught = false;
         }
     }
