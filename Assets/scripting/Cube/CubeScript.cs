@@ -24,7 +24,7 @@ public class CubeScript : MonoBehaviour
     {
         
     }
-    public IEnumerator Coroutineofcollisionjumpbuffer()
+    public IEnumerator Coroutineofcollisionjumpbuffer() //ce qu'il se passe lorsqu'on rencontre un buff de saut
     {
         yield return null;
         this.GetComponent<MeshRenderer>().material.color = buff;
@@ -40,7 +40,7 @@ public class CubeScript : MonoBehaviour
         cubeController.hasreceivedjumpbuff = true;
 
     }
-    public IEnumerator Coroutineofcollisionmovesetter()
+    public IEnumerator Coroutineofcollisionmovesetter() //ce qu'il se passe lorsqu'on rencontre un buff de mouvement. Ces deux fonctions sont à combiner en une seule car redondantes
     {
         yield return null;
         this.GetComponent<MeshRenderer>().material.color = catabuff;

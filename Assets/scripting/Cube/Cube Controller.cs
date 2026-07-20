@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CubeController : MonoBehaviour, CanMove
+public class CubeController : MonoBehaviour, CanMove //cet object possède les fonctions indiquées dans l'interface CanMove
 {
     [SerializeField]
     private PlayerInput _cubeInput;

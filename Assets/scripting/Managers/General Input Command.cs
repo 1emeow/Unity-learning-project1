@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class General_Input_Command : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent PausedStatusChanged = new ();
+    public UnityEvent PausedStatusChanged = new (); //on fait un évènement public auquel vont s'inscrire les autres scripts
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
@@ -39,16 +39,16 @@ public class General_Input_Command : MonoBehaviour
         menuAction.action.performed -= OnPause;
         menuAction.action.Disable();
     }
-    public void CubeListening(CubeSys cubesys)
+    public void CubeListening(CubeSys cubesys) //la fonction nécessaire pour s'inscrire à l'évènement updatecubestate du cube, évènement qui va indiquer quel élément bougera avec les actions effectuées par le joueur
     {
         cubesys.UpdateCubeState.AddListener(UpdateCubeState);
     }
-    public void UpdateCubeState(CubeSys cubesys)
+    public void UpdateCubeState(CubeSys cubesys) //indique qui bouge
     {
         if (cubesys.transform.parent != null)
         {
-            Mover = cubesys.transform.parent.GetComponentInParent<CanMove>();
-            Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>();
+            Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
+            Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>(); //l'élément du lanceur sujet à la souris
         }
         else
         {
@@ -62,7 +62,7 @@ public class General_Input_Command : MonoBehaviour
     }
     private void OnPause(InputAction.CallbackContext ctx)
     {
-        PausedStatusChanged.Invoke();
+        PausedStatusChanged.Invoke(); //évènement public indiquant aux scripts correspondants que la pause a lieu
     }
     private void OnAttack(InputAction.CallbackContext ctx)
     {
@@ -87,7 +87,7 @@ public class General_Input_Command : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (StartGame)
+        if (StartGame)  //si le jeu n'est pas en pause
         {
             if (LaCatapult != null)
                 LaCatapult.ReceiveLookInput(mouseDelta);

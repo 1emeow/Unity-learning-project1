@@ -19,22 +19,23 @@ public class Launcher : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        InitialPosition = Frontlimit.transform.localPosition;
+        InitialPosition = Frontlimit.transform.localPosition; //point de départ de la langue
         MaximalPullDistance = Mathf.Abs(InitialPosition.x - Backlimit.transform.localPosition.x);  //la distance en valeur absolue entre la position initiale de la langue et du mur de fond
     }
-    public void Clicking()
+    public void Clicking() //tant qu'on clique
     {
         Launching = true;
     }
-    public void Clicked()
+    public void Clicked() //une fois que le clic est lâché
     {
         Launched = true;
         Launching = false;
-        if (GetComponentInChildren<CanBePicked>() != null)
+        if (GetComponentInChildren<CanBePicked>() != null) //si l'objet a les fonctions indiquées dans l'interface CanBePicked
         {
            CanBePicked LaunchableScript = GetComponentInChildren<CanBePicked>();
             LaunchableBody = ((MonoBehaviour)LaunchableScript).gameObject.GetComponentInChildren<Rigidbody>();
             LaunchableBody.isKinematic = false;
+            //la vitesse est établie par un vecteur correpondant au rapport de distance entre la langue et le mur de fond. Elle est toujours proportionnelle au lanceur
             LaunchableBody.linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
             LaunchableScript.IsReleased();
         }
@@ -44,7 +45,7 @@ public class Launcher : MonoBehaviour
     {
         Debug.DrawRay(transform.position, (Frontlimit.transform.position - transform.position).normalized * 5f, Color.red, 5f);
     }*/
-    public void LaunchUpdate()
+    public void LaunchUpdate() //fonction appelée par le GeneralInputCommand
     {
         if (Launching)
         {

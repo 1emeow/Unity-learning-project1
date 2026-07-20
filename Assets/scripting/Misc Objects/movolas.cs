@@ -5,7 +5,8 @@ public class Movolas : MonoBehaviour
     public bool Touche;
     public CubeScript CubeProcess;
     public GameManagerScript _gameManagerScript;
-
+    [SerializeField]
+    private CatapultController _catapultController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +19,9 @@ public class Movolas : MonoBehaviour
             {
                 CubeProcess = collision.gameObject.GetComponent<CubeScript>();
                 CubeProcess.moveSetter = this.gameObject;
+                _catapultController.canmove = true;
                 _gameManagerScript.WasMoveSetterReached = true;
+
                 StartCoroutine(CubeProcess.Coroutineofcollisionmovesetter());
                 Touche = true;
             }

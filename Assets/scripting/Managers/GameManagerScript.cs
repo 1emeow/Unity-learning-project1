@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 public class GameManagerScript : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] //fait apparaitre l'élément dans l'inspecteur un élément normalement discret, il n'apparait pas pour les autres scripts
     private General_Input_Command InputCommandScript;
     [SerializeField]
     private CameraManager CameraManager;
@@ -12,15 +12,15 @@ public class GameManagerScript : MonoBehaviour
     private GameObject Catapult;
     private Transform Spawner;
     public float MaxCubes = 2f;
-    private List<GameObject> CubesTable = new List<GameObject>();
+    private List<GameObject> CubesTable = new List<GameObject>(); //liste des cubes existants
     private GameObject _cubeInstance;
     [SerializeField]
     private GameObject CubesysObject;
     public bool Paused;
     public float RestartTimer = 1f;
     private float firststart = 1f;
-    public bool WasJumpBufferReached;
-    public bool WasMoveSetterReached;
+    public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
+    public bool WasMoveSetterReached; //idem pour le mouvement
 
     void Awake()
     {
@@ -28,7 +28,7 @@ public class GameManagerScript : MonoBehaviour
         if (Spawner != null)
             SpawnFunction();
     }
-    private void SpawnFunction()
+    private void SpawnFunction() //fonction qui gère la génération de cubes
     {
         _cubeInstance = Instantiate(CubesysObject, Spawner.position, Spawner.rotation);
         CubeSys cubeScript = _cubeInstance.GetComponent<CubeSys>();
@@ -36,14 +36,14 @@ public class GameManagerScript : MonoBehaviour
         _cubeInstance.transform.SetParent(Spawner.parent.GetComponentInChildren<Launcher>().transform, true);
         _cubeInstance.transform.localScale = Vector3.one * 0.01f;
         CubesTable.Add(_cubeInstance);
-        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
+        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged); //indique au game manager de s'inscrire à l'évènement de l'input command manager
         InputCommandScript.StartGame = false;
         StartCoroutine(StartGame());
         if (cubeScript != null)
         {
             cubeScript._playerCatapult = cubeScript.transform.root.GetComponent<CatapultController>();
-            cubeScript.UpdateCubeState.AddListener(UpdateCubeState);
-            CameraManager.CubeListening(cubeScript);
+            cubeScript.UpdateCubeState.AddListener(UpdateCubeState); //indique au game manager de s'inscrire à l'évènement de l'input command manager
+            CameraManager.CubeListening(cubeScript); //déclenche la fonction du cameramanger qui permet de s'inscrire à l'évènement du script du cube, on le fait ici parce que le cube est généré ici
             InputCommandScript.CubeListening(cubeScript);
         }
     }
@@ -51,7 +51,7 @@ public class GameManagerScript : MonoBehaviour
 void Start()
 {
 }
-private void UpdateCubeState(CubeSys cubesys)
+private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
 {
     if (cubesys.Dormant && CubesTable.Count < MaxCubes)
     {
@@ -62,17 +62,17 @@ private void UpdateCubeState(CubeSys cubesys)
         Debug.Log("The maximum amount of cubes has been reached");
     }
 }
-private void PausedStatusChanged()
+private void PausedStatusChanged() //déclenche la pause
 {
     Paused = !Paused;
     if (Paused)
     {
         InputCommandScript.StartGame = false;
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; //empêche le temps du jeu de s'écouler
     }
     else
     {
-        StartCoroutine(StartGame());
+        StartCoroutine(StartGame()); //arrête la pause
     }
 }
 // Update is called once per frame
@@ -83,7 +83,7 @@ private IEnumerator StartGame()
 {
     yield return new WaitForSeconds(firststart);
     firststart = 0;
-    yield return new WaitForSecondsRealtime(RestartTimer);
+    yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
     Time.timeScale = 1f;
     InputCommandScript.StartGame = true;
 }

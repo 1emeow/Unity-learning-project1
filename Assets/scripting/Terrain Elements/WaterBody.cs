@@ -9,7 +9,7 @@ public class WaterBody : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _water.GetComponent<MeshRenderer>().enabled = true;
+        _water.GetComponent<MeshRenderer>().enabled = true; //met en place le shader parce que dans l'éditeur c'est un enfer
         _waterBody.GetComponent<MeshRenderer>().enabled = false;
     }
 

@@ -14,7 +14,7 @@ public class Catapult_StateController : StateMachine
     {
 
         //Movement
-        move3 = _catapultController.move3;
+        move3 = _catapultController.move3; //on récupére le move3 dans catapult controller
         
 
         //Moving Forward
