@@ -73,7 +73,7 @@ PrefabInstance:
       addedObject: {fileID: 927905012055906125}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 45facf26b70d0504ea2a2c18e99915bd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 50149596972660800}
+      addedObject: {fileID: 329527713238027060}
   m_SourcePrefab: {fileID: 100100000, guid: 45facf26b70d0504ea2a2c18e99915bd, type: 3}
 --- !u!1 &8476643220357971207 stripped
 GameObject:
@@ -100,7 +100,7 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 0}
   m_EnableTreeColliders: 1
---- !u!64 &50149596972660800
+--- !u!64 &329527713238027060
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,4 +121,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2265152937572236599, guid: 45facf26b70d0504ea2a2c18e99915bd, type: 3}
+  m_Mesh: {fileID: -4545108875569611731, guid: 45facf26b70d0504ea2a2c18e99915bd, type: 3}

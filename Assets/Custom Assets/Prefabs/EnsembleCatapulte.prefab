@@ -344,7 +344,7 @@ MonoBehaviour:
     Enabled: 1
     TerrainLayers:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 4294967295
     MaximumRaycast: 10
     Damping: 0.5
 --- !u!1 &632408935429851897
@@ -3107,6 +3107,7 @@ MonoBehaviour:
   move3: {x: 0, y: 0, z: 0}
   move: {x: 0, y: 0}
   _speed: 3
+  canmove: 0
 --- !u!114 &4015117980881009821
 MonoBehaviour:
   m_ObjectHideFlags: 0

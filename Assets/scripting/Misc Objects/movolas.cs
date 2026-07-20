@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class jumpuff : MonoBehaviour
+public class Movolas : MonoBehaviour
 {
     public bool Touche;
     public CubeScript CubeProcess;
@@ -17,9 +17,9 @@ public class jumpuff : MonoBehaviour
             if (collision.gameObject.GetComponent<CubeScript>() != null)
             {
                 CubeProcess = collision.gameObject.GetComponent<CubeScript>();
-                CubeProcess.jumpbuffer = this.gameObject;
-                _gameManagerScript.WasJumpBufferReached = true;
-                StartCoroutine(CubeProcess.Coroutineofcollisionjumpbuffer());
+                CubeProcess.moveSetter = this.gameObject;
+                _gameManagerScript.WasMoveSetterReached = true;
+                StartCoroutine(CubeProcess.Coroutineofcollisionmovesetter());
                 Touche = true;
             }
         }
@@ -27,6 +27,6 @@ public class jumpuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

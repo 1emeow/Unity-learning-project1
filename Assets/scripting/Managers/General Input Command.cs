@@ -55,7 +55,6 @@ public class General_Input_Command : MonoBehaviour
             Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
             Launcher = null;
         }
-        Debug.Log(Launcher);
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {

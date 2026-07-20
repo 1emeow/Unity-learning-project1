@@ -25,7 +25,7 @@ public class CatapultController : MonoBehaviour, CanMove
     public Vector3 move3;
     public Vector2 move;
     public float _speed = 1;
-
+    public bool canmove;
     private float yaw;
     private float pitch;
 
@@ -48,13 +48,14 @@ public class CatapultController : MonoBehaviour, CanMove
     }
     public void UpdateInput()
     {
-        move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
-        move3 = new Vector3(move.x, 0, move.y);
-        // Debug.Log(move3);
-
-        if (move3.magnitude > 0)
+        if (canmove)
         {
-            transform.Translate(move3 * Time.deltaTime * _speed, Space.World);
+            move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>();
+            move3 = new Vector3(move.x, 0, move.y);
+            if (move3.magnitude > 0)
+            {
+                transform.Translate(move3 * Time.deltaTime * _speed, Space.World);
+            }
         }
     }
 

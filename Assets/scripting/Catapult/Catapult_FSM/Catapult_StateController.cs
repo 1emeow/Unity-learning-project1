@@ -24,30 +24,5 @@ public class Catapult_StateController : StateMachine
         //Strafing
 
         _CatapiltAnimator.SetBool("Strafing", Mathf.Abs(move3.x) > 0.01f); //Strafing is true as long as Mathf.Abs(move3.x) > 0.01f, Mathf being Math Function
-
-        /*  if (move3.z != 0)
-          {
-           //   _CatapiltAnimator.SetFloat("Speed", Mathf.Abs(move3.z * _catapultController._speed));
-              _CatapiltAnimator.SetBool("DoneWalking", false);
-           //   Debug.Log(move3.magnitude < 0.01f);
-          }
-        //Strafing
-          if (move3.x != 0)
-          {
-           //   _CatapiltAnimator.SetFloat("Speed", Mathf.Abs(move3.x * _catapultController._speed));
-              _CatapiltAnimator.SetBool("Strafing", true);
-              _CatapiltAnimator.SetBool("DoneWalking", false);
-          }
-          else
-          {
-           //   _CatapiltAnimator.SetFloat("Speed", 0);
-              _CatapiltAnimator.SetBool("Strafing", false);
-          }
-          if (move3.magnitude < 0.01f)
-          {
-              //    _CatapiltAnimator.SetFloat("Speed", 0);
-              _CatapiltAnimator.SetBool("DoneWalking", true);
-          }
-        */
     }
 }
