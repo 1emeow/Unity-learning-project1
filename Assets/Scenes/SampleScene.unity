@@ -2886,6 +2886,10 @@ PrefabInstance:
       propertyPath: _gameManagerScript
       value: 
       objectReference: {fileID: 239633205}
+    - target: {fileID: 3124135323759804962, guid: 67849c99ff80c33498a97a1b7475ebbb, type: 3}
+      propertyPath: _catapultController
+      value: 
+      objectReference: {fileID: 102436308766295538}
     - target: {fileID: 3464209222168622808, guid: 67849c99ff80c33498a97a1b7475ebbb, type: 3}
       propertyPath: m_Name
       value: movolas

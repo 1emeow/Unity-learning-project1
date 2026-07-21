@@ -26,7 +26,9 @@ public class GameManagerScript : MonoBehaviour
     {
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
-            SpawnFunction();
+        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged); //indique au game manager de s'inscrire à l'évènement de l'input command manager
+        InputCommandScript.StartGame = false;
+        SpawnFunction();
     }
     private void SpawnFunction() //fonction qui gère la génération de cubes
     {
@@ -36,9 +38,6 @@ public class GameManagerScript : MonoBehaviour
         _cubeInstance.transform.SetParent(Spawner.parent.GetComponentInChildren<Launcher>().transform, true);
         _cubeInstance.transform.localScale = Vector3.one * 0.01f;
         CubesTable.Add(_cubeInstance);
-        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged); //indique au game manager de s'inscrire à l'évènement de l'input command manager
-        InputCommandScript.StartGame = false;
-        StartCoroutine(StartGame());
         if (cubeScript != null)
         {
             cubeScript._playerCatapult = cubeScript.transform.root.GetComponent<CatapultController>();
@@ -50,6 +49,7 @@ public class GameManagerScript : MonoBehaviour
 // Start is called once before the first execution of Update after the MonoBehaviour is created
 void Start()
 {
+        StartCoroutine(StartGame());
 }
 private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
 {
@@ -81,7 +81,7 @@ void Update()
 }
 private IEnumerator StartGame()
 {
-    yield return new WaitForSeconds(firststart);
+    yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
     firststart = 0;
     yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
     Time.timeScale = 1f;
