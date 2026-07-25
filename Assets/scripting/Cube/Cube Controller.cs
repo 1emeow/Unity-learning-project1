@@ -53,14 +53,12 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     private void OnCollisionStay(Collision collision)
     {
         surfaceNormal = collision.GetContact(0).normal;
-       // Debug.Log(collision.collider.name);
     }
     public void UpdateInput()
     {
         if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump)
         {
             float enfoncementValue = Vector3.Dot(bodycube.linearVelocity, -surfaceNormal); //au cas où on a envie d'avoir un rebond moins important
-            // this.GetComponent<Rigidbody>().linearVelocity = this.GetComponent<Rigidbody>().linearVelocity += new Vector3(0, 10, 0);
             if (enfoncementValue > 0)
             {
                 bodycube.linearVelocity += surfaceNormal * enfoncementValue; //absorbe la vitesse du cube 

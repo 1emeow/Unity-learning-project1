@@ -45,7 +45,8 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
             UpdateCubeState.Invoke(this);
             DormantState = Dormant;
         }
-        if (Mathf.Abs(CubeBody.linearVelocity.x) <= 0.1f && Mathf.Abs(CubeBody.linearVelocity.y) <= 0.1f && Mathf.Abs(CubeBody.linearVelocity.z) <= 0.1f && Caught == false && !HasEneteredDormance && !Dormant)
+        //
+        if (CubeBody.linearVelocity.magnitude <= 0.1f && Caught == false && !HasEneteredDormance && !Dormant)
         {
             StartCoroutine(DormanceRoutine());
             HasEneteredDormance = true;
@@ -54,7 +55,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     private IEnumerator DormanceRoutine() //timer de la dormance
     {
     yield return new WaitForSeconds(2f);
-    if (Mathf.Abs(CubeBody.linearVelocity.x) <= 0.01f && Mathf.Abs(CubeBody.linearVelocity.y) <= 0.1f && Mathf.Abs(CubeBody.linearVelocity.z) <= 0.01f && Caught == false)
+    if (CubeBody.linearVelocity.magnitude <= 0.1f && Caught == false)
         {
         Dormant = true;
         Debug.Log("The Cube has fallen asleep.");

@@ -4,9 +4,7 @@ using System.Collections;
 
 public class CubeScript : MonoBehaviour
 {
-    public Material material1, material2;
-    public GameObject jumpbuffer;
-    public GameObject moveSetter;
+    public GameObject buffer;
     public Color normal;
     public Color buff;
     public Color catabuff;
@@ -15,43 +13,31 @@ public class CubeScript : MonoBehaviour
     [SerializeField]
     private bool cansling;
 
-
     void Start()
     {
-
     }
     void Update()
-    {
-        
+    {  
     }
-    public IEnumerator Coroutineofcollisionjumpbuffer() //ce qu'il se passe lorsqu'on rencontre un buff de saut
+    public IEnumerator Coroutineofcollisionbuffer() //ce qu'il se passe lorsqu'on rencontre un buff
     {
-        yield return null;
-        this.GetComponent<MeshRenderer>().material.color = buff;
-        this.GetComponent<Rigidbody>().linearVelocity = this.GetComponent<Rigidbody>().linearVelocity  += new Vector3(0, 10, 0); //* -2;
-        Destroy(jumpbuffer.GetComponent<BoxCollider>());
-        for (var i = jumpbuffer.transform.childCount - 1; i >= 0; i--)
+       yield return null;
+        if (buffer.GetComponent<IsACubeBuffer>() != null)
         {
-            Object.Destroy(jumpbuffer.transform.GetChild(i).gameObject);
+            this.GetComponent<MeshRenderer>().material.color = buff;
+            this.GetComponent<Rigidbody>().linearVelocity = this.GetComponent<Rigidbody>().linearVelocity += new Vector3(0, 10, 0); // un effet pour montrer que c'est un buff de cube.
         }
+        else if (buffer.GetComponent<IsACataBuffer>() != null)
+        {
+            this.GetComponent<MeshRenderer>().material.color = catabuff;
+        }
+                for (var i = buffer.transform.childCount - 1; i >= 0; i--)
+        {
+            Object.Destroy(buffer.transform.GetChild(i).gameObject);
+        }
+        Destroy(buffer.GetComponent<BoxCollider>());
         yield return new WaitForSeconds(2.0f);
         this.GetComponent<MeshRenderer>().material.color = normal;
-        Destroy(jumpbuffer);
-        cubeController.hasreceivedjumpbuff = true;
-
-    }
-    public IEnumerator Coroutineofcollisionmovesetter() //ce qu'il se passe lorsqu'on rencontre un buff de mouvement. Ces deux fonctions sont à combiner en une seule car redondantes
-    {
-        yield return null;
-        this.GetComponent<MeshRenderer>().material.color = catabuff;
-        Destroy(moveSetter.GetComponent<BoxCollider>());
-        for (var i = moveSetter.transform.childCount - 1; i >= 0; i--)
-        {
-            Object.Destroy(moveSetter.transform.GetChild(i).gameObject);
-        }
-        yield return new WaitForSeconds(2.0f);
-        this.GetComponent<MeshRenderer>().material.color = normal;
-        Destroy(moveSetter);
-        cubeController.hasreceivedjumpbuff = true;
+        Destroy(buffer);
     }
 }

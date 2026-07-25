@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class jumpuff : MonoBehaviour
+public class jumpuff : MonoBehaviour, IsACataBuffer
 {
     public bool Touche;
-    public CubeScript CubeProcess;
+    public CubeScript _cubeProcess;
     public GameManagerScript _gameManagerScript;
+    private CubeController _cubeController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,10 +17,12 @@ public class jumpuff : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<CubeScript>() != null)
             {
-                CubeProcess = collision.gameObject.GetComponent<CubeScript>();
-                CubeProcess.jumpbuffer = this.gameObject;
+                _cubeProcess = collision.gameObject.GetComponent<CubeScript>();
+                _cubeController = collision.gameObject.GetComponent<CubeController>();
+                _cubeProcess.buffer = this.gameObject;
+                _cubeController.hasreceivedjumpbuff = true;
                 _gameManagerScript.WasJumpBufferReached = true;
-                StartCoroutine(CubeProcess.Coroutineofcollisionjumpbuffer());
+                StartCoroutine(_cubeProcess.Coroutineofcollisionbuffer());
                 Touche = true;
             }
         }

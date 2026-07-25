@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Movolas : MonoBehaviour
+public class Movolas : MonoBehaviour, IsACataBuffer
 {
     public bool Touche;
     public CubeScript CubeProcess;
@@ -18,11 +18,11 @@ public class Movolas : MonoBehaviour
             if (collision.gameObject.GetComponent<CubeScript>() != null)
             {
                 CubeProcess = collision.gameObject.GetComponent<CubeScript>();
-                CubeProcess.moveSetter = this.gameObject;
+                CubeProcess.buffer = this.gameObject;
                 _catapultController.canmove = true;
                 _gameManagerScript.WasMoveSetterReached = true;
 
-                StartCoroutine(CubeProcess.Coroutineofcollisionmovesetter());
+                StartCoroutine(CubeProcess.Coroutineofcollisionbuffer());
                 Touche = true;
             }
         }
