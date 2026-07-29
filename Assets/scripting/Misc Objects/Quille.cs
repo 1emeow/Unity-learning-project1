@@ -92,16 +92,20 @@ public class Quille : MonoBehaviour
     {
         if (isProcessed) return;
 
-        // Note : On utilise CompareTag ou le nom exact pour "Le Cube"
-        if (collision.gameObject.name == "Le Cube") 
+        // Note : On préferera chercher le script plutôt qu'un nom maintenant que le cube est invoqué par le jeu et non présent dès le départ.
+        if (collision.gameObject.GetComponent<CubeScript>() != null) 
         {
             myCause = FallState.ByCube;
+            rb.useGravity = true;
+            rb.excludeLayers &= ~(1 << 8);
             OnHitByCube?.Invoke();
             StartCoroutine(HandleImpactSequence(touchageMat, particulesactiv));
         }
         else if (collision.gameObject.TryGetComponent<Quille>(out _))
         {
             myCause = FallState.ByQuille;
+            rb.useGravity = true;
+            rb.excludeLayers &= ~(1 << 8);
             OnHitByQuille?.Invoke();
             StartCoroutine(HandleImpactSequence(quilleChargeeMat, particulescharg, true));
         }

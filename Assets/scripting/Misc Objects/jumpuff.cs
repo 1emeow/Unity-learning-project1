@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class jumpuff : MonoBehaviour, IsACataBuffer
+public class jumpuff : MonoBehaviour, IsACubeBuffer
 {
     public bool Touche;
     public CubeScript _cubeProcess;

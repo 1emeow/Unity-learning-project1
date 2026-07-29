@@ -4175,8 +4175,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.45841205, y: 1.6814821, z: 0.4891392}
-  m_Center: {x: 0, y: 0.84203565, z: 0}
+  m_Size: {x: 0.7, y: 1.6814821, z: 0.7}
+  m_Center: {x: 0.0000011026859, y: 0.84203565, z: -0.000012874603}
 --- !u!33 &7318520698176652235
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4200,6 +4200,7 @@ MonoBehaviour:
   Touche: 0
   CubeProcess: {fileID: 0}
   _gameManagerScript: {fileID: 0}
+  _catapultController: {fileID: 0}
 --- !u!1 &3484964308915440840
 GameObject:
   m_ObjectHideFlags: 0
