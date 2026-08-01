@@ -662,6 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PullDistance: 0
   MaximalPullDistance: 0
+  _cubesRemainingTextDisplay: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
   Backlimit: {fileID: 5723641912767471080}
   Frontlimit: {fileID: 8528999728853696787}
@@ -2409,12 +2410,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464141690966953297}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0253, z: 0.1797}
-  m_LocalScale: {x: 0.0010000003, y: 0.0010000003, z: 0.0009999998}
+  m_LocalRotation: {x: 0.54683554, y: 0.5468355, z: 0.44829786, w: 0.44829792}
+  m_LocalPosition: {x: 0.01172053, y: -0.000049928072, z: 0.026474908}
+  m_LocalScale: {x: 0.00020000005, y: 0.00020000001, z: 0.00019999997}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 3943815027096172754}
+  m_Father: {fileID: 7137922192096237874}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2807218177501830597
 SpriteRenderer:
@@ -3234,8 +3235,7 @@ Transform:
   m_LocalPosition: {x: 0.03737891, y: 0.30796728, z: 0.21044123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4939672284855811556}
+  m_Children: []
   m_Father: {fileID: 8326221701552059180}
   m_LocalEulerAnglesHint: {x: -110, y: 0, z: 180}
 --- !u!20 &3594095178837496040
@@ -4289,6 +4289,7 @@ Transform:
   - {fileID: 360017253830575211}
   - {fileID: 2256145068647165423}
   - {fileID: 4220636992206608974}
+  - {fileID: 4939672284855811556}
   m_Father: {fileID: 7827470015398914426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3483506175876605472

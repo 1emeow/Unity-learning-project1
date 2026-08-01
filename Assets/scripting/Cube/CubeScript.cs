@@ -35,6 +35,7 @@ public class CubeScript : MonoBehaviour
         {
             Object.Destroy(buffer.transform.GetChild(i).gameObject);
         }
+        cubeController.canjump -= 1f;
         Destroy(buffer.GetComponent<BoxCollider>());
         yield return new WaitForSeconds(2.0f);
         this.GetComponent<MeshRenderer>().material.color = normal;

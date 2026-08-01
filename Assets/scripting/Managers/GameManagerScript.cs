@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class GameManagerScript : MonoBehaviour
 {
     [SerializeField] //fait apparaitre l'élément dans l'inspecteur un élément normalement discret, il n'apparait pas pour les autres scripts
@@ -19,6 +20,7 @@ public class GameManagerScript : MonoBehaviour
     public bool Paused;
     public float RestartTimer = 1f;
     private float firststart = 1f;
+
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
     public bool WasMoveSetterReached; //idem pour le mouvement
 
@@ -26,7 +28,8 @@ public class GameManagerScript : MonoBehaviour
     {
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
-        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged); //indique au game manager de s'inscrire à l'évènement de l'input command manager
+        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
+        InputCommandScript.RestartGame.AddListener(RestartGame);//indique au game manager de s'inscrire à l'évènement de l'input command manager
         InputCommandScript.StartGame = false;
         SpawnFunction();
     }
@@ -75,6 +78,10 @@ private void PausedStatusChanged() //déclenche la pause
         StartCoroutine(StartGame()); //arrête la pause
     }
 }
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 // Update is called once per frame
 void Update()
 {

@@ -6,6 +6,8 @@ public class Launcher : MonoBehaviour
     public float PullDistance = 0f;
     [SerializeField]
     private float MaximalPullDistance;
+    [SerializeField]
+    private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
     private bool Launched;
     private float PullSpeed = 0.01f;
     private bool Launching;
@@ -37,7 +39,10 @@ public class Launcher : MonoBehaviour
             LaunchableBody.isKinematic = false;
             //la vitesse est établie par un vecteur correpondant au rapport de distance entre la langue et le mur de fond. Elle est toujours proportionnelle au lanceur
             LaunchableBody.linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
+            _cubesRemainingTextDisplay.valeurtotale -= 1f;
+            _cubesRemainingTextDisplay.RefreshDisplay();
             LaunchableScript.IsReleased();
+
         }
     }
     /* Update is called once per frame

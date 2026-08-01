@@ -5,13 +5,18 @@ public class General_Input_Command : MonoBehaviour
 {
     [HideInInspector]
     public UnityEvent PausedStatusChanged = new (); //on fait un évènement public auquel vont s'inscrire les autres scripts
+    [HideInInspector]
+    public UnityEvent RestartGame = new();
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
     public InputActionReference menuAction;
     public CatapultController LaCatapult;
     public InputActionReference clickAction;
+    public InputActionReference newCubeAction;
+    public InputActionReference restartGameAction;
     public CubeSys CubeSys;
+    private CubeSys activeCube; 
     private CanMove Mover;
     private Launcher Launcher;
     public bool StartGame;
@@ -26,6 +31,10 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.canceled += OnAttack;
         menuAction.action.Enable();
         menuAction.action.performed += OnPause;
+        newCubeAction.action.Enable();
+        newCubeAction.action.performed += OnNewCube;
+        restartGameAction.action.Enable();
+        restartGameAction.action.performed += OnRestartGame;
     }
 
     private void OnDisable()
@@ -38,6 +47,10 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.Disable();
         menuAction.action.performed -= OnPause;
         menuAction.action.Disable();
+        newCubeAction.action.Disable();
+        newCubeAction.action.performed -= OnNewCube;
+        restartGameAction.action.Disable();
+        restartGameAction.action.performed -= OnRestartGame;
     }
     public void CubeListening(CubeSys cubesys) //la fonction nécessaire pour s'inscrire à l'évènement updatecubestate du cube, évènement qui va indiquer quel élément bougera avec les actions effectuées par le joueur
     {
@@ -55,6 +68,7 @@ public class General_Input_Command : MonoBehaviour
             Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
             Launcher = null;
         }
+        activeCube = cubesys;
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
@@ -63,6 +77,17 @@ public class General_Input_Command : MonoBehaviour
     private void OnPause(InputAction.CallbackContext ctx)
     {
         PausedStatusChanged.Invoke(); //évènement public indiquant aux scripts correspondants que la pause a lieu
+    }
+    private void OnRestartGame(InputAction.CallbackContext ctx)
+    {
+        RestartGame.Invoke();
+    }
+    private void OnNewCube(InputAction.CallbackContext ctx)
+    {
+        if (activeCube != null)
+        {
+            activeCube.Dormant = true;
+        }
     }
     private void OnAttack(InputAction.CallbackContext ctx)
     {

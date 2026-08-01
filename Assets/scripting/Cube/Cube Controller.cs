@@ -6,7 +6,7 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     [SerializeField]
     private PlayerInput _cubeInput;
     private bool jump;
-    public bool canjump;
+    public float canjump;
     public bool hasreceivedjumpbuff;
     private Rigidbody bodycube;
     private Vector3 surfaceNormal = Vector3.up; //new Vector3 (0,1,0);
@@ -40,14 +40,16 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     {
         if (collision.gameObject != null)
         {
-            canjump = true;
+            canjump += 1f;
+            Debug.Log(canjump);
         }
     }
     public void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject != null)
         {
-            canjump = false;
+            canjump -= 1f;
+            Debug.Log(canjump);
         }
     }
     private void OnCollisionStay(Collision collision)
@@ -56,7 +58,7 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     }
     public void UpdateInput()
     {
-        if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump)
+        if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump > 0)
         {
             float enfoncementValue = Vector3.Dot(bodycube.linearVelocity, -surfaceNormal); //au cas où on a envie d'avoir un rebond moins important
             if (enfoncementValue > 0)
