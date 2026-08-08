@@ -18,6 +18,7 @@ public class SpiralePoints : MonoBehaviour
     private SearchProcess searchRadiusScript;
     private bool pointObtenu = false;
     private bool estDetruit = false;
+    private bool estAttirée = false;
     #endregion
 
     private void Awake() => rb = GetComponent<Rigidbody>();
@@ -64,14 +65,20 @@ public class SpiralePoints : MonoBehaviour
         {
             Vector3 direction = playerObject.transform.position - transform.position;
             rb.linearVelocity = direction.normalized * attractionSpeed;
+            rb.useGravity = false;
         }
+        estAttirée = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Le Cube" && !pointObtenu)
+        if (collision.gameObject.GetComponent<CubeScript>() != null && !pointObtenu)
         {
             pointObtenu = true;
+        }
+        if (estAttirée && collision.gameObject.GetComponent<CubeScript>() == null)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
         }
     }
 

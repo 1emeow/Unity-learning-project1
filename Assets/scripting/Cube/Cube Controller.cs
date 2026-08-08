@@ -41,7 +41,6 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
         if (collision.gameObject != null)
         {
             canjump += 1f;
-            Debug.Log(canjump);
         }
     }
     public void OnCollisionExit(Collision collision)
@@ -49,7 +48,6 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
         if (collision.gameObject != null)
         {
             canjump -= 1f;
-            Debug.Log(canjump);
         }
     }
     private void OnCollisionStay(Collision collision)

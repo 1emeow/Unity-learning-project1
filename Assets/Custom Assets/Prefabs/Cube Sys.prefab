@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6414248505813646245}
   - component: {fileID: 6888209148331634084}
   - component: {fileID: 7370825842264811378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Le Cube
   m_TagString: LeCube
   m_Icon: {fileID: 0}
@@ -51,10 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f5b938b580c8844b665689888900f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material1: {fileID: 2100000, guid: e6977d9c25187254a904c69bf336d74a, type: 2}
-  material2: {fileID: 2100000, guid: 1fb793704a017d5418c12756cd268bb9, type: 2}
-  jumpbuffer: {fileID: 0}
-  moveSetter: {fileID: 0}
+  buffer: {fileID: 0}
   normal: {r: 1, g: 1, b: 1, a: 0}
   buff: {r: 0, g: 0, b: 0, a: 0}
   catabuff: {r: 1, g: 0.8291087, b: 0, a: 0}
@@ -216,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8920008916484264077}
   - component: {fileID: 2915031764900809558}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube Sys
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +271,7 @@ GameObject:
   - component: {fileID: 2571531391330773136}
   - component: {fileID: 2683138192425582493}
   - component: {fileID: 499064392733605326}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +397,7 @@ GameObject:
   - component: {fileID: 7222702096266522351}
   - component: {fileID: 4858310710864824685}
   - component: {fileID: 7251105942865713154}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CubeSearchRadius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
