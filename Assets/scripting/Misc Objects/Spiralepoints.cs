@@ -25,13 +25,14 @@ public class SpiralePoints : MonoBehaviour
 
     private void Start()
     {
-        // On s'enregistre auprès du radar du joueur
+      /* la prochaine fois peut-être  // On s'enregistre auprès du radar du joueur
         GameObject potentialPlayer = GameObject.Find("Le Cube");
         if (potentialPlayer != null)
         {
             searchRadiusScript = potentialPlayer.GetComponentInChildren<SearchProcess>();
             if (searchRadiusScript != null) searchRadiusScript.Ofinterestlist.Add(this.gameObject);
         }
+      */
     }
 
     private void Update()
@@ -84,7 +85,7 @@ public class SpiralePoints : MonoBehaviour
 
     private IEnumerator CollectAndDestroySequence()
     {
-        if (searchRadiusScript != null) searchRadiusScript.Ofinterestlist.Remove(this.gameObject);
+     //   if (searchRadiusScript != null) searchRadiusScript.Ofinterestlist.Remove(this.gameObject); désuet, comme la liste
 
         int finalScore = (transform.localScale != Vector3.one) ? valeurPointsBase * 2 : valeurPointsBase;
 
