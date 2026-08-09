@@ -25,6 +25,7 @@ public class SpiralePoints : MonoBehaviour
 
     private void Start()
     {
+        rb.linearDamping = 3f;
       /* la prochaine fois peut-être  // On s'enregistre auprès du radar du joueur
         GameObject potentialPlayer = GameObject.Find("Le Cube");
         if (potentialPlayer != null)
@@ -37,12 +38,12 @@ public class SpiralePoints : MonoBehaviour
 
     private void Update()
     {
-        if (pointObtenu && !estDetruit)
+       /* if (pointObtenu && !estDetruit)
         {
             estDetruit = true;
             StartCoroutine(CollectAndDestroySequence());
             return;
-        }
+        }*/
 
         // L'aspiration ne se déclenche que si playerObject a été défini par le radar
         if (playerObject != null && !pointObtenu)
@@ -69,6 +70,8 @@ public class SpiralePoints : MonoBehaviour
             rb.useGravity = false;
         }
         estAttirée = true;
+        if (rb.linearDamping != 0 && estAttirée)
+            rb.linearDamping = 0;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -76,6 +79,7 @@ public class SpiralePoints : MonoBehaviour
         if (collision.gameObject.GetComponent<CubeScript>() != null && !pointObtenu)
         {
             pointObtenu = true;
+            StartCoroutine(CollectAndDestroySequence());
         }
         if (estAttirée && collision.gameObject.GetComponent<CubeScript>() == null)
         {
