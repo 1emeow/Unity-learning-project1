@@ -17,8 +17,8 @@ public class PlayableEnvironment : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         DampableObject = other.GetComponent<Rigidbody>(); //l'objet est dans la zone de jeu
-        if (DampableObject != null && DampableObject.linearDamping > 0)
-            DampableObject.linearDamping -= Mathf.Max(0f, DampableObject.linearDamping - 1f); //un clamp pour ne pas avoir d'amortissement négatif
+        if (DampableObject != null)
+            DampableObject.linearDamping -= 1f; //un clamp pour ne pas avoir d'amortissement négatif
     }
     void OnTriggerExit(Collider other)
     {

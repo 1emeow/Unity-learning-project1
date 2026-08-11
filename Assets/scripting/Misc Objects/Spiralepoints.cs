@@ -19,6 +19,8 @@ public class SpiralePoints : MonoBehaviour
     private bool pointObtenu = false;
     private bool estDetruit = false;
     private bool estAttirée = false;
+    private bool nebougeplus = false;
+    private CubeController _cubeController;
     #endregion
 
     private void Awake() => rb = GetComponent<Rigidbody>();
@@ -67,24 +69,32 @@ public class SpiralePoints : MonoBehaviour
         {
             Vector3 direction = playerObject.transform.position - transform.position;
             rb.linearVelocity = direction.normalized * attractionSpeed;
-            rb.useGravity = false;
         }
-        estAttirée = true;
-        if (rb.linearDamping != 0 && estAttirée)
+        if (!estAttirée)
+        {
+            estAttirée = true;
             rb.linearDamping = 0;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<CubeScript>() != null && !pointObtenu)
         {
+            _cubeController = collision.gameObject.GetComponent<CubeController>();
+            _cubeController.canjump -= 1f;
             pointObtenu = true;
             StartCoroutine(CollectAndDestroySequence());
         }
-        if (estAttirée && collision.gameObject.GetComponent<CubeScript>() == null)
+        if (collision.gameObject.layer == 8 && !nebougeplus)
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
+            rb.useGravity = false;
+            nebougeplus = true;
         }
+        if (collision.gameObject.GetComponent<CubeScript>() == null && !estAttirée)
+            rb.linearVelocity = Vector3.zero;
+        else if (estAttirée)
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
     }
 
     private IEnumerator CollectAndDestroySequence()
