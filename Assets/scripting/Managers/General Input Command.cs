@@ -7,6 +7,8 @@ public class General_Input_Command : MonoBehaviour
     public UnityEvent PausedStatusChanged = new (); //on fait un évènement public auquel vont s'inscrire les autres scripts
     [HideInInspector]
     public UnityEvent RestartGame = new();
+    [SerializeField]
+    private CameraManager _cameraManager;
     public Vector2 mouseDelta;
     public bool commandSystemEnabler;
     public InputActionReference lookAction;
@@ -15,7 +17,10 @@ public class General_Input_Command : MonoBehaviour
     public InputActionReference clickAction;
     public InputActionReference newCubeAction;
     public InputActionReference restartGameAction;
+    public InputActionReference rotateCameraAction;
+    public InputActionReference recenterCameraAction;
     public CubeSys CubeSys;
+    private bool cameraRotating;
     private CubeSys activeCube; 
     private CanMove Mover;
     private Launcher Launcher;
@@ -29,6 +34,12 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.Enable();
         clickAction.action.performed += OnAttack;
         clickAction.action.canceled += OnAttack;
+        rotateCameraAction.action.Enable();
+        rotateCameraAction.action.performed += OnRotateCam;
+        rotateCameraAction.action.canceled += OnRotateCam;
+        recenterCameraAction.action.Enable();
+        recenterCameraAction.action.performed += OnRecenterCam;
+        recenterCameraAction.action.canceled += OnRecenterCam;
         menuAction.action.Enable();
         menuAction.action.performed += OnPause;
         newCubeAction.action.Enable();
@@ -45,6 +56,12 @@ public class General_Input_Command : MonoBehaviour
         clickAction.action.performed -= OnAttack;
         clickAction.action.canceled -= OnAttack;
         clickAction.action.Disable();
+        recenterCameraAction.action.performed -= OnRecenterCam;
+        recenterCameraAction.action.canceled -= OnRecenterCam;
+        recenterCameraAction.action.Disable();
+        rotateCameraAction.action.performed -= OnRotateCam;
+        rotateCameraAction.action.canceled -= OnRotateCam;
+        rotateCameraAction.action.Disable();
         menuAction.action.performed -= OnPause;
         menuAction.action.Disable();
         newCubeAction.action.Disable();
@@ -105,6 +122,29 @@ public class General_Input_Command : MonoBehaviour
             }
         }
     }
+    private void OnRotateCam(InputAction.CallbackContext ctx)
+    {
+        // Debug.Log(ctx.phase);
+        if (StartGame)
+        {
+            if (ctx.performed)
+            {
+                cameraRotating = true;
+            }
+
+            if (ctx.canceled)
+            {
+                cameraRotating = false;
+                if (_cameraManager != null)
+                _cameraManager.ReceiveLookInput(Vector2.zero);
+            }
+        }
+    }
+    private void OnRecenterCam(InputAction.CallbackContext ctx)
+    {
+     //   _cameraManager.ResetCamera();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -114,8 +154,13 @@ public class General_Input_Command : MonoBehaviour
     {
         if (StartGame)  //si le jeu n'est pas en pause
         {
-            if (LaCatapult != null)
-                LaCatapult.ReceiveLookInput(mouseDelta);
+            if (cameraRotating && _cameraManager != null)
+                _cameraManager.ReceiveLookInput(mouseDelta);
+            else
+            {
+             if (LaCatapult != null)
+             LaCatapult.ReceiveLookInput(mouseDelta);
+            }
             if (Mover != null)
                 Mover.UpdateInput();
             if (Launcher != null)

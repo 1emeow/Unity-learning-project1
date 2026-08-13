@@ -13,6 +13,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     public bool Detached;
     public bool Caught;
     public bool Dormant;
+    public bool pickupable { get; set; }
     private Collider CubeSysCollider;
     private Transform CubeChild;
     public CatapultController _playerCatapult;
@@ -23,6 +24,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
+        pickupable = false;
         CubeSysCollider = this.GetComponentInChildren<Collider>();
         CubeSysCollider.enabled = false; //important parce que unity gère difficilement les rapports de masse, un objet non massique fera toujours bouger l'objet qu'il touche et ce quelque soit la masse
     }
@@ -31,7 +33,6 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
         yield return new WaitForSeconds(0.2f);
         CubeSysCollider.enabled = true;
     }
-
     void Start()
     {
         CubeBody = GetComponentInChildren<Rigidbody>();

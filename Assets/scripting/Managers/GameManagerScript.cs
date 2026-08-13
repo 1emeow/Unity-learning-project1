@@ -10,6 +10,8 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     private CameraManager CameraManager;
     [SerializeField]
+    private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
+    [SerializeField]
     private GameObject Catapult;
     private Transform Spawner;
     public float MaxCubes = 2f;
@@ -64,7 +66,12 @@ private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est 
     {
         Debug.Log("The maximum amount of cubes has been reached");
     }
-}
+        if (cubesys.Released && !cubesys.Dormant)
+        {
+            _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
+            _cubesRemainingTextDisplay.RefreshDisplay();
+        }
+    }
 private void PausedStatusChanged() //déclenche la pause
 {
     Paused = !Paused;
@@ -94,4 +101,12 @@ private IEnumerator StartGame()
     Time.timeScale = 1f;
     InputCommandScript.StartGame = true;
 }
+    public void GetANewCube(GameObject picked)
+    {
+        Destroy(picked);
+        CubesTable.Remove(picked);
+        _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
+        _cubesRemainingTextDisplay.RefreshDisplay();
+        SpawnFunction();
+    }
 }

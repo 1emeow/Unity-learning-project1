@@ -6,9 +6,13 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     public CinemachineBrain BrainCam; //on utilise le système brainmachine parce que c'est une fonction fournie par la compagnie qui permet d'avoir des caméras qui traquent sans codage complexe
     private Camera BaseCam;
+    private float yaw;
+    private float pitch;
     public CinemachineCamera CubeCamera;
     public CubeSys CubeSys;
     public CinemachineCamera OtherCamera;
+    [SerializeField] private float sensitivity = 1f; //sensibilité de la souris pour la rotation de la caméra
+    private CinemachineOrbitalFollow orbitalFollow; //la cinemachine cam est mise en mode Orbital Follow pour orbiter autour de l'objet en question
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -27,6 +31,13 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
     }
+    public void ReceiveLookInput(Vector2 lookDelta)
+    {
+        if (orbitalFollow != null)
+        {
+            orbitalFollow.HorizontalAxis.Value += lookDelta.x * sensitivity;
+        }
+    }
     public void UpdateCubeState(CubeSys cubesys) //au changement d'état du cube, on change de caméra
     {
         if (!cubesys.Dormant) 
@@ -40,6 +51,7 @@ public class CameraManager : MonoBehaviour
                     OtherCamera = cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>();
                     CubeCamera.Priority = 0;
                     OtherCamera.Priority = 100;
+                    orbitalFollow = OtherCamera.GetComponent<CinemachineOrbitalFollow>();
                 }
             else if (cubesys.transform.parent == null)
             {
@@ -48,6 +60,9 @@ public class CameraManager : MonoBehaviour
                     OtherCamera.Priority = 0;
                     OtherCamera = null;
                     CubeCamera.Priority = 100;
+                    Debug.Log("iehafoefih");
+                    orbitalFollow = CubeCamera.GetComponent<CinemachineOrbitalFollow>();
+                    Debug.Log(orbitalFollow);
                 }
             }
         }
@@ -57,6 +72,7 @@ public class CameraManager : MonoBehaviour
             {
                 CubeCamera.Priority = 0;
                 CubeCamera = null;
+                orbitalFollow = null;
             }
             BrainCam.enabled = false;
         }
