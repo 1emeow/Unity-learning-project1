@@ -60,9 +60,7 @@ public class CameraManager : MonoBehaviour
                     OtherCamera.Priority = 0;
                     OtherCamera = null;
                     CubeCamera.Priority = 100;
-                    Debug.Log("iehafoefih");
                     orbitalFollow = CubeCamera.GetComponent<CinemachineOrbitalFollow>();
-                    Debug.Log(orbitalFollow);
                 }
             }
         }
