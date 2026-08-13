@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 4567757088845884510}
   - component: {fileID: 2571531391330773136}
   - component: {fileID: 7331326992441230370}
-  - component: {fileID: 5281182157552206181}
+  - component: {fileID: 2832654714147896022}
   m_Layer: 3
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -399,7 +399,7 @@ MonoBehaviour:
       Wait: 1
       Time: 2
     Restrictions: 0
---- !u!114 &5281182157552206181
+--- !u!114 &2832654714147896022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
