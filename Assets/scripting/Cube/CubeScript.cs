@@ -17,7 +17,7 @@ public class CubeScript : MonoBehaviour
     {
     }
     void Update()
-    {  
+    {
     }
     public IEnumerator Coroutineofcollisionbuffer() //ce qu'il se passe lorsqu'on rencontre un buff
     {
