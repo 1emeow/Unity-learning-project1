@@ -47,19 +47,19 @@ public class Lumimoonboinger : MonoBehaviour
             if (collision.GetComponent<Rigidbody>() != null)
             {
                 bouncingrigid = collision.GetComponent<Rigidbody>();
-                BouncyFunction();
+                StartCoroutine(BouncyRoutine());
                 BouncyRoutineHasStarted = true;
             }
         }
     }
-    private void BouncyFunction()
+    private IEnumerator BouncyRoutine()
     {
         Vector3 bouncingrigidVelocity = bouncingrigid.linearVelocity;
         Vector3 surfaceNormal = (bouncingrigid.position - boneparent.position).normalized;
-        Vector3 bouncingTrajectory = bouncingrigid.linearVelocity.normalized; //normalized donne un vecteur de longueur 1, ce qui permet de faire une direction et avoir une vitesse
         Vector3 bouncingVelocity = Vector3.Reflect(bouncingrigidVelocity, surfaceNormal);
         boneparent.linearVelocity = bouncingrigid.linearVelocity;
-        bouncingrigid.linearVelocity = bouncingVelocity;
+        yield return new WaitForSeconds(0.2f);
+        bouncingrigid.linearVelocity += bouncingVelocity * 2f;
         bouncingtime = true;
         BouncyRoutineHasStarted = false;
     }
