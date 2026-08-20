@@ -6,7 +6,19 @@ public class PlayableEnvironment : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Collider r = GetComponent<Collider>();
+
+        if (r != null)
+        {
+            Debug.Log($"Size: {r.bounds.size} meters");
+            Debug.Log(r.gameObject.name);
+        }
+        Renderer s = GetComponentInParent<Renderer>();
+
+        if (s != null)
+        {
+            Debug.Log($"Size of surface: {s.bounds.size} meters");
+        }
     }
 
     // Update is called once per frame

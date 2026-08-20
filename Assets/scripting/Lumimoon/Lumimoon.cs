@@ -44,14 +44,12 @@ public class Lumimoon: MonoBehaviour
     [SerializeField]
     private Light _light;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
        _meshRenderer = _blobObject.GetComponent<SkinnedMeshRenderer>();
         _currentlumimoonState = _lumimoonState;
         Physics.IgnoreLayerCollision(7, 7, true);
         ChangeState();
-
     }
     void ChangeState()
     {
@@ -62,7 +60,6 @@ public class Lumimoon: MonoBehaviour
             _meshRenderer.material.color = neutralcolour;
                 _meshRenderer.material.SetColor("_EmissionColor", neutralcolourE);
                 _light.color = neutralcolourL;
-
                 break; //on a trouvé l'état neutral
              }
         case LumimoonState.cool:
@@ -90,11 +87,6 @@ public class Lumimoon: MonoBehaviour
             }
         }
         _currentlumimoonState = _lumimoonState;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
     void OnTriggerEnter(Collider other)
     {

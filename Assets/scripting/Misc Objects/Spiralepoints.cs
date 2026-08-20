@@ -17,7 +17,7 @@ public class SpiralePoints : MonoBehaviour
     private GameObject playerObject; // Assigné par le SearchProcess
     private SearchProcess searchRadiusScript;
     private bool pointObtenu = false;
-    private bool estDetruit = false;
+   // private bool estDetruit = false;
     private bool estAttirée = false;
     private bool nebougeplus = false;
     private CubeController _cubeController;
