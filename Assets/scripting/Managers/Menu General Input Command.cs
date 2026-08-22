@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
-public class General_Input_Command : MonoBehaviour
+public class Menu_General_Input_Command : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent PausedStatusChanged = new (); //on fait un évènement public auquel vont s'inscrire les autres scripts
+    public UnityEvent PausedStatusChanged = new(); //on fait un évènement public auquel vont s'inscrire les autres scripts
     [HideInInspector]
     public UnityEvent RestartGame = new();
     [SerializeField]
@@ -21,8 +21,9 @@ public class General_Input_Command : MonoBehaviour
     public InputActionReference recenterCameraAction;
     public CubeSys CubeSys;
     private bool cameraRotating;
-    private CubeSys activeCube; 
+    private CubeSys activeCube;
     private CanMove Mover;
+    public bool istestingsensitivity;
     private Launcher Launcher;
     public bool StartGame;
 
@@ -79,14 +80,13 @@ public class General_Input_Command : MonoBehaviour
         {
             Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
             Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>(); //l'élément du lanceur sujet à la souris
-            Debug.Log(LaCatapult);
         }
         else
         {
             Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
             Launcher = null;
             if (!cubesys.Dormant)
-            LaCatapult = null;
+                LaCatapult = null;
         }
         activeCube = cubesys;
     }
@@ -111,7 +111,6 @@ public class General_Input_Command : MonoBehaviour
     }
     private void OnAttack(InputAction.CallbackContext ctx)
     {
-        // Debug.Log(ctx.phase);
         if (StartGame)
         {
             if (ctx.performed && Launcher != null)
@@ -127,7 +126,6 @@ public class General_Input_Command : MonoBehaviour
     }
     private void OnRotateCam(InputAction.CallbackContext ctx)
     {
-        // Debug.Log(ctx.phase);
         if (StartGame)
         {
             if (ctx.performed)
@@ -139,13 +137,13 @@ public class General_Input_Command : MonoBehaviour
             {
                 cameraRotating = false;
                 if (_cameraManager != null)
-                _cameraManager.ReceiveLookInput(Vector2.zero);
+                    _cameraManager.ReceiveLookInput(Vector2.zero);
             }
         }
     }
     private void OnRecenterCam(InputAction.CallbackContext ctx)
     {
-     //   _cameraManager.ResetCamera();
+        //   _cameraManager.ResetCamera();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -155,14 +153,14 @@ public class General_Input_Command : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (StartGame)  //si le jeu n'est pas en pause
+        if (StartGame && istestingsensitivity)  //si le jeu n'est pas en pause
         {
             if (cameraRotating && _cameraManager != null)
                 _cameraManager.ReceiveLookInput(mouseDelta);
             else
             {
-             if (LaCatapult != null)
-             LaCatapult.ReceiveLookInput(mouseDelta);
+                if (LaCatapult != null)
+                    LaCatapult.ReceiveLookInput(mouseDelta);
             }
             if (Mover != null)
                 Mover.UpdateInput();

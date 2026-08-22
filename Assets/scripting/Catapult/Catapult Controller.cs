@@ -73,9 +73,6 @@ public class CatapultController : MonoBehaviour, CanMove
     {
         yaw = baseYaw.localRotation.z;
         pitch = barrelPitch.localRotation.x;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
     private void Update()
     {

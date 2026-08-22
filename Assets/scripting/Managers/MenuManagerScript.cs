@@ -3,18 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-public class GameManagerScript : MonoBehaviour
+public class MenuManagerScript : MonoBehaviour
 {
     [SerializeField] //fait apparaitre l'élément dans l'inspecteur un élément normalement discret, il n'apparait pas pour les autres scripts
-    private General_Input_Command InputCommandScript;
+    private Menu_General_Input_Command InputCommandScript;
     [SerializeField]
-    private CameraManager CameraManager;
-    [SerializeField]
-    private Canvas _canvas;
-    [SerializeField]
-    private Canvas _canvasMenu;
-    [SerializeField]
-    private MenuScript _menuScript;
+    private MenuCameraManager CameraManager;
     [SerializeField]
     private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
     [SerializeField]
@@ -28,7 +22,10 @@ public class GameManagerScript : MonoBehaviour
     public bool Paused;
     public float RestartTimer = 1f;
     private float firststart = 1f;
-
+    [SerializeField]
+    private Canvas _canvasMenu;
+    [SerializeField]
+    private Canvas _levelsMenu;
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
     public bool WasMoveSetterReached; //idem pour le mouvement
 
@@ -53,76 +50,81 @@ public class GameManagerScript : MonoBehaviour
         {
             cubeScript._playerCatapult = cubeScript.transform.root.GetComponent<CatapultController>();
             InputCommandScript.LaCatapult = cubeScript._playerCatapult;
-            Debug.Log(InputCommandScript.LaCatapult);
-            cubeScript.UpdateCubeState.AddListener(UpdateCubeState); //indique au game manager de s'inscrire à l'évènement de l'input command manager
-            CameraManager.CubeListening(cubeScript); //déclenche la fonction du cameramanger qui permet de s'inscrire à l'évènement du script du cube, on le fait ici parce que le cube est généré ici
             InputCommandScript.CubeListening(cubeScript);
         }
     }
-// Start is called once before the first execution of Update after the MonoBehaviour is created
-void Start()
+    public void LoadGame()
+    {
+        StartCoroutine(LoadGameRoutine());
+    }
+    public IEnumerator LoadGameRoutine()
+    {
+        CameraManager.Isloading = true;
+        yield return new WaitForSeconds(0.1f);
+        _levelsMenu.enabled = false;
+        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+            SceneManager.LoadScene("Level One");
+        CameraManager.CurrentCamera = CameraManager.SecondCam;
+    }
+    public void NewGameMenu()
+    {
+        StartCoroutine(NewGameMenuRoutine());
+    }
+    public IEnumerator NewGameMenuRoutine()
+    {
+        CameraManager.CurrentCamera = CameraManager.OtherCamera;
+        yield return new WaitForSeconds(0.1f);
+        _canvasMenu.enabled = false;
+        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        _levelsMenu.enabled = true;
+    }
+    public void MainMenu()
+    {
+        StartCoroutine(MainMenuRoutine());
+    }
+    public IEnumerator MainMenuRoutine()
+    {
+        CameraManager.CurrentCamera = CameraManager.FirstCam;
+        yield return new WaitForSeconds(0.1f);
+        _levelsMenu.enabled = false;
+        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        _canvasMenu.enabled = true;
+    }
+    public void QuitGame()
+    {
+        StartCoroutine(QuitGameRoutine());
+    }
+    public IEnumerator QuitGameRoutine()
+    {
+        CameraManager.CurrentCamera = CameraManager.SecondCam;
+        yield return new WaitForSeconds(0.1f);
+        _canvasMenu.enabled = false;
+        _levelsMenu.enabled = false;
+        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        Application.Quit();
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
 {
         StartCoroutine(StartGame());
 }
-private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
+private void PausedStatusChanged() //déclenche la pause
 {
-    if (cubesys.Dormant && CubesTable.Count < MaxCubes)
-    {
-        SpawnFunction();
-    }
-    else if (cubesys.Dormant && CubesTable.Count >= MaxCubes)
-    {
-        Debug.Log("The maximum amount of cubes has been reached");
-    }
-        if (cubesys.Released && !cubesys.Dormant)
-        {
-            _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
-            _cubesRemainingTextDisplay.RefreshDisplay();
-        }
-    }
-public void PausedStatusChanged() //déclenche la pause
-{
-    Paused = !Paused;
-    if (Paused)
-    {
-        InputCommandScript.StartGame = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            _canvas.enabled = false;
-            _canvasMenu.enabled = true;
-            Time.timeScale = 0f; //empêche le temps du jeu de s'écouler
-    }
-    else
-    {
-        StartCoroutine(StartGame()); //arrête la pause
-    }
 }
-    private void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+private void RestartGame()
+{
+ SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+}
 // Update is called once per frame
 void Update()
 {
 }
-private IEnumerator StartGame()
+    private IEnumerator StartGame()
 {
-    _canvas.enabled = true;
-    _canvasMenu.enabled = false;
-    Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
     yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
     firststart = 0;
     yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
     Time.timeScale = 1f;
     InputCommandScript.StartGame = true;
 }
-    public void GetANewCube(GameObject picked)
-    {
-        Destroy(picked);
-        CubesTable.Remove(picked);
-        _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
-        _cubesRemainingTextDisplay.RefreshDisplay();
-        SpawnFunction();
-    }
 }
