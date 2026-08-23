@@ -23,14 +23,15 @@ public class MenuManagerScript : MonoBehaviour
     public float RestartTimer = 1f;
     private float firststart = 1f;
     [SerializeField]
-    private Canvas _canvasMenu;
+    private Canvas _currentMenu;
     [SerializeField]
-    private Canvas _levelsMenu;
+    private Canvas _previousMenu;
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
     public bool WasMoveSetterReached; //idem pour le mouvement
 
     void Awake()
     {
+        _currentMenu = GameObject.Find("Canvas Menu").GetComponent<Canvas>();
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
         InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
@@ -53,6 +54,18 @@ public class MenuManagerScript : MonoBehaviour
             InputCommandScript.CubeListening(cubeScript);
         }
     }
+    public void LoadGameMenu()
+    {
+        StartCoroutine(LoadGameMenuRoutine());
+    }
+    public IEnumerator LoadGameMenuRoutine()
+    {
+        CameraManager.CurrentCamera = CameraManager.LoadCamera;
+        yield return new WaitForSeconds(0.1f);
+        _currentMenu = null;
+        yield return new WaitForSeconds(1f);
+        _currentMenu = GameObject.Find("Load Game Menu").GetComponent<Canvas>();
+    }
     public void LoadGame()
     {
         StartCoroutine(LoadGameRoutine());
@@ -61,9 +74,9 @@ public class MenuManagerScript : MonoBehaviour
     {
         CameraManager.Isloading = true;
         yield return new WaitForSeconds(0.1f);
-        _levelsMenu.enabled = false;
-        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
-            SceneManager.LoadScene("Level One");
+        _currentMenu = null;
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Level One");
         CameraManager.CurrentCamera = CameraManager.SecondCam;
     }
     public void NewGameMenu()
@@ -74,9 +87,21 @@ public class MenuManagerScript : MonoBehaviour
     {
         CameraManager.CurrentCamera = CameraManager.OtherCamera;
         yield return new WaitForSeconds(0.1f);
-        _canvasMenu.enabled = false;
-        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
-        _levelsMenu.enabled = true;
+        _currentMenu = null;
+        yield return new WaitForSeconds(1f); 
+        _currentMenu = GameObject.Find("Levels Menu").GetComponent<Canvas>();
+    }
+    public void OptionsMenu()
+    {
+        StartCoroutine(OptionsMenuRoutine());
+    }
+    public IEnumerator OptionsMenuRoutine()
+    {
+        CameraManager.CurrentCamera = CameraManager.OptionsCamera;
+        yield return new WaitForSeconds(0.1f);
+        _currentMenu = null;
+        yield return new WaitForSeconds(1f); 
+        _currentMenu = GameObject.Find("Options Menu").GetComponent<Canvas>();
     }
     public void MainMenu()
     {
@@ -86,9 +111,9 @@ public class MenuManagerScript : MonoBehaviour
     {
         CameraManager.CurrentCamera = CameraManager.FirstCam;
         yield return new WaitForSeconds(0.1f);
-        _levelsMenu.enabled = false;
-        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
-        _canvasMenu.enabled = true;
+        _currentMenu = null;
+        yield return new WaitForSeconds(1f); 
+        _currentMenu = GameObject.Find("Canvas Menu").GetComponent<Canvas>();
     }
     public void QuitGame()
     {
@@ -98,9 +123,8 @@ public class MenuManagerScript : MonoBehaviour
     {
         CameraManager.CurrentCamera = CameraManager.SecondCam;
         yield return new WaitForSeconds(0.1f);
-        _canvasMenu.enabled = false;
-        _levelsMenu.enabled = false;
-        yield return new WaitForSeconds(1f); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        _currentMenu = null;
+        yield return new WaitForSeconds(1.5f); 
         Application.Quit();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -118,7 +142,15 @@ private void RestartGame()
 // Update is called once per frame
 void Update()
 {
-}
+        if (_previousMenu != _currentMenu)
+        {
+            if (_previousMenu != null)
+            _previousMenu.enabled = false;
+            if (_currentMenu != null)
+            _currentMenu.enabled = true;
+            _previousMenu = _currentMenu;
+        }
+    }
     private IEnumerator StartGame()
 {
     yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout

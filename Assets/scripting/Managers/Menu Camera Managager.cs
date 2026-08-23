@@ -16,6 +16,8 @@ public class MenuCameraManager : MonoBehaviour
     public CinemachineCamera LastCam;
     public CinemachineCamera PreviousCamera;
     public CinemachineCamera CurrentCamera;
+    public CinemachineCamera LoadCamera;
+    public CinemachineCamera OptionsCamera;
     public CubeSys CubeSys;
     public bool Isloading;
     public CinemachineCamera OtherCamera;

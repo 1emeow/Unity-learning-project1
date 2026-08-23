@@ -111,7 +111,7 @@ private IEnumerator StartGame()
     _canvasMenu.enabled = false;
     Cursor.lockState = CursorLockMode.Locked;
     Cursor.visible = false;
-    yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+    yield return new WaitForSeconds(firststart); //très important au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
     firststart = 0;
     yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
     Time.timeScale = 1f;
