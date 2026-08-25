@@ -101,10 +101,6 @@ public void PausedStatusChanged() //déclenche la pause
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-// Update is called once per frame
-void Update()
-{
-}
 private IEnumerator StartGame()
 {
     _canvas.enabled = true;

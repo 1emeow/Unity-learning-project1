@@ -9,12 +9,6 @@ public class CatapiltSearchRadius : MonoBehaviour
     {
         _gameManager = GameObject.Find("Game Manager").GetComponent<GameManagerScript>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();

@@ -23,14 +23,6 @@ public class CameraManager : MonoBehaviour
     {
         cubesys.UpdateCubeState.AddListener(UpdateCubeState);
     }
-    void Start()
-    {
-
-    }
-    // Update is called once per frame
-    void Update()
-    {
-    }
     public void ReceiveLookInput(Vector2 lookDelta)
     {
         if (orbitalFollow != null)

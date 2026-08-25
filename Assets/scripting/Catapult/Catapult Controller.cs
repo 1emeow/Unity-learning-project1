@@ -74,7 +74,4 @@ public class CatapultController : MonoBehaviour, CanMove
         yaw = baseYaw.localRotation.z;
         pitch = barrelPitch.localRotation.x;
     }
-    private void Update()
-    {
-    }
 }

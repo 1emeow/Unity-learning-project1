@@ -71,10 +71,4 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     {
         bodycube = this.GetComponent<Rigidbody>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

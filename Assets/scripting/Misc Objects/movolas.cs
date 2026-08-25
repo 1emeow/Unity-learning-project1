@@ -7,10 +7,7 @@ public class Movolas : MonoBehaviour, IsACataBuffer
     public GameManagerScript _gameManagerScript;
     [SerializeField]
     private CatapultController _catapultController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (Touche == false)
@@ -26,10 +23,5 @@ public class Movolas : MonoBehaviour, IsACataBuffer
                 Touche = true;
             }
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

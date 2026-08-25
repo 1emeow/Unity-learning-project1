@@ -13,12 +13,6 @@ public class CubeScript : MonoBehaviour
     [SerializeField]
     private bool cansling;
 
-    void Start()
-    {
-    }
-    void Update()
-    {
-    }
     public IEnumerator Coroutineofcollisionbuffer() //ce qu'il se passe lorsqu'on rencontre un buff
     {
        yield return null;

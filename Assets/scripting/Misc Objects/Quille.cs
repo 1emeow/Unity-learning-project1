@@ -79,11 +79,12 @@ public class Quille : MonoBehaviour
         PhysicsSys.ClampVelocity(rb, maxVelocity);
         PhysicsSys.ClampAngularVelocity(rb, maxAngularVelocity);
 
-        // --- LÉVITATION ---
+    /*    // --- LÉVITATION ---
         if (!hasFallen)
         {
             PhysicsSys.HoverAtHeight(rb, targetHeight, hoverForce, damping);
         }
+    */
     }
     #endregion
 
