@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a2e824a03f79f24eae55abf977ee2f2
+guid: 3832d55cc774c7c46b5aad07d30f3142
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: quittexure
-    second: {fileID: 2100000, guid: 5f2cb28b7738d6447addb136c8997014, type: 2}
+    second: {fileID: 2100000, guid: 4dfb853c7d5d4f946bd614f27c80279c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
