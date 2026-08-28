@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 
-public class MagneflowBehavior : MonoBehaviour
+public class MagneflowStateMachine : MonoBehaviour
 {
     public enum Status
     {
