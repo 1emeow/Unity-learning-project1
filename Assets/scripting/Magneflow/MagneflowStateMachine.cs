@@ -16,8 +16,7 @@ public class MagneflowStateMachine : MonoBehaviour
     }
     [SerializeField]
     private Animator _magneflowAnimator;
-    [SerializeField]
-    private Status _currentStatus;
+    public Status _currentStatus;
     [SerializeField]
     private GameObject _attractionSphere;
     [SerializeField]
@@ -30,6 +29,11 @@ public class MagneflowStateMachine : MonoBehaviour
     }
 
     // Update is called once per frame
+    public void ChangeStatus(Status newStatus)
+    {
+        _currentStatus = newStatus;
+        StatusChange();
+    }
     void FixedUpdate()
     {
         if (_currentStatus != _previousStatus)
@@ -50,7 +54,7 @@ public class MagneflowStateMachine : MonoBehaviour
         _repulsionSphere.SetActive(false);
 
     }
-    void StatusChange()
+   public void StatusChange()
     {
         ResetAnimatorBoolsAndFields(); //on le fait en tout premier pour ne pas qu'il y ait de cumul de commandes
         switch (_currentStatus)

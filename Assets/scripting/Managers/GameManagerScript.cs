@@ -26,7 +26,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     private GameObject CubesysObject;
     public bool Paused;
-    public float RestartTimer = 1f;
+    public float RestartTimer = 0.3f;
     private float firststart = 1f;
 
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut

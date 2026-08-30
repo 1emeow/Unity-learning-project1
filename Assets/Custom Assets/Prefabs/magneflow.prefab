@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 1256558562579428630}
   - component: {fileID: 8852658767216890758}
   - component: {fileID: 3166892339681939670}
-  - component: {fileID: 4209797601983018682}
+  - component: {fileID: 3530440503182461412}
   m_Layer: 0
   m_Name: Attraction_Sphere
   m_TagString: Untagged
@@ -767,33 +767,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4209797601983018682
-Rigidbody:
+--- !u!114 &3530440503182461412
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297135621616211613}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbd6623a5d95b3149b4637183a62f002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mangeflow: {fileID: 1681524525923634544}
 --- !u!1 &1357888347289052936
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,12 +4054,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d1e99706f92814bae280c3f6ae9ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _magneflowStateMachine: {fileID: 3481098468633612309}
   _repulsionSphere: {fileID: 8373702982673995180}
   _attractionSphere: {fileID: 1297135621616211613}
   _interactiveSphereCollider: {fileID: 7564549926109603421}
   _interactiveSphereRadius: 2.7
   _magneticAttractionForce: 95
   _magneticRepulsionForce: 95
+  _interactiveDamping: 0
   _interactiveObject: {fileID: 0}
 --- !u!54 &8550115327136899068
 Rigidbody:
@@ -5373,7 +5361,6 @@ GameObject:
   - component: {fileID: 1278851224525548936}
   - component: {fileID: 6986027075539040219}
   - component: {fileID: 9094268507236147237}
-  - component: {fileID: 8661948223101163605}
   m_Layer: 0
   m_Name: Repulsion_Sphere
   m_TagString: Untagged
@@ -5426,33 +5413,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.50000024
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8661948223101163605
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8373702982673995180}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &8390788628507205561
 GameObject:
   m_ObjectHideFlags: 0
