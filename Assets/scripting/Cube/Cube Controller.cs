@@ -56,7 +56,7 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     }
     public void UpdateInput()
     {
-        if (_cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump > 0)
+        if (_cubeInput !=null && _cubeInput.currentActionMap.FindAction("saut").WasPressedThisFrame() && hasreceivedjumpbuff && canjump > 0)
         {
             float enfoncementValue = Vector3.Dot(bodycube.linearVelocity, -surfaceNormal); //au cas où on a envie d'avoir un rebond moins important
             if (enfoncementValue > 0)

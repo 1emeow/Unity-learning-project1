@@ -75,9 +75,7 @@ public class MangeflowBehavior : MonoBehaviour
         yield return null;
         _magneflowStateMachine.ChangeStatus(MagneflowStateMachine.Status.dying); //parce que 'Status': cannot reference a type through an expression; try 'MagneflowStateMachine.Status' instead, ce qu'a dit Unity
         _magneflowStateMachine.StatusChange();
-        Debug.Log("ouioui");
         yield return new WaitForSeconds(1f);
-        Debug.Log("y a eu le temps");
         Destroy(this.gameObject);
     }
 }

@@ -19,8 +19,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     public CatapultController _playerCatapult;
     private Rigidbody CubeBody;
     private bool HasEneteredDormance;
-    [SerializeField]
-    private General_Input_Command GeneralInputCommand;
+    public bool Iamdead;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -38,6 +37,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
         CubeBody = GetComponentInChildren<Rigidbody>();
         CubeChild = GetComponentInChildren<Rigidbody>().transform;
         IsPickedUp(); //normalement le cube naît attaché à la catapulte, il va donc agir en conséquence
+        UpdateCubeState.Invoke(this);
     }
     void Update()
     {
@@ -80,5 +80,11 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
             UpdateCubeState.Invoke(this);
             Caught = false;
         }
+    }
+    void OnDestroy()
+    {
+        Iamdead = true;
+        Dormant = true;
+        UpdateCubeState.Invoke(this);
     }
 }

@@ -28,7 +28,6 @@ public class GameManagerScript : MonoBehaviour
     public bool Paused;
     public float RestartTimer = 0.3f;
     private float firststart = 1f;
-
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
     public bool WasMoveSetterReached; //idem pour le mouvement
 
@@ -48,6 +47,7 @@ public class GameManagerScript : MonoBehaviour
         _cubeInstance.GetComponentInChildren<CubeController>().hasreceivedjumpbuff = WasJumpBufferReached;
         _cubeInstance.transform.SetParent(Spawner.parent.GetComponentInChildren<Launcher>().transform, true);
         _cubeInstance.transform.localScale = Vector3.one * 0.01f;
+        //InputCommandScript.LaCatapult = Catapult.GetComponent<CatapultController>();
         CubesTable.Add(_cubeInstance);
         if (cubeScript != null)
         {
@@ -66,11 +66,11 @@ void Start()
 }
 private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
 {
-    if (cubesys.Dormant && CubesTable.Count < MaxCubes)
+    if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
     {
         SpawnFunction();
     }
-    else if (cubesys.Dormant && CubesTable.Count >= MaxCubes)
+    else if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count >= MaxCubes)
     {
         Debug.Log("The maximum amount of cubes has been reached");
     }
@@ -119,6 +119,5 @@ private IEnumerator StartGame()
         CubesTable.Remove(picked);
         _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
         _cubesRemainingTextDisplay.RefreshDisplay();
-        SpawnFunction();
     }
 }

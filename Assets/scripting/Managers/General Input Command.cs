@@ -21,8 +21,9 @@ public class General_Input_Command : MonoBehaviour
     public InputActionReference recenterCameraAction;
     public CubeSys CubeSys;
     private bool cameraRotating;
-    private CubeSys activeCube; 
-    private CanMove Mover;
+    private CubeSys activeCube;
+    [HideInInspector]
+    public CanMove Mover;
     private Launcher Launcher;
     public bool StartGame;
 
