@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e9ebc77f8f08c54d9f4829cfed93425
+guid: 5aa2e141bbf373c45a5970a3b850ec55
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: beamaterial
+    second: {fileID: 2100000, guid: aa1bd876481a22043b6513cd45c4378b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: light
+    second: {fileID: 2100000, guid: dd760e5e11ea7fb469f36d7d43efc48e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: wallfirst
-    second: {fileID: 2100000, guid: ea45288d903beec40a2278edd34dd542, type: 2}
+    second: {fileID: 2100000, guid: 5a6d6289d762b1048aedbd0c6cc80039, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,7 +112,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
