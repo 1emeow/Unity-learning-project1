@@ -53,7 +53,6 @@ public class GameManagerScript : MonoBehaviour
         {
             cubeScript._playerCatapult = cubeScript.transform.root.GetComponent<CatapultController>();
             InputCommandScript.LaCatapult = cubeScript._playerCatapult;
-            Debug.Log(InputCommandScript.LaCatapult);
             cubeScript.UpdateCubeState.AddListener(UpdateCubeState); //indique au game manager de s'inscrire à l'évènement de l'input command manager
             CameraManager.CubeListening(cubeScript); //déclenche la fonction du cameramanger qui permet de s'inscrire à l'évènement du script du cube, on le fait ici parce que le cube est généré ici
             InputCommandScript.CubeListening(cubeScript);
@@ -110,7 +109,6 @@ private IEnumerator StartGame()
     yield return new WaitForSeconds(firststart); //très important au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
     firststart = 0;
     yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
-    Debug.Log(RestartTimer);
     Time.timeScale = 1f;
     InputCommandScript.StartGame = true;
 }

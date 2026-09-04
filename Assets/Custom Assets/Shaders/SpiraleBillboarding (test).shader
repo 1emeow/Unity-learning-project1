@@ -2,18 +2,18 @@ Shader "Custom/SpiraleBillboarding"
 {
     Properties
     {
-    [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-    [PerRendererData] _Color("Color", Color) = (1,1,1,1)
+         _MainTex("Sprite Texture", 2D) = "white" {}
+         _Color("Color", Color) = (1,1,1,1)
     }
 
         SubShader
         {
             Tags
             {
-                "RenderType" = "Transparent"
                 "Queue" = "Transparent"
+                "RenderType" = "Transparent"
                 "RenderPipeline" = "UniversalPipeline"
-            "DisableBatching" = "True"
+                "DisableBatching" = "True"
             }
 
             Pass
@@ -49,49 +49,41 @@ Shader "Custom/SpiraleBillboarding"
                     float4 _Color;
                 CBUFFER_END
 
-
                 Varyings vert(Attributes IN)
                 {
                     Varyings OUT;
 
-                    // Position of the SpriteRenderer in world space.
                     float3 center = TransformObjectToWorld(float3(0, 0, 0));
 
-                    // Camera orientation.
                     float3 cameraRight = UNITY_MATRIX_I_V._m00_m10_m20;
                     float3 cameraUp = UNITY_MATRIX_I_V._m01_m11_m21;
 
-                    // Get the object's scale.
                     float3 objectScale = float3(
                         length(unity_ObjectToWorld._m00_m10_m20),
                         length(unity_ObjectToWorld._m01_m11_m21),
                         length(unity_ObjectToWorld._m02_m12_m22)
                     );
 
-                    // Construct the billboard in world space.
                     float3 worldPos =
                         center
                         + cameraRight * IN.positionOS.x * objectScale.x
                         + cameraUp * IN.positionOS.y * objectScale.y;
 
                     OUT.positionCS = TransformWorldToHClip(worldPos);
-
-                    // Keep the SpriteRenderer's UV coordinates.
                     OUT.uv = IN.uv;
 
                     return OUT;
                 }
 
-
                 half4 frag(Varyings IN) : SV_Target
                 {
-                    half4 color = SAMPLE_TEXTURE2D(
+                    half4 sprite = SAMPLE_TEXTURE2D(
                         _MainTex,
                         sampler_MainTex,
                         IN.uv
                     );
 
-                    return color * _Color;
+                    return sprite * _Color;
                 }
 
                 ENDHLSL

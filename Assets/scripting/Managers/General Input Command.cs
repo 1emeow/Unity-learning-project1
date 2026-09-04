@@ -80,7 +80,6 @@ public class General_Input_Command : MonoBehaviour
         {
             Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
             Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>(); //l'élément du lanceur sujet à la souris
-            Debug.Log(LaCatapult);
         }
         else
         {

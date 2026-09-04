@@ -22,7 +22,6 @@ public class SearchProcess : MonoBehaviour
         // 1. On vérifie si l'objet qui entre possède le script SpiralePoints
         if (other.TryGetComponent<SpiralePoints>(out SpiralePoints spirale))
         {
-            Debug.Log("il en a un");
                 spirale.ActiverAspiration(this.transform.parent.gameObject);
         }
         else
