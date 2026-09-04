@@ -76,6 +76,9 @@ public class MangeflowBehavior : MonoBehaviour
         _magneflowStateMachine.ChangeStatus(MagneflowStateMachine.Status.dying); //parce que 'Status': cannot reference a type through an expression; try 'MagneflowStateMachine.Status' instead, ce qu'a dit Unity
         _magneflowStateMachine.StatusChange();
         yield return new WaitForSeconds(1f);
+        CubeSys rigidDestroyScript = rigidDestroy.transform.root.GetComponentInChildren<CubeSys>();
+        if (rigidDestroyScript != null)
+            rigidDestroyScript.GetKilled();
         Destroy(this.gameObject);
     }
 }

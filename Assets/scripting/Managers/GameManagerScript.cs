@@ -118,5 +118,6 @@ private IEnumerator StartGame()
         CubesTable.Remove(picked);
         _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
         _cubesRemainingTextDisplay.RefreshDisplay();
+        SpawnFunction();
     }
 }

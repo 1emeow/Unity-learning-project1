@@ -81,7 +81,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
             Caught = false;
         }
     }
-    void OnDestroy()
+  public void GetKilled()
     {
         Iamdead = true;
         Dormant = true;
