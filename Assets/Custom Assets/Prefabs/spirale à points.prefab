@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: -6089800395893466907}
   - component: {fileID: 2595324469696092089}
   m_Layer: 0
-  m_Name: spirale mouvante
+  m_Name: "spirale prisonni\xE8re"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4998,7 +4998,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f7ad1dd4537634a499813a94253498e4, type: 2}
+  - {fileID: 2100000, guid: c53de03681054e943ac7473d4c418e15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5020,7 +5020,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 537320224, guid: 3c5ef771a784e39448e7dae6bfccbde9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

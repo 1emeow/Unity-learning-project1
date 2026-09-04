@@ -110,6 +110,7 @@ private IEnumerator StartGame()
     yield return new WaitForSeconds(firststart); //très important au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
     firststart = 0;
     yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
+    Debug.Log(RestartTimer);
     Time.timeScale = 1f;
     InputCommandScript.StartGame = true;
 }
