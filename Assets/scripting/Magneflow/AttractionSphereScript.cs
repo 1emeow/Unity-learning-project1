@@ -10,17 +10,21 @@ public class AttractionSphereScript : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-
-        Rigidbody rigidDestroy = other.GetComponent<Rigidbody>();
-        if (rigidDestroy !=null && !dyingtime)
+        if (!other.isTrigger)
         {
-            rigidDestroy.transform.root.SetParent(transform.root, true);
-            rigidDestroy.linearVelocity = Vector3.zero;
-            rigidDestroy.linearDamping = 19;
-            rigidDestroy.useGravity = false;
-            _mangeflow.rigidDestroy = rigidDestroy;
-            dyingtime = true;
-            _mangeflow.TimeToDie();
+            Rigidbody rigidDestroy = other.GetComponentInParent<Rigidbody>();
+
+            if (rigidDestroy != null && !dyingtime)
+            {
+                rigidDestroy.transform.root.SetParent(transform.root, true);
+                rigidDestroy.position = transform.position;
+                rigidDestroy.linearVelocity = Vector3.zero;
+                rigidDestroy.linearDamping = 19;
+                rigidDestroy.useGravity = false;
+                _mangeflow.rigidDestroy = rigidDestroy;
+                dyingtime = true;
+                _mangeflow.TimeToDie();
+            }
         }
     }
 }

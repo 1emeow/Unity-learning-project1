@@ -48,7 +48,7 @@ public class CatapultController : MonoBehaviour, CanMove
     }
     public void UpdateInput() //Fonction appelée par le General Input Command pour éviter d'avoir un update en trop
     {
-        if (canmove)
+        if (canmove && _catapiltInput != null)
         {
             move = _catapiltInput.currentActionMap.FindAction("Movement").ReadValue<Vector2>(); //on va chercher à savoir si le bouton appuyé correspond à l'action mouvement dans l'input actions
             move3 = new Vector3(move.x, 0, move.y); //on fait un vecteur à partir des boutons 

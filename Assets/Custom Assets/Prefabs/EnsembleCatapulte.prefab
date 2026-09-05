@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 7853089165905005931}
   - component: {fileID: 7800872258170974022}
   - component: {fileID: 6666471327468915060}
-  - component: {fileID: 7872139627174733686}
+  - component: {fileID: 6451508554450638693}
   m_Layer: 0
   m_Name: EnsembleCatapulte
   m_TagString: Untagged
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_DefaultActionMap: New action map
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!54 &7872139627174733686
+--- !u!54 &6451508554450638693
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -32,7 +32,7 @@ public class MangeflowBehavior : MonoBehaviour
     void Update()
     {
         if (rigidDestroy != null)
-            rigidDestroy.transform.localScale = Vector3.Lerp(rigidDestroy.transform.localScale, Vector3.zero, Time.deltaTime / 2f); //le vector Lerp permet d'interpoler 2 vector3, ici le local scale et le O, le 2f représente le temps nécessaire }
+            rigidDestroy.transform.localScale = Vector3.Lerp(rigidDestroy.transform.localScale, Vector3.zero, Time.deltaTime / 1f); //le vector Lerp permet d'interpoler 2 vector3, ici le local scale et le O, le 2f représente le temps nécessaire }
     }
     void OnTriggerEnter(Collider other)
     {
