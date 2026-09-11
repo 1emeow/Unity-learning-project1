@@ -101,6 +101,8 @@ public class Quille : MonoBehaviour
             rb.excludeLayers &= ~(1 << 8);
             OnHitByCube?.Invoke();
             StartCoroutine(HandleImpactSequence(touchageMat, particulesactiv));
+
+
         }
         else if (collision.gameObject.TryGetComponent<Quille>(out _))
         {
@@ -114,6 +116,7 @@ public class Quille : MonoBehaviour
 
     private IEnumerator HandleImpactSequence(Material feedbackMat, GameObject particlePrefab, bool doubleScale = false)
     {
+        transform.SetParent(null);
         isProcessed = true;
         if (feedbackMat != null) meshRenderer.material = feedbackMat;
 
