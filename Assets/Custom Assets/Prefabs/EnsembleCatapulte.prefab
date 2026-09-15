@@ -1530,6 +1530,8 @@ MonoBehaviour:
   Backlimit: {fileID: 7445656105466115984}
   Frontlimit: {fileID: 7305108212256597927}
   LaunchFactor: 10
+  _horizontalCrosshairType: {fileID: 2147871898489021288, guid: d1d27dd98c5baa14ba685ac4ad8b9e67, type: 3}
+  _verticalCrosshairType: {fileID: 7769287634869884756, guid: 76adf108b8565b441bd95b8cdfc12df7, type: 3}
 --- !u!1 &2924111683729928150
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9084036644720609656
 Transform:
   m_ObjectHideFlags: 0

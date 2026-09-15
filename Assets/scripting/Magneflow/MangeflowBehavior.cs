@@ -47,15 +47,28 @@ public class MangeflowBehavior : MonoBehaviour
             _interactiveObject = other.gameObject;
             Vector3 localPosition = transform.InverseTransformPoint(_interactiveObject.transform.position); //inverse transform point convertit la position globale en position locale
             Rigidbody _interactiveRigid = _interactiveObject.GetComponent<Rigidbody>();
-            if (localPosition.y - 2 > 0 && _attractionSphere.activeSelf) //on regarde si l'objet a �t� activ� par le SetActive dans la state machine
+            if (_attractionSphere.activeSelf && !_repulsionSphere.activeSelf && localPosition.y > 0)
             {
                 Vector3 Distanceofthetwo = _interactiveObject.transform.position - _attractionSphere.transform.position;
-                _interactiveRigid.AddForce((Distanceofthetwo).normalized * _magneticAttractionForce * (-1f), ForceMode.Acceleration); //on applique la force d'attraction
+                _interactiveRigid.AddForce((Distanceofthetwo).normalized * _magneticAttractionForce * (-1f), ForceMode.Acceleration);
             }
-            else if (localPosition.y - 2 <= 0 && _repulsionSphere.activeSelf)
+            if (_repulsionSphere.activeSelf && !_attractionSphere.activeSelf && localPosition.y - 4 <= 0)
             {
-                Vector3 Distanceofthetwo = _interactiveObject.transform.position - _attractionSphere.transform.position;
+                Vector3 Distanceofthetwo = _interactiveObject.transform.position - _repulsionSphere.transform.position;
                 _interactiveRigid.AddForce((Distanceofthetwo).normalized * _magneticRepulsionForce, ForceMode.Acceleration);
+            }
+            if (_attractionSphere.activeSelf && _repulsionSphere.activeSelf)
+            {
+                if (localPosition.y - 2 > 0 ) //on regarde si l'objet a �t� activ� par le SetActive dans la state machine
+                {
+                    Vector3 Distanceofthetwo = _interactiveObject.transform.position - _attractionSphere.transform.position;
+                    _interactiveRigid.AddForce((Distanceofthetwo).normalized * _magneticAttractionForce * (-1f), ForceMode.Acceleration); //on applique la force d'attraction
+                }
+                else if (localPosition.y - 2 <= 0)
+                {
+                    Vector3 Distanceofthetwo = _interactiveObject.transform.position - _repulsionSphere.transform.position;
+                    _interactiveRigid.AddForce((Distanceofthetwo).normalized * _magneticRepulsionForce, ForceMode.Acceleration);
+                }
             }
             //  InteractiveObjectsList.Add(collision.gameObject);
         }
