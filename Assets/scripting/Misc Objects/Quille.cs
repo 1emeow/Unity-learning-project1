@@ -55,6 +55,7 @@ public class Quille : MonoBehaviour
     private MeshRenderer meshRenderer;
     private GameObject particulespirale;
     private GameObject spiralefixe;
+    private FinalScoreDisplay _finalScoreDisplay;
     #endregion
 
     #region Unity Lifecycle
@@ -69,6 +70,9 @@ public class Quille : MonoBehaviour
     {
         InitializeReferences();
         StartCoroutine(CheckRotationCoroutine());
+        GameObject ScoreDisplayMenu = GameObject.Find("Score Menu");
+        if (ScoreDisplayMenu != null)
+            _finalScoreDisplay = ScoreDisplayMenu.GetComponent<FinalScoreDisplay>();
     }
 
     private void FixedUpdate()
@@ -100,6 +104,8 @@ public class Quille : MonoBehaviour
             rb.useGravity = true;
             rb.excludeLayers &= ~(1 << 8);
             OnHitByCube?.Invoke();
+            if (_finalScoreDisplay!= null)
+            _finalScoreDisplay._valeurDirectImpact += 1;
             StartCoroutine(HandleImpactSequence(touchageMat, particulesactiv));
 
 
@@ -110,6 +116,8 @@ public class Quille : MonoBehaviour
             rb.useGravity = true;
             rb.excludeLayers &= ~(1 << 8);
             OnHitByQuille?.Invoke();
+            if (_finalScoreDisplay != null)
+            _finalScoreDisplay._valeurIndirectImpact += 1;
             StartCoroutine(HandleImpactSequence(quilleChargeeMat, particulescharg, true));
         }
     }

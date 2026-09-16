@@ -17,12 +17,13 @@ public class GameManagerScript : MonoBehaviour
     private Canvas _canvasScore;
     [SerializeField]
     private FinalScoreDisplay _finalScoreDisplay;
-   [SerializeField]
+    [SerializeField]
     private MenuScript _menuScript;
     [SerializeField]
     private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
-    [SerializeField]
-    private GameObject Catapult;
+    public GameObject Catapult;
+    [HideInInspector]
+    public bool CinematicTime;
     private Transform Spawner;
     public float MaxCubes = 2f;
     private List<GameObject> CubesTable = new List<GameObject>(); //liste des cubes existants
@@ -34,6 +35,7 @@ public class GameManagerScript : MonoBehaviour
     private float firststart = 1f;
     public bool WasJumpBufferReached; //retient pour tous les cubes si on a le buff de saut
     public bool WasMoveSetterReached; //idem pour le mouvement
+    public int totalBuffsCollected;
 
     void Awake()
     {
@@ -62,7 +64,6 @@ public class GameManagerScript : MonoBehaviour
             InputCommandScript.CubeListening(cubeScript);
         }
         _finalScoreDisplay._valeurCubesUsed = CubesTable.Count;
-        Debug.Log(_finalScoreDisplay._valeurCubesUsed);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,33 +72,38 @@ public class GameManagerScript : MonoBehaviour
     }
     private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
     {
-        if (cubesys.Iamdead)
-        {
-            _finalScoreDisplay._valeurCubesLost += 1;
-            Debug.Log(_finalScoreDisplay._valeurCubesLost);
-        }
-        if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
-        {
-            SpawnFunction();
-        }
-        else if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count >= MaxCubes)
-        {
-            Debug.Log("The maximum amount of cubes has been reached");
+        if (_finalScoreDisplay.strikeAchieved)
             FinalScoreFunction();
-        }
-        if (cubesys.Released && !cubesys.Dormant)
+        else
         {
-            _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
-            _cubesRemainingTextDisplay.RefreshDisplay();
+            if (cubesys.Iamdead)
+            {
+                _finalScoreDisplay._valeurCubesLost += 1;
+            }
+            if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
+            {
+                SpawnFunction();
+            }
+            else if ((cubesys.Dormant || cubesys.Iamdead) && (CubesTable.Count >= MaxCubes || Catapult == null))
+            {
+                Debug.Log("The maximum amount of cubes has been reached");
+                FinalScoreFunction();
+            }
+            if (cubesys.Released && !cubesys.Dormant)
+            {
+                _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
+                _cubesRemainingTextDisplay.RefreshDisplay();
+            }
         }
     }
     private void FinalScoreFunction()
     {
+        _finalScoreDisplay._valeurBuffersCollected = totalBuffsCollected;
         _canvas.enabled = false;
         _canvasScore.enabled = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _finalScoreDisplay.FinalDisplay();
+        StartCoroutine(_finalScoreDisplay.FinalDisplay());
         InputCommandScript.gameObject.SetActive(false);
     }
 

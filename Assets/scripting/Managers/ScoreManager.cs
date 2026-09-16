@@ -21,7 +21,6 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(_finalScoreDisplay._valeurEnergyCollected);
         // Setup du Singleton
         if (Instance != null && Instance != this)
         {
@@ -32,8 +31,13 @@ public class ScoreManager : MonoBehaviour
     }
     void Update()
     {
-        if (_finalScoreDisplay._valeurEnergyCollected != currentScore)
-            _finalScoreDisplay._valeurEnergyCollected = currentScore;
+        if (_finalScoreDisplay != null)
+        {
+            if (_finalScoreDisplay._valeurEnergyCollected != currentScore)
+                _finalScoreDisplay._valeurEnergyCollected = currentScore;
+            if (currentScore >= 27)
+                _finalScoreDisplay.strikeAchieved = true;
+        }
     }
 
     /// <summary>

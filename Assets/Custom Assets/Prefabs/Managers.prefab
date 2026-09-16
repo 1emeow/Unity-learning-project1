@@ -48,6 +48,7 @@ MonoBehaviour:
   OnScoreChanged:
     m_PersistentCalls:
       m_Calls: []
+  _finalScoreDisplay: {fileID: 0}
 --- !u!1 &2232250518296982557
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,9 +254,11 @@ MonoBehaviour:
   _canvas: {fileID: 0}
   _canvasMenu: {fileID: 3441141730482171102}
   _canvasScore: {fileID: 6792968772476062044}
+  _finalScoreDisplay: {fileID: 0}
   _menuScript: {fileID: 0}
   _cubesRemainingTextDisplay: {fileID: 0}
   Catapult: {fileID: 0}
+  CinematicTime: 0
   MaxCubes: 2
   CubesysObject: {fileID: 1534096625919394910, guid: 0b48a87829ee9004c99604b50444442b, type: 3}
   Paused: 0
@@ -600,6 +603,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2636669621480243184, guid: 4761b0ea61067d84e8af987e9b282880, type: 3}
+      propertyPath: _gameManagerScript
+      value: 
+      objectReference: {fileID: 2992819324823882042}
+    - target: {fileID: 2945932274424156897, guid: 4761b0ea61067d84e8af987e9b282880, type: 3}
       propertyPath: _gameManagerScript
       value: 
       objectReference: {fileID: 2992819324823882042}

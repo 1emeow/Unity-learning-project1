@@ -68,7 +68,7 @@ public class SpiralePoints : MonoBehaviour
         if (distance > 0.1f)
         {
             Vector3 direction = playerObject.transform.position - transform.position;
-            rb.linearVelocity = direction.normalized * attractionSpeed;
+            rb.linearVelocity = direction.normalized * attractionSpeed * 2;
         }
         if (!estAttirée)
         {

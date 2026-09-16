@@ -18,6 +18,7 @@ public class jumpuff : MonoBehaviour, IsACubeBuffer
                 _cubeProcess.buffer = this.gameObject;
                 _cubeController.hasreceivedjumpbuff = true;
                 _gameManagerScript.WasJumpBufferReached = true;
+                _gameManagerScript.totalBuffsCollected += 1;
                 StartCoroutine(_cubeProcess.Coroutineofcollisionbuffer());
                 Touche = true;
             }

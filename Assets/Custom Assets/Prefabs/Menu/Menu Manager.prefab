@@ -338,7 +338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '?
 
 
 '
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '?
 
 
 '
@@ -966,7 +966,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '?
 
 
 '
@@ -1301,7 +1301,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278252499
-  m_fontColor: {r: 0.82868123, g: 0.9529412, b: 0, a: 1}
+  m_fontColor: {r: 0.6226415, g: 0.20026089, b: 0.044054817, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1380,7 +1380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8525877215518146221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1923,7 +1923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &27772277830300094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2573,7 +2573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3290730457557470743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3249,7 +3249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1226558422609822079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3504,7 +3504,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '
 
 
 '
@@ -3643,7 +3643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '?
 
 
 '
@@ -3851,6 +3851,12 @@ MonoBehaviour:
   _valeurEnergyCollected: 0
   _valeurBuffersCollected: 0
   _valeurTotalScore: 0
+  ScoreScroll: 0.3
+  strikeAchieved: 0
+  _minimalScore: 10
+  _goodScore: 15
+  clickAction: {fileID: 3001919216989983466, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _gameManagerScript: {fileID: 0}
   _cubesUsed: {fileID: 7970510423891813597}
   _cubesLost: {fileID: 3934859710521422832}
   _directImpact: {fileID: 3044575274108534759}
@@ -3858,6 +3864,11 @@ MonoBehaviour:
   _energyCollected: {fileID: 6845833145182542856}
   _buffersCollected: {fileID: 8264270441950249773}
   _totalScore: {fileID: 8128858490939667687}
+  Buttons:
+  - button: {fileID: 3538747694583549988}
+  - button: {fileID: 8248056956027151602}
+  - button: {fileID: 1419805542962902646}
+  - button: {fileID: 3956309973809904689}
 --- !u!1 &8274936930336967289
 GameObject:
   m_ObjectHideFlags: 0
@@ -4339,7 +4350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1
+  m_text: '?
 
 
 '

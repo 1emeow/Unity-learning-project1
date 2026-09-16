@@ -18,7 +18,7 @@ public class Movolas : MonoBehaviour, IsACataBuffer
                 CubeProcess.buffer = this.gameObject;
                 _catapultController.canmove = true;
                 _gameManagerScript.WasMoveSetterReached = true;
-
+                _gameManagerScript.totalBuffsCollected += 1;
                 StartCoroutine(CubeProcess.Coroutineofcollisionbuffer());
                 Touche = true;
             }
