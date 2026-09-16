@@ -49,12 +49,6 @@ public class FinalScoreDisplay : MonoBehaviour
     [SerializeField]
     private List<Buttonslist> Buttons;
 
-    void OnEnable()
-    {
-        clickAction.action.Enable();
-        clickAction.action.performed += OnClick;
-    }
-
     void OnDisable()
     {
         clickAction.action.performed -= OnClick;
@@ -67,6 +61,8 @@ public class FinalScoreDisplay : MonoBehaviour
     }
     public IEnumerator FinalDisplay()
     {
+        clickAction.action.Enable();
+        clickAction.action.performed += OnClick;
         yield return new WaitForSeconds(ScoreScroll);
         _cubesUsed.text = $"{_valeurCubesUsed}";
         yield return new WaitForSeconds(ScoreScroll);
