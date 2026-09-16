@@ -14,6 +14,10 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     private Canvas _canvasMenu;
     [SerializeField]
+    private Canvas _canvasScore;
+    [SerializeField]
+    private FinalScoreDisplay _finalScoreDisplay;
+   [SerializeField]
     private MenuScript _menuScript;
     [SerializeField]
     private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
@@ -35,7 +39,7 @@ public class GameManagerScript : MonoBehaviour
     {
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
-        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
+            InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
         InputCommandScript.RestartGame.AddListener(RestartGame);//indique au game manager de s'inscrire à l'évènement de l'input command manager
         InputCommandScript.StartGame = false;
         SpawnFunction();
@@ -57,28 +61,46 @@ public class GameManagerScript : MonoBehaviour
             CameraManager.CubeListening(cubeScript); //déclenche la fonction du cameramanger qui permet de s'inscrire à l'évènement du script du cube, on le fait ici parce que le cube est généré ici
             InputCommandScript.CubeListening(cubeScript);
         }
+        _finalScoreDisplay._valeurCubesUsed = CubesTable.Count;
+        Debug.Log(_finalScoreDisplay._valeurCubesUsed);
     }
-// Start is called once before the first execution of Update after the MonoBehaviour is created
-void Start()
-{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
         StartCoroutine(StartGame());
-}
-private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
-{
-    if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
-    {
-        SpawnFunction();
     }
-    else if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count >= MaxCubes)
+    private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
     {
-        Debug.Log("The maximum amount of cubes has been reached");
-    }
+        if (cubesys.Iamdead)
+        {
+            _finalScoreDisplay._valeurCubesLost += 1;
+            Debug.Log(_finalScoreDisplay._valeurCubesLost);
+        }
+        if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
+        {
+            SpawnFunction();
+        }
+        else if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count >= MaxCubes)
+        {
+            Debug.Log("The maximum amount of cubes has been reached");
+            FinalScoreFunction();
+        }
         if (cubesys.Released && !cubesys.Dormant)
         {
             _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
             _cubesRemainingTextDisplay.RefreshDisplay();
         }
     }
+    private void FinalScoreFunction()
+    {
+        _canvas.enabled = false;
+        _canvasScore.enabled = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        _finalScoreDisplay.FinalDisplay();
+        InputCommandScript.gameObject.SetActive(false);
+    }
+
 public void PausedStatusChanged() //déclenche la pause
 {
     Paused = !Paused;
@@ -96,7 +118,7 @@ public void PausedStatusChanged() //déclenche la pause
         StartCoroutine(StartGame()); //arrête la pause
     }
 }
-    private void RestartGame()
+    public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

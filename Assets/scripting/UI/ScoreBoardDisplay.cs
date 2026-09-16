@@ -6,7 +6,7 @@ public class ScoreBoardDisplay : MonoBehaviour
 {
     #region Variables
     [Header("Configuration")]
-    [SerializeField] private string prefix = "Score: ";
+    [SerializeField] private string prefix = "Energy Collected: ";
     
     // Indispensable pour ton script 'spiraleapoints.cs'
     [HideInInspector] public int valeurtotale; 

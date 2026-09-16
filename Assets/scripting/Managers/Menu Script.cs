@@ -21,4 +21,13 @@ public class MenuScript : MonoBehaviour
     {
         Application.Quit();
     }
+    public void TryAgain()
+    {
+        Time.timeScale = 1f;
+       _gameManagerScript.RestartGame();
+    }
+    public void NextMap()
+    {
+
+    }
 }

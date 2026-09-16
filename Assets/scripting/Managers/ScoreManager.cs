@@ -15,8 +15,13 @@ public class ScoreManager : MonoBehaviour
     [Tooltip("Envoie le nouveau score à chaque modification.")]
     public UnityEvent<int> OnScoreChanged;
 
+    [Header("Affichage Score Final")]
+    [SerializeField]
+    private FinalScoreDisplay _finalScoreDisplay;
+
     private void Awake()
     {
+        Debug.Log(_finalScoreDisplay._valeurEnergyCollected);
         // Setup du Singleton
         if (Instance != null && Instance != this)
         {
@@ -25,6 +30,11 @@ public class ScoreManager : MonoBehaviour
         }
         Instance = this;
     }
+    void Update()
+    {
+        if (_finalScoreDisplay._valeurEnergyCollected != currentScore)
+            _finalScoreDisplay._valeurEnergyCollected = currentScore;
+    }
 
     /// <summary>
     /// Ajoute des points et prévient les abonnés.
@@ -32,13 +42,14 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int points)
     {
         currentScore += points;
-        
         // On lance l'événement avec la nouvelle valeur
         OnScoreChanged?.Invoke(currentScore);
         
-        Debug.Log($"<color=green>SCORE :</color> {currentScore} (+{points})");
+      /*  Debug.Log($"<color=green>SCORE :</color> {currentScore} (+{points})");
         Debug.Log($"Called in {GetType().Name}");
+      */
     }
 
-    public int GetCurrentScore() => currentScore;
+    public int GetCurrentScore() => currentScore; //est une autre méthode pour faire return currentScore
+
 }
