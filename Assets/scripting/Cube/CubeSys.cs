@@ -20,6 +20,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     private Rigidbody CubeBody;
     private bool HasEneteredDormance;
     public bool Iamdead;
+    public bool DeadAndDormant;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -83,8 +84,18 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     }
   public void GetKilled()
     {
-        Iamdead = true;
-        Dormant = true;
-        UpdateCubeState.Invoke(this);
+        if (!Dormant)
+        {
+            Iamdead = true;
+            Dormant = true;
+            UpdateCubeState.Invoke(this);
+        }
+        else
+        {
+            Iamdead = true;
+            DeadAndDormant = true;
+            UpdateCubeState.Invoke(this);
+        }
+
     }
 }

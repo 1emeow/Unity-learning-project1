@@ -32,39 +32,42 @@ public class CameraManager : MonoBehaviour
     }
     public void UpdateCubeState(CubeSys cubesys) //au changement d'état du cube, on change de caméra
     {
-        if (!cubesys.Dormant) 
+        if (!cubesys.DeadAndDormant)
         {
-            if (CubeCamera == null)
-                CubeCamera = cubesys.transform.GetComponentInChildren<CinemachineCamera>();
-            BrainCam.enabled = true;
-            //si le cube est attaché à un lanceur
-            if (cubesys.transform.parent != null && cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>() != null && cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && OtherCamera == null)
+            if (!cubesys.Dormant)
+            {
+                if (CubeCamera == null)
+                    CubeCamera = cubesys.transform.GetComponentInChildren<CinemachineCamera>();
+                BrainCam.enabled = true;
+                //si le cube est attaché à un lanceur
+                if (cubesys.transform.parent != null && cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>() != null && cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>().name != "PlayerCamera" && OtherCamera == null)
                 {
                     OtherCamera = cubesys.transform.parent.GetComponentInChildren<CinemachineCamera>();
                     CubeCamera.Priority = 0;
                     OtherCamera.Priority = 100;
                     orbitalFollow = OtherCamera.GetComponent<CinemachineOrbitalFollow>();
                 }
-            else if (cubesys.transform.parent == null)
-            {
-                if (OtherCamera != null)
+                else if (cubesys.transform.parent == null)
                 {
-                    OtherCamera.Priority = 0;
-                    OtherCamera = null;
-                    CubeCamera.Priority = 100;
-                    orbitalFollow = CubeCamera.GetComponent<CinemachineOrbitalFollow>();
+                    if (OtherCamera != null)
+                    {
+                        OtherCamera.Priority = 0;
+                        OtherCamera = null;
+                        CubeCamera.Priority = 100;
+                        orbitalFollow = CubeCamera.GetComponent<CinemachineOrbitalFollow>();
+                    }
                 }
             }
-        }
-        else //si le cube est libre
-        {
-            if (CubeCamera != null)
+            else //si le cube est libre
             {
-                CubeCamera.Priority = 0;
-                CubeCamera = null;
-                orbitalFollow = null;
+                if (CubeCamera != null)
+                {
+                    CubeCamera.Priority = 0;
+                    CubeCamera = null;
+                    orbitalFollow = null;
+                }
+                BrainCam.enabled = false;
             }
-            BrainCam.enabled = false;
         }
     }
 }

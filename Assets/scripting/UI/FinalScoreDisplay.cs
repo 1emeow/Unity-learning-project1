@@ -23,6 +23,7 @@ public class FinalScoreDisplay : MonoBehaviour
     [HideInInspector] public float _valeurTotalScore = 0f;
     [HideInInspector] public float ScoreScroll = 0.3f;
     [HideInInspector] public bool strikeAchieved;
+    [HideInInspector] public bool strikeToBeAchieved;
 
     [SerializeField]
     private float _minimalScore = 10f;

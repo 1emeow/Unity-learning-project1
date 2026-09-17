@@ -18,6 +18,7 @@ public class ScoreManager : MonoBehaviour
     [Header("Affichage Score Final")]
     [SerializeField]
     private FinalScoreDisplay _finalScoreDisplay;
+    public int bestScore = 27;
 
     private void Awake()
     {
@@ -35,8 +36,8 @@ public class ScoreManager : MonoBehaviour
         {
             if (_finalScoreDisplay._valeurEnergyCollected != currentScore)
                 _finalScoreDisplay._valeurEnergyCollected = currentScore;
-            if (currentScore >= 27)
-                _finalScoreDisplay.strikeAchieved = true;
+            if (currentScore >= bestScore)
+                _finalScoreDisplay.strikeToBeAchieved = true;
         }
     }
 

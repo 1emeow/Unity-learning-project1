@@ -72,28 +72,31 @@ public class GameManagerScript : MonoBehaviour
     }
     private void UpdateCubeState(CubeSys cubesys) //permet de savoir si le cube est dormant et d'agir en conséquence
     {
-        if (_finalScoreDisplay.strikeAchieved)
+        if (_finalScoreDisplay.strikeToBeAchieved && CubesTable.Count <= 1)
+        {
+            _finalScoreDisplay.strikeAchieved = true;
             FinalScoreFunction();
+        }
         else
         {
-            if (cubesys.Iamdead)
-            {
-                _finalScoreDisplay._valeurCubesLost += 1;
-            }
-            if ((cubesys.Dormant || cubesys.Iamdead) && CubesTable.Count < MaxCubes)
+            if (cubesys.Dormant && CubesTable.Count < MaxCubes && !cubesys.DeadAndDormant)
             {
                 SpawnFunction();
             }
-            else if ((cubesys.Dormant || cubesys.Iamdead) && (CubesTable.Count >= MaxCubes || Catapult == null))
+            else if (cubesys.Dormant && !cubesys.DeadAndDormant && (CubesTable.Count >= MaxCubes || Catapult == null))
             {
                 Debug.Log("The maximum amount of cubes has been reached");
                 FinalScoreFunction();
             }
             if (cubesys.Released && !cubesys.Dormant)
             {
-                _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
+                _cubesRemainingTextDisplay.valeurtotale = MaxCubes - CubesTable.Count;
                 _cubesRemainingTextDisplay.RefreshDisplay();
             }
+        }
+        if (cubesys.Iamdead)
+        {
+            _finalScoreDisplay._valeurCubesLost += 1;
         }
     }
     private void FinalScoreFunction()
@@ -144,7 +147,7 @@ private IEnumerator StartGame()
     {
         Destroy(picked);
         CubesTable.Remove(picked);
-        _cubesRemainingTextDisplay.valeurtotale = 2 - CubesTable.Count;
+        _cubesRemainingTextDisplay.valeurtotale = MaxCubes - CubesTable.Count;
         _cubesRemainingTextDisplay.RefreshDisplay();
         SpawnFunction();
     }

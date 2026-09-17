@@ -76,6 +76,8 @@ public class General_Input_Command : MonoBehaviour
     }
     public void UpdateCubeState(CubeSys cubesys) //indique qui bouge
     {
+        if (!cubesys.DeadAndDormant)
+        { 
         if (cubesys.transform.parent != null)
         {
             Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
@@ -86,9 +88,10 @@ public class General_Input_Command : MonoBehaviour
             Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
             Launcher = null;
             if (!cubesys.Dormant)
-            LaCatapult = null;
+                LaCatapult = null;
         }
         activeCube = cubesys;
+        }
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
