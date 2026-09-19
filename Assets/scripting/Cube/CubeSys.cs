@@ -57,7 +57,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     private IEnumerator DormanceRoutine() //timer de la dormance
     {
     yield return new WaitForSeconds(2f);
-    if (CubeBody.linearVelocity.magnitude <= 0.1f && Caught == false)
+    if (CubeBody.linearVelocity.magnitude <= 0.1f && Caught == false && Detached)
         {
         Dormant = true;
         Debug.Log("The Cube has fallen asleep.");
@@ -76,10 +76,9 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
         {
             Released = true;
             StartCoroutine(ReleaseTimer());
-            this.gameObject.transform.SetParent(null);
-            Detached = true;
-            UpdateCubeState.Invoke(this);
             Caught = false;
+            UpdateCubeState.Invoke(this);
+            this.gameObject.transform.SetParent(null);
         }
     }
   public void GetKilled()

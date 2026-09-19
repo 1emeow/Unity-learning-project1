@@ -32,9 +32,6 @@ public class General_Input_Command : MonoBehaviour
         lookAction.action.Enable();
         lookAction.action.performed += OnLook;
         lookAction.action.canceled += OnLook;
-        clickAction.action.Enable();
-        clickAction.action.performed += OnAttack;
-        clickAction.action.canceled += OnAttack;
         rotateCameraAction.action.Enable();
         rotateCameraAction.action.performed += OnRotateCam;
         rotateCameraAction.action.canceled += OnRotateCam;
@@ -48,7 +45,12 @@ public class General_Input_Command : MonoBehaviour
         restartGameAction.action.Enable();
         restartGameAction.action.performed += OnRestartGame;
     }
-
+    public void ClickEnable()
+    {
+        clickAction.action.Enable();
+        clickAction.action.performed += OnAttack;
+        clickAction.action.canceled += OnAttack;
+    }
     private void OnDisable()
     {
         lookAction.action.performed -= OnLook;
@@ -85,7 +87,9 @@ public class General_Input_Command : MonoBehaviour
         }
         else
         {
+            Mover.StopMoving();
             Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
+            if (cubesys.Detached)
             Launcher = null;
             if (!cubesys.Dormant)
                 LaCatapult = null;

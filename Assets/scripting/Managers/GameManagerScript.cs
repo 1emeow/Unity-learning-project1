@@ -62,6 +62,7 @@ public class GameManagerScript : MonoBehaviour
             cubeScript.UpdateCubeState.AddListener(UpdateCubeState); //indique au game manager de s'inscrire à l'évènement de l'input command manager
             CameraManager.CubeListening(cubeScript); //déclenche la fonction du cameramanger qui permet de s'inscrire à l'évènement du script du cube, on le fait ici parce que le cube est généré ici
             InputCommandScript.CubeListening(cubeScript);
+            InputCommandScript.ClickEnable();
         }
         _finalScoreDisplay._valeurCubesUsed = CubesTable.Count;
     }

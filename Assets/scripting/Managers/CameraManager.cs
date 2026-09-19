@@ -47,7 +47,7 @@ public class CameraManager : MonoBehaviour
                     OtherCamera.Priority = 100;
                     orbitalFollow = OtherCamera.GetComponent<CinemachineOrbitalFollow>();
                 }
-                else if (cubesys.transform.parent == null)
+                else if (cubesys.transform.parent == null && cubesys.Detached)
                 {
                     if (OtherCamera != null)
                     {

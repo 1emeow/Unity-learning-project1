@@ -71,4 +71,7 @@ public class CubeController : MonoBehaviour, CanMove //cet object possède les fo
     {
         bodycube = this.GetComponent<Rigidbody>();
     }
+    public void StopMoving()
+    {
+    }
 }

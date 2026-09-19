@@ -26,6 +26,7 @@ public class Launcher : MonoBehaviour
     private GameObject _horizontalCrosshair;
     public GameObject _horizontalCrosshairType;
     public GameObject _verticalCrosshairType;
+    private bool HasStartedClicking;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -37,22 +38,26 @@ public class Launcher : MonoBehaviour
     }
     public void Clicking() //tant qu'on clique
     {
+        HasStartedClicking = true;
         Launching = true;
     }
     public void Clicked() //une fois que le clic est lâché
     {
+        if (HasStartedClicking)
+        { 
         Launched = true;
         Launching = false;
         StartCoroutine(RemoveCrosshairRoutine());
-        if (GetComponentInChildren<CanBePicked>() != null) //si l'objet a les fonctions indiquées dans l'interface CanBePicked
-        {
-           CanBePicked LaunchableScript = GetComponentInChildren<CanBePicked>();
-            LaunchableBody = ((MonoBehaviour)LaunchableScript).gameObject.GetComponentInChildren<Rigidbody>();
-            LaunchableBody.isKinematic = false;
-            //la vitesse est établie par un vecteur correpondant au rapport de distance entre la langue et le mur de fond. Elle est toujours proportionnelle au lanceur
-            LaunchableBody.linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
-            LaunchableScript.IsReleased();
-
+            if (GetComponentInChildren<CanBePicked>() != null) //si l'objet a les fonctions indiquées dans l'interface CanBePicked
+            {
+                CanBePicked LaunchableScript = GetComponentInChildren<CanBePicked>();
+                LaunchableBody = ((MonoBehaviour)LaunchableScript).gameObject.GetComponentInChildren<Rigidbody>();
+                LaunchableBody.isKinematic = false;
+                //la vitesse est établie par un vecteur correpondant au rapport de distance entre la langue et le mur de fond. Elle est toujours proportionnelle au lanceur
+                LaunchableBody.linearVelocity = (Frontlimit.transform.position - transform.position).normalized * (Frontlimit.transform.position - transform.position).magnitude * LaunchFactor;
+                LaunchableScript.IsReleased();
+            }
+            HasStartedClicking = false;
         }
     }
     private IEnumerator RemoveCrosshairRoutine()

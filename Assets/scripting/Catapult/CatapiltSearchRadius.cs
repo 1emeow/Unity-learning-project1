@@ -22,8 +22,19 @@ public class CatapiltSearchRadius : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() && other.GetComponentInParent<CanBePicked>() != null)
-            other.GetComponentInParent<CanBePicked>().pickupable = true;
-        //    other.attachedRigidbody.mass = 20f;
+        CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();
+        if (_canBePicked != null && !_canBePicked.pickupable && other.GetComponent<Rigidbody>() != null)
+        {
+            _canBePicked.pickupable = true;
+            //    other.attachedRigidbody.mass = 20f;
+
+            MonoBehaviour _monoCanBePicked = (MonoBehaviour)_canBePicked;
+            if (_monoCanBePicked is CubeSys cubeSys)
+            {
+                cubeSys.Detached = true;
+                cubeSys.UpdateCubeState.Invoke(cubeSys);
+            }
+        }
+
     }
 }

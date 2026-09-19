@@ -74,4 +74,8 @@ public class CatapultController : MonoBehaviour, CanMove
         yaw = baseYaw.localRotation.z;
         pitch = barrelPitch.localRotation.x;
     }
+    public void StopMoving()
+    {
+        move3 = Vector3.zero;
+    }
 }
