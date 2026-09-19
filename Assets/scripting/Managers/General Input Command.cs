@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class General_Input_Command : MonoBehaviour
 {
     [HideInInspector]
-    public UnityEvent PausedStatusChanged = new (); //on fait un évènement public auquel vont s'inscrire les autres scripts
+    public UnityEvent PausedStatusChanged = new(); //on fait un évènement public auquel vont s'inscrire les autres scripts
     [HideInInspector]
     public UnityEvent RestartGame = new();
     [SerializeField]
@@ -79,22 +79,22 @@ public class General_Input_Command : MonoBehaviour
     public void UpdateCubeState(CubeSys cubesys) //indique qui bouge
     {
         if (!cubesys.DeadAndDormant)
-        { 
-        if (cubesys.transform.parent != null)
         {
-            Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
-            Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>(); //l'élément du lanceur sujet à la souris
-        }
-        else
-        {
-            Mover.StopMoving();
-            Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
-            if (cubesys.Detached)
-            Launcher = null;
-            if (!cubesys.Dormant)
-                LaCatapult = null;
-        }
-        activeCube = cubesys;
+            if (cubesys.transform.parent != null)
+            {
+                Mover = cubesys.transform.parent.GetComponentInParent<CanMove>(); //peut être la catapulte ou un lanceur temporaire sur lequel on jette le cube
+                Launcher = cubesys.transform.parent.GetComponentInParent<Launcher>(); //l'élément du lanceur sujet à la souris
+            }
+            else
+            {
+                Mover.StopMoving();
+                Mover = cubesys.gameObject.GetComponentInChildren<CanMove>();
+                if (cubesys.Detached)
+                    Launcher = null;
+                if (!cubesys.Dormant)
+                    LaCatapult = null;
+            }
+            activeCube = cubesys;
         }
     }
     private void OnLook(InputAction.CallbackContext ctx)
@@ -146,13 +146,13 @@ public class General_Input_Command : MonoBehaviour
             {
                 cameraRotating = false;
                 if (_cameraManager != null)
-                _cameraManager.ReceiveLookInput(Vector2.zero);
+                    _cameraManager.ReceiveLookInput(Vector2.zero);
             }
         }
     }
     private void OnRecenterCam(InputAction.CallbackContext ctx)
     {
-     //   _cameraManager.ResetCamera();
+        //   _cameraManager.ResetCamera();
     }
     // Update is called once per frame
     void Update()
@@ -163,8 +163,8 @@ public class General_Input_Command : MonoBehaviour
                 _cameraManager.ReceiveLookInput(mouseDelta);
             else
             {
-             if (LaCatapult != null)
-             LaCatapult.ReceiveLookInput(mouseDelta);
+                if (LaCatapult != null)
+                    LaCatapult.ReceiveLookInput(mouseDelta);
             }
             if (Mover != null)
                 Mover.UpdateInput();

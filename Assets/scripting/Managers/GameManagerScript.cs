@@ -21,6 +21,8 @@ public class GameManagerScript : MonoBehaviour
     private MenuScript _menuScript;
     [SerializeField]
     private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
+    [SerializeField]
+    private ScoreStatusHold _scoreAndStatusHolder;
     public GameObject Catapult;
     [HideInInspector]
     public bool CinematicTime;
@@ -111,39 +113,39 @@ public class GameManagerScript : MonoBehaviour
         InputCommandScript.gameObject.SetActive(false);
     }
 
-public void PausedStatusChanged() //déclenche la pause
-{
-    Paused = !Paused;
-    if (Paused)
+    public void PausedStatusChanged() //déclenche la pause
     {
-        InputCommandScript.StartGame = false;
+        Paused = !Paused;
+        if (Paused)
+        {
+            InputCommandScript.StartGame = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             _canvas.enabled = false;
             _canvasMenu.enabled = true;
             Time.timeScale = 0f; //empêche le temps du jeu de s'écouler
+        }
+        else
+        {
+            StartCoroutine(StartGame()); //arrête la pause
+        }
     }
-    else
-    {
-        StartCoroutine(StartGame()); //arrête la pause
-    }
-}
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-private IEnumerator StartGame()
-{
-    _canvas.enabled = true;
-    _canvasMenu.enabled = false;
-    Cursor.lockState = CursorLockMode.Locked;
-    Cursor.visible = false;
-    yield return new WaitForSeconds(firststart); //très important au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
-    firststart = 0;
-    yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
-    Time.timeScale = 1f;
-    InputCommandScript.StartGame = true;
-}
+    private IEnumerator StartGame()
+    {
+        _canvas.enabled = true;
+        _canvasMenu.enabled = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        yield return new WaitForSeconds(firststart); //très important au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        firststart = 0;
+        yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
+        Time.timeScale = 1f;
+        InputCommandScript.StartGame = true;
+    }
     public void GetANewCube(GameObject picked)
     {
         Destroy(picked);
@@ -151,5 +153,15 @@ private IEnumerator StartGame()
         _cubesRemainingTextDisplay.valeurtotale = MaxCubes - CubesTable.Count;
         _cubesRemainingTextDisplay.RefreshDisplay();
         SpawnFunction();
+    }
+    void OnDestroy()
+    {
+        if (ScoreStatusHold.Instance != null)
+        {
+            if (WasMoveSetterReached)
+                ScoreStatusHold.Instance.WasAMoveSetterAcquiredThisGame = true;
+            if (WasJumpBufferReached)
+                ScoreStatusHold.Instance.WasAJumperBuffAcquiredThisGame = true;
+        }
     }
 }

@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour
     [Header("Affichage Score Final")]
     [SerializeField]
     private FinalScoreDisplay _finalScoreDisplay;
+    [SerializeField]
+    private ScoreStatusHold _scoreAndStatusHolder;
     public int bestScore = 27;
 
     private void Awake()
@@ -56,5 +58,11 @@ public class ScoreManager : MonoBehaviour
     }
 
     public int GetCurrentScore() => currentScore; //est une autre méthode pour faire return currentScore
-
+    void OnDestroy()
+    {
+        if (ScoreStatusHold.Instance != null)
+        {
+            ScoreStatusHold.Instance.CumulativeScore += currentScore;
+        }
+    }
 }
