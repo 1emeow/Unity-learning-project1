@@ -44,9 +44,9 @@ public class Lumimoonboinger : MonoBehaviour
     {
         if (!BouncyRoutineHasStarted)
         {
-            if (collision.GetComponent<Rigidbody>() != null)
+            bouncingrigid = collision.GetComponent<Rigidbody>();
+            if (bouncingrigid != null && !bouncingrigid.isKinematic)
             {
-                bouncingrigid = collision.GetComponent<Rigidbody>();
                 StartCoroutine(BouncyRoutine());
                 BouncyRoutineHasStarted = true;
             }
@@ -59,6 +59,7 @@ public class Lumimoonboinger : MonoBehaviour
         Vector3 bouncingVelocity = Vector3.Reflect(bouncingrigidVelocity, surfaceNormal); //on veut appliquer une force égale à la force de déformation du bouncer par l'objet
         boneparent.linearVelocity = bouncingrigid.linearVelocity; //on fait visuellement s'effondrer le parent en conséquence, pour donner l'effet de déformation
         yield return new WaitForSeconds(0.2f);
+        if(!bouncingrigid.isKinematic)
         bouncingrigid.linearVelocity += bouncingVelocity * 2f;
         bouncingtime = true;
         BouncyRoutineHasStarted = false;

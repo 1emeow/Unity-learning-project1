@@ -17,8 +17,6 @@ public class AttractionSphereScript : MonoBehaviour
             if (rigidDestroy != null && !dyingtime)
             {
                 rigidDestroy.transform.root.SetParent(transform.root, true);
-                rigidDestroy.position = transform.position;
-                rigidDestroy.linearVelocity = Vector3.zero;
                 rigidDestroy.linearDamping = 19;
                 rigidDestroy.useGravity = false;
                 _mangeflow.rigidDestroy = rigidDestroy;

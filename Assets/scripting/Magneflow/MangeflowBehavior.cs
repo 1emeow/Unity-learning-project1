@@ -32,7 +32,14 @@ public class MangeflowBehavior : MonoBehaviour
     void Update()
     {
         if (rigidDestroy != null)
+        {
             rigidDestroy.transform.localScale = Vector3.Lerp(rigidDestroy.transform.localScale, Vector3.zero, Time.deltaTime / 1f); //le vector Lerp permet d'interpoler 2 vector3, ici le local scale et le O, le 2f représente le temps nécessaire }
+            if (rigidDestroy.linearVelocity.magnitude > 0.1f)
+            {
+                rigidDestroy.linearVelocity = Vector3.zero;
+                rigidDestroy.position = _attractionSphere.transform.position;
+            }
+        }
     }
     void OnTriggerEnter(Collider other)
     {

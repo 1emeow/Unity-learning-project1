@@ -34,7 +34,7 @@ public class MenuManagerScript : MonoBehaviour
         _currentMenu = GameObject.Find("Canvas Menu").GetComponent<Canvas>();
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
-        InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
+            InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
         InputCommandScript.RestartGame.AddListener(RestartGame);//indique au game manager de s'inscrire à l'évènement de l'input command manager
         InputCommandScript.StartGame = false;
         SpawnFunction();
@@ -88,7 +88,7 @@ public class MenuManagerScript : MonoBehaviour
         CameraManager.CurrentCamera = CameraManager.OtherCamera;
         yield return new WaitForSeconds(0.1f);
         _currentMenu = null;
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(1f);
         _currentMenu = GameObject.Find("Levels Menu").GetComponent<Canvas>();
     }
     public void OptionsMenu()
@@ -100,7 +100,7 @@ public class MenuManagerScript : MonoBehaviour
         CameraManager.CurrentCamera = CameraManager.OptionsCamera;
         yield return new WaitForSeconds(0.1f);
         _currentMenu = null;
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(1f);
         _currentMenu = GameObject.Find("Options Menu").GetComponent<Canvas>();
     }
     public void MainMenu()
@@ -112,7 +112,7 @@ public class MenuManagerScript : MonoBehaviour
         CameraManager.CurrentCamera = CameraManager.FirstCam;
         yield return new WaitForSeconds(0.1f);
         _currentMenu = null;
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(1f);
         _currentMenu = GameObject.Find("Canvas Menu").GetComponent<Canvas>();
     }
     public void QuitGame()
@@ -124,39 +124,39 @@ public class MenuManagerScript : MonoBehaviour
         CameraManager.CurrentCamera = CameraManager.SecondCam;
         yield return new WaitForSeconds(0.1f);
         _currentMenu = null;
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(1.5f);
         Application.Quit();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-{
+    {
         StartCoroutine(StartGame());
-}
-private void PausedStatusChanged() //déclenche la pause
-{
-}
-private void RestartGame()
-{
- SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-}
-// Update is called once per frame
-void Update()
-{
+    }
+    private void PausedStatusChanged() //déclenche la pause
+    {
+    }
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    // Update is called once per frame
+    void Update()
+    {
         if (_previousMenu != _currentMenu)
         {
             if (_previousMenu != null)
-            _previousMenu.enabled = false;
+                _previousMenu.enabled = false;
             if (_currentMenu != null)
-            _currentMenu.enabled = true;
+                _currentMenu.enabled = true;
             _previousMenu = _currentMenu;
         }
     }
     private IEnumerator StartGame()
-{
-    yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
-    firststart = 0;
-    yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
-    Time.timeScale = 1f;
-    InputCommandScript.StartGame = true;
-}
+    {
+        yield return new WaitForSeconds(firststart); //très au lancement du jeu sinon la catapult fait n'importe quoi en suivant le curseur ce qui détruit tout
+        firststart = 0;
+        yield return new WaitForSecondsRealtime(RestartTimer); //le temps ne s'écoule pas, on veut donc le temps réel. Ce temps de reprise modulable est là pour permettre au joueur de se concentrer à nouveau
+        Time.timeScale = 1f;
+        InputCommandScript.StartGame = true;
+    }
 }

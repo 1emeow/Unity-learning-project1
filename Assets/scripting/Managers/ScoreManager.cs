@@ -18,8 +18,6 @@ public class ScoreManager : MonoBehaviour
     [Header("Affichage Score Final")]
     [SerializeField]
     private FinalScoreDisplay _finalScoreDisplay;
-    [SerializeField]
-    private ScoreStatusHold _scoreAndStatusHolder;
     public int bestScore = 27;
 
     private void Awake()

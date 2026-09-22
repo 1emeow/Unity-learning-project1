@@ -7,7 +7,7 @@ public class Componentslist //ceci permet d'ajouter une liste dans l'inspecteur.
 {
     public Component component;
 }
-public class Lumimoon: MonoBehaviour
+public class Lumimoon : MonoBehaviour, CanBePicked, HasStorableData
 {
     public enum LumimoonState
     {
@@ -35,6 +35,16 @@ public class Lumimoon: MonoBehaviour
     private Color coolcolourE;
     [SerializeField]
     private Color coolcolourL;
+    public PickedUpData StoreData() //On va récupérer les différents paramètres ici
+    {
+        return new PickedUpData
+        {
+            prefabId = "Lumimoon",
+            _lumimoonState = _lumimoonState,
+            scale = transform.localScale,
+        }; //on met le ; après le } parce qu'il s'agit d'un champ, il permet de le limiter. si on mettait ; à la place des , le champ se fermerait beaucoup plus tot, il faut donc le mettre après }
+    }
+public bool pickupable { get; set; }
     public LumimoonState _lumimoonState;
     private LumimoonState _currentlumimoonState;
     private Rigidbody _blobbedRigid;
@@ -97,12 +107,14 @@ public class Lumimoon: MonoBehaviour
             {
                 case LumimoonState.cool:
                     {
-                        _blobbedRigid.linearVelocity += _blobbedRigid.linearVelocity * 0.5f;
+                        if (!_blobbedRigid.isKinematic)
+                            _blobbedRigid.linearVelocity += _blobbedRigid.linearVelocity * 0.5f;
                         break;
                             }
                 case LumimoonState.evil:
                     {
-                        _blobbedRigid.linearVelocity -= _blobbedRigid.linearVelocity * 0.2f;
+                        if (!_blobbedRigid.isKinematic)
+                            _blobbedRigid.linearVelocity -= _blobbedRigid.linearVelocity * 0.2f;
                         break; }
             }
         }
@@ -133,5 +145,19 @@ public class Lumimoon: MonoBehaviour
                     }
             }
         }
+    }
+    public void IsPickedUp()
+    {
+
+    }
+    public void LoadData(PickedUpData data) //Cette fonction charge les paramètres récupérés avec StoreData
+    {
+        _lumimoonState = data._lumimoonState;
+        transform.localScale = data.scale;
+            ChangeState();
+    }
+    public void IsReleased()
+    {
+
     }
 }

@@ -258,7 +258,8 @@ MonoBehaviour:
   Caught: 0
   Dormant: 0
   _playerCatapult: {fileID: 0}
-  GeneralInputCommand: {fileID: 0}
+  Iamdead: 0
+  DeadAndDormant: 0
 --- !u!1 &4423187425186178654
 GameObject:
   m_ObjectHideFlags: 0

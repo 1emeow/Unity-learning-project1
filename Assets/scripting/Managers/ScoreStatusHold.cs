@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ScoreStatusHold : MonoBehaviour
 {
     public static ScoreStatusHold Instance; //indique la présence d'une instance
     public float CumulativeScore;
+    public List<PickedUpData> InventoryList;
     public bool WasAMoveSetterAcquiredThisGame;
     public bool WasAJumperBuffAcquiredThisGame;
     [SerializeField]
@@ -19,10 +21,5 @@ public class ScoreStatusHold : MonoBehaviour
             Instance = this;
         transform.SetParent(null);
         DontDestroyOnLoad(gameObject);
-        if (_gameManager != null)
-        {
-            _gameManager.WasMoveSetterReached = WasAMoveSetterAcquiredThisGame;
-            _gameManager.WasJumpBufferReached = WasAJumperBuffAcquiredThisGame;
-        }
     }
 }

@@ -21,8 +21,6 @@ public class GameManagerScript : MonoBehaviour
     private MenuScript _menuScript;
     [SerializeField]
     private CubesRemainingTextDisplay _cubesRemainingTextDisplay;
-    [SerializeField]
-    private ScoreStatusHold _scoreAndStatusHolder;
     public GameObject Catapult;
     [HideInInspector]
     public bool CinematicTime;
@@ -41,6 +39,11 @@ public class GameManagerScript : MonoBehaviour
 
     void Awake()
     {
+        if (ScoreStatusHold.Instance != null)
+        {
+            WasMoveSetterReached = ScoreStatusHold.Instance.WasAMoveSetterAcquiredThisGame; //il s'agit de l'instance de ScoreStatusHold et non pas d'un gameobject à déclarer
+            WasJumpBufferReached = ScoreStatusHold.Instance.WasAJumperBuffAcquiredThisGame; //il n'y a qu'une seule instance de ScoreStatusHold qui n'est pas detruite (dontdestroyonload)
+        }
         Spawner = Catapult.GetComponentInChildren<SpawnPosition>().transform;
         if (Spawner != null)
             InputCommandScript.PausedStatusChanged.AddListener(PausedStatusChanged);
