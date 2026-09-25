@@ -1,20 +1,18 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-
+[System.Serializable]
+public class LumimoonData
+{
+    public string state;
+}
 [Serializable] //permet de la modifier dans l'inspecteur
 public class Componentslist //ceci permet d'ajouter une liste dans l'inspecteur. Vu qu'on travaille sur des éléments du préfab c'est beacoup plus simple que de chercher dans la liste des parents en boucle
 {
     public Component component;
 }
-public class Lumimoon : MonoBehaviour, CanBePicked, HasStorableData
+public class Lumimoon : MonoBehaviour, HasStorableData
 {
-    public enum LumimoonState
-    {
-        evil,
-        neutral,
-        cool
-    }
     [SerializeField]
     private List<Componentslist> Components;
     [SerializeField]
@@ -37,14 +35,17 @@ public class Lumimoon : MonoBehaviour, CanBePicked, HasStorableData
     private Color coolcolourL;
     public PickedUpData StoreData() //On va récupérer les différents paramètres ici
     {
+        LumimoonData lumimoonData = new LumimoonData
+        {
+            state = _lumimoonState.ToString()
+        };
         return new PickedUpData
         {
-            prefabId = "Lumimoon",
-            _lumimoonState = _lumimoonState,
-            scale = transform.localScale,
+            prefabId = "Lumimoon Token",
+            specificData = JsonUtility.ToJson(lumimoonData), //on le met en string ici parce que la sauvegarde le convertirait en numéro à cause du enum. il vaut mieux avoir un terme complet.
+            scale = _blobObject.transform.parent.localScale * 100,
         }; //on met le ; après le } parce qu'il s'agit d'un champ, il permet de le limiter. si on mettait ; à la place des , le champ se fermerait beaucoup plus tot, il faut donc le mettre après }
     }
-public bool pickupable { get; set; }
     public LumimoonState _lumimoonState;
     private LumimoonState _currentlumimoonState;
     private Rigidbody _blobbedRigid;
@@ -146,18 +147,7 @@ public bool pickupable { get; set; }
             }
         }
     }
-    public void IsPickedUp()
+   public void LoadData(PickedUpData data) //Cette fonction charge les paramètres récupérés avec StoreData
     {
-
-    }
-    public void LoadData(PickedUpData data) //Cette fonction charge les paramètres récupérés avec StoreData
-    {
-        _lumimoonState = data._lumimoonState;
-        transform.localScale = data.scale;
-            ChangeState();
-    }
-    public void IsReleased()
-    {
-
     }
 }

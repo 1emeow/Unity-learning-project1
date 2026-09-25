@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2153701907151818344, guid: 0855a38819a0a814584a8b88514606ac, type: 3}
       propertyPath: m_Name
-      value: Lumimoon (1)
+      value: Lumimoon
       objectReference: {fileID: 0}
     - target: {fileID: 2523313692547795204, guid: 0855a38819a0a814584a8b88514606ac, type: 3}
       propertyPath: m_LocalScale.x

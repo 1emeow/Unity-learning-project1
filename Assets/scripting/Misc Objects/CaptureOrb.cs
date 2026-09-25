@@ -7,6 +7,7 @@ public class CaptureOrb : MonoBehaviour
     private GameManagerScript _gameManagerScript;
     private GameObject _captureCube;
     private bool isNowCapturing;
+    private bool CanSpawn;
     [SerializeField] private GameObject _captureParticles;
     [SerializeField] private GameObject _innerOrb;
     [SerializeField] private Texture CaptureWhite;
@@ -28,12 +29,18 @@ public class CaptureOrb : MonoBehaviour
     private IEnumerator CaptureProcess()
     {
         HasStorableData _pickedObject = GetComponentInChildren<HasStorableData>();
-        if (_pickedObject != null && ScoreStatusHold.Instance != null)
+        if (_pickedObject != null && TemporaryInventory.Instance != null)
         {
             PickedUpData data = _pickedObject.StoreData(); //data est l'ensemble des données mentionnées dans la StoreData()
-            ScoreStatusHold.Instance.InventoryList.Add(data);
+            TemporaryInventory.Instance.InventoryList.Add(data);
+            string json = JsonUtility.ToJson(data);
         }
-        _captureCube.GetComponent<Rigidbody>().isKinematic = true;
+        else
+        {
+          CanSpawn = true;
+        }
+
+            _captureCube.GetComponent<Rigidbody>().isKinematic = true;
         _cubeSys = _captureCube.GetComponentInParent<CubeSys>().gameObject;
         _captureParticles.SetActive(true);
         _innerOrb.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
@@ -61,10 +68,26 @@ public class CaptureOrb : MonoBehaviour
                 }
                 }
         }
-            yield return new WaitForSeconds(0.3f);
-            _captureCube.GetComponent<MeshRenderer>().enabled = false;
-            yield return new WaitForSeconds(0.7f);
-            _gameManagerScript.GetANewCube(_cubeSys);
+            yield return new WaitForSeconds(1f);
+        if (CanSpawn)
+        {
+            if (TemporaryInventory.Instance.InventoryList.Count > 0)
+            {
+                PickedUpData data = TemporaryInventory.Instance.InventoryList[0];
+                GameObject prefab = PrefabDictionary.Instance.GetPrefab(data.prefabId);
+                if (prefab != null)
+                {
+                    GameObject instance = Instantiate(prefab, transform.position, Quaternion.identity);
+                    HasStorableData dataLoader = instance.GetComponentInChildren<HasStorableData>();
+                    if (dataLoader != null)
+                    { 
+                    dataLoader.LoadData(data);
+                    }
+                    //   TemporaryInventory.Instance.InventoryList.RemoveAt(selectedSlot);
+                }
+            }
+        }
+        _gameManagerScript.GetANewCube(_cubeSys);
             Destroy(this.gameObject);
         }
     }

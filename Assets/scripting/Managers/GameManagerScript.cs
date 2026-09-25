@@ -24,6 +24,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject Catapult;
     [HideInInspector]
     public bool CinematicTime;
+    public List<MonoBehaviour> HandledManagers;
     private Transform Spawner;
     public float MaxCubes = 2f;
     private List<GameObject> CubesTable = new List<GameObject>(); //liste des cubes existants
@@ -114,8 +115,16 @@ public class GameManagerScript : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(_finalScoreDisplay.FinalDisplay());
         InputCommandScript.gameObject.SetActive(false);
+        MapIsChanging();
     }
-
+   public void MapIsChanging()
+    {
+        foreach (MapManager manager in HandledManagers)
+        {
+            if (manager is MapManager mapManager)
+                mapManager.mapChangeOrTryAgain = true;
+        }
+    }
     public void PausedStatusChanged() //déclenche la pause
     {
         Paused = !Paused;
@@ -136,7 +145,7 @@ public class GameManagerScript : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    }   
     private IEnumerator StartGame()
     {
         _canvas.enabled = true;

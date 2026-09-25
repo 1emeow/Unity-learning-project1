@@ -43,17 +43,18 @@ public class MangeflowBehavior : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Rigidbody _interactiveRigid = other.GetComponent<Rigidbody>();
+        Rigidbody _interactiveRigid = other.attachedRigidbody;
         if (_interactiveRigid != null)
             _interactiveRigid.linearDamping += _interactiveDamping;
     }
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer != 8 && other.GetComponent<Rigidbody>() != null) //&& !InteractiveObjectsList.Contains(collision.gameObject))
+        if (other.gameObject.layer != 8 && other.attachedRigidbody != null) //&& !InteractiveObjectsList.Contains(collision.gameObject))
         {
             _interactiveObject = other.gameObject;
+            Debug.Log(_interactiveObject);
             Vector3 localPosition = transform.InverseTransformPoint(_interactiveObject.transform.position); //inverse transform point convertit la position globale en position locale
-            Rigidbody _interactiveRigid = _interactiveObject.GetComponent<Rigidbody>();
+            Rigidbody _interactiveRigid = other.attachedRigidbody;
             if (_attractionSphere.activeSelf && !_repulsionSphere.activeSelf && localPosition.y > 0)
             {
                 Vector3 Distanceofthetwo = _interactiveObject.transform.position - _attractionSphere.transform.position;
@@ -82,7 +83,7 @@ public class MangeflowBehavior : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        Rigidbody _interactiveRigid = other.GetComponent<Rigidbody>();
+        Rigidbody _interactiveRigid = other.attachedRigidbody;
         if (_interactiveRigid != null) 
         _interactiveRigid.linearDamping -= _interactiveDamping;
     }

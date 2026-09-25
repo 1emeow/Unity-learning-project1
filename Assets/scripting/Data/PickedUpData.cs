@@ -4,7 +4,10 @@ using UnityEngine;
 [System.Serializable] //pour utiliser la partie system et pouvoir y accéder à tout moment via l'inspecteur
 public class PickedUpData
 {
+    //on met les paramètres communs aux fichiers ici
     public string prefabId;
     public Vector3 scale;
-    public Lumimoon.LumimoonState _lumimoonState;
+
+    //on convertit les paramètres spécifiques à chaque objet en string qui sera ensuite retranscrit en infomation ici
+    public string specificData;
 }

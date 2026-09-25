@@ -138,7 +138,6 @@ public class Quille : MonoBehaviour
         {
             GameObject effect = Instantiate(particlePrefab, particulespirale.transform.position, particulespirale.transform.rotation);
             effect.transform.parent = this.transform;
-            Debug.Log("touchée par une quille");
             if (doubleScale) effect.transform.localScale *= 2f;
         }
 
@@ -160,7 +159,6 @@ public class Quille : MonoBehaviour
             if (Vector3.Angle(transform.up, Vector3.up) > 45f)
             {
                 hasFallen = true;
-                Debug.Log($"<color=green>EVENT :</color> {name} est tombée !");
                 OnQuilleFallen?.Invoke();
                 rb.useGravity = true; 
             }

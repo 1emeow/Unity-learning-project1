@@ -34,12 +34,9 @@ public class TotalScoreDisplay : MonoBehaviour
     public void RefreshDisplay(float nouvelleValeur)
     {
         valeurtotale = nouvelleValeur; // On met à jour la variable de crédits
-        Debug.Log(valeurtotale);
 
         if (textComponent != null)
             textComponent.text = $"{prefix}{valeurtotale}";
-        else
-            Debug.Log(textComponent == null);
         if (ScoreStatusHold.Instance != null)
         {
             ScoreStatusHold.Instance.CumulativeScore = valeurtotale;

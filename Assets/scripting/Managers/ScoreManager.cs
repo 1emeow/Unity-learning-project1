@@ -4,7 +4,7 @@ using UnityEngine.Events;
 /// <summary>
 /// Gère la logique du score de manière isolée.
 /// </summary>
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, MapManager
 {
     public static ScoreManager Instance { get; private set; }
 
@@ -18,6 +18,8 @@ public class ScoreManager : MonoBehaviour
     [Header("Affichage Score Final")]
     [SerializeField]
     private FinalScoreDisplay _finalScoreDisplay;
+    public bool mapChangeOrTryAgain { get; set; }
+
     public int bestScore = 27;
 
     private void Awake()
@@ -58,7 +60,7 @@ public class ScoreManager : MonoBehaviour
     public int GetCurrentScore() => currentScore; //est une autre méthode pour faire return currentScore
     void OnDestroy()
     {
-        if (ScoreStatusHold.Instance != null)
+        if (ScoreStatusHold.Instance != null && mapChangeOrTryAgain)
         {
             ScoreStatusHold.Instance.CumulativeScore += currentScore;
         }
