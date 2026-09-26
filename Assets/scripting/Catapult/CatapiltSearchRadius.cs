@@ -11,30 +11,35 @@ public class CatapiltSearchRadius : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();
-        if (_canBePicked != null && _canBePicked.pickupable == true)
+        if (!other.isTrigger)
         {
-            GameObject _pickupable = ((MonoBehaviour)_canBePicked).gameObject;
-            if (!_pickupable.GetComponent<CubeSys>().Dormant)
-            _gameManager.GetANewCube(_pickupable.gameObject);
+            CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();
+            if (_canBePicked != null && _canBePicked.pickupable == true)
+            {
+                GameObject _pickupable = ((MonoBehaviour)_canBePicked).gameObject;
+                if (!_pickupable.GetComponent<CubeSys>().Dormant)
+                    _gameManager.GetANewCube(_pickupable.gameObject);
+            }
         }
            // other.attachedRigidbody.mass = 1e-07f; //attachedRigidbody va chercher le Rb dans tous les objets affiliés à l'objet
     }
     private void OnTriggerExit(Collider other)
     {
-        CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();
-        if (_canBePicked != null && !_canBePicked.pickupable && other.GetComponent<Rigidbody>() != null)
+        if (!other.isTrigger)
         {
-            _canBePicked.pickupable = true;
-            //    other.attachedRigidbody.mass = 20f;
-
-            MonoBehaviour _monoCanBePicked = (MonoBehaviour)_canBePicked;
-            if (_monoCanBePicked is CubeSys cubeSys)
+            CanBePicked _canBePicked = other.GetComponentInParent<CanBePicked>();
+            if (_canBePicked != null && !_canBePicked.pickupable && other.GetComponent<Rigidbody>() != null)
             {
-                cubeSys.Detached = true;
-                cubeSys.UpdateCubeState.Invoke(cubeSys);
+                _canBePicked.pickupable = true;
+                //    other.attachedRigidbody.mass = 20f;
+
+                MonoBehaviour _monoCanBePicked = (MonoBehaviour)_canBePicked;
+                if (_monoCanBePicked is CubeSys cubeSys)
+                {
+                    cubeSys.Detached = true;
+                    cubeSys.UpdateCubeState.Invoke(cubeSys);
+                }
             }
         }
-
     }
 }

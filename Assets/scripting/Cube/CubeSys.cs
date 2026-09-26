@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine.Events;
 
@@ -10,11 +11,13 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     public bool Pickedup;
     private bool DormantState;
     public bool Released;
+    private List<Collider> parentColliderslist = new List<Collider>();
     public bool Detached;
     public bool Caught;
     public bool Dormant;
     public bool pickupable { get; set; }
     private Collider CubeSysCollider;
+    private Collider parentSearchRadius;
     private Transform CubeChild;
     public CatapultController _playerCatapult;
     private Rigidbody CubeBody;
@@ -26,12 +29,16 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
     {
         pickupable = false;
         CubeSysCollider = this.GetComponentInChildren<Collider>();
-        CubeSysCollider.enabled = false; //important parce que unity gère difficilement les rapports de masse, un objet non massique fera toujours bouger l'objet qu'il touche et ce quelque soit la masse
     }
+
     private IEnumerator ReleaseTimer() //on ne veut pas que le cube touche la catapulte pendant la phase de lancement pour ne pas que ça parte dans tous les sens
     {
         yield return new WaitForSeconds(0.2f);
-        CubeSysCollider.enabled = true;
+        foreach (Collider parentCollider in parentColliderslist)
+        {
+            Physics.IgnoreCollision(CubeSysCollider, parentCollider, false);
+        }
+    
     }
     void Start()
     {
@@ -39,6 +46,24 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
         CubeChild = GetComponentInChildren<Rigidbody>().transform;
         IsPickedUp(); //normalement le cube naît attaché à la catapulte, il va donc agir en conséquence
         UpdateCubeState.Invoke(this);
+        foreach (Collider parentCollider in transform.root.GetComponentsInChildren<Collider>()) //important parce que unity gère difficilement les rapports de masse, un objet non massique fera toujours bouger l'objet qu'il touche et ce quelque soit la masse
+        {
+            if (parentCollider == null || parentCollider == CubeSysCollider)
+                continue;
+            if (!parentCollider.isTrigger)
+            {
+                parentColliderslist.Add(parentCollider);
+                Physics.IgnoreCollision(CubeSysCollider, parentCollider);
+            }
+            else
+            {
+                if (parentCollider.gameObject.name == "CatapiltSearchRadius")
+                {
+                    parentSearchRadius = parentCollider;
+                    Physics.IgnoreCollision(CubeSysCollider, parentSearchRadius);
+                }
+            }
+        }
     }
     void Update()
     {
@@ -79,6 +104,7 @@ public class CubeSys : MonoBehaviour, CanBePicked //cet object possède les fonct
             Caught = false;
             UpdateCubeState.Invoke(this);
             this.gameObject.transform.SetParent(null);
+            Physics.IgnoreCollision(CubeSysCollider, parentSearchRadius, false);
         }
     }
     public void GetKilled()

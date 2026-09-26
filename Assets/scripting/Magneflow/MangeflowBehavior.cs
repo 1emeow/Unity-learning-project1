@@ -52,7 +52,6 @@ public class MangeflowBehavior : MonoBehaviour
         if (other.gameObject.layer != 8 && other.attachedRigidbody != null) //&& !InteractiveObjectsList.Contains(collision.gameObject))
         {
             _interactiveObject = other.gameObject;
-            Debug.Log(_interactiveObject);
             Vector3 localPosition = transform.InverseTransformPoint(_interactiveObject.transform.position); //inverse transform point convertit la position globale en position locale
             Rigidbody _interactiveRigid = other.attachedRigidbody;
             if (_attractionSphere.activeSelf && !_repulsionSphere.activeSelf && localPosition.y > 0)
